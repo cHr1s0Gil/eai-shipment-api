@@ -1,4 +1,4 @@
-package com.example.eai_shipment_api;
+package com.example.eaishipmentapi;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

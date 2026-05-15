@@ -3,7 +3,7 @@ spring:
     name: java-eai-shipment
 
   datasource:
-    url: jdbc:h2:mem:shipmentdb
+    url: jdbc:h2:file:D:/h2/eai-shipment-api/shipmentdb
     driver-class-name: org.h2.Driver
     username: sa
     password:
