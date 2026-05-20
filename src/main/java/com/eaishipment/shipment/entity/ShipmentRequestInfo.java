@@ -1,4 +1,4 @@
-package com.example.eaishipmentapi.shipment.entity;
+package com.eaishipment.shipment.entity;
 
 import java.time.LocalDateTime;
 

@@ -1,4 +1,4 @@
-package com.example.eaishipmentapi.shipment.entity;
+package com.eaishipment.shipment.entity;
 
 public enum ShipmentStatus {
     RECEIVED("출고 지시 수신 완료"),
