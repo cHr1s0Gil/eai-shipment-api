@@ -1,16 +1,22 @@
 package com.eaishipment.shipment.service;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.eaishipment.global.exception.BusinessException;
 import com.eaishipment.shipment.dto.ShipmentCreateRequest;
 import com.eaishipment.shipment.dto.ShipmentCreateResponse;
+import com.eaishipment.shipment.dto.ShipmentDetailResponse;
+import com.eaishipment.shipment.dto.ShipmentListResponse;
 import com.eaishipment.shipment.entity.CustomerInfo;
 import com.eaishipment.shipment.entity.ShipmentItemInfo;
 import com.eaishipment.shipment.entity.ShipmentRequest;
 import com.eaishipment.shipment.entity.ShipmentRequestInfo;
+import com.eaishipment.shipment.entity.ShipmentStatus;
 import com.eaishipment.shipment.entity.WarehouseInfo;
+import com.eaishipment.shipment.mapper.ShipmentRequestMapper;
 import com.eaishipment.shipment.repository.ShipmentRequestRepository;
 
 @Service
@@ -36,5 +42,29 @@ public class ShipmentRequestService {
         shipmentRequestRepository.save(shipmentRequest);
 
         return ShipmentCreateResponse.success(request.getShipmentNo());
+    }
+
+    @Transactional(readOnly = true)
+    public List<ShipmentListResponse> getShipments() {
+       return shipmentRequestRepository
+                .findAll()
+                .stream()
+                .map(ShipmentRequestMapper::toListResponse)
+                .toList();
+    }
+
+    @Transactional(readOnly = true)
+    public ShipmentDetailResponse getShipmentDetail(Long id) {
+        ShipmentRequest shipmentRequest = shipmentRequestRepository.findById(id).orElseThrow(() -> new BusinessException("출고 지시를 찾을 수 없습니다."));
+        return ShipmentRequestMapper.toDetailResponse(shipmentRequest);
+    }
+
+    @Transactional(readOnly = true)
+    public List<ShipmentListResponse> getShipmentByStatus(ShipmentStatus status) {
+        return shipmentRequestRepository
+                .findByProcessingInfo_Status(status)
+                .stream()
+                .map(ShipmentRequestMapper::toListResponse)
+                .toList();
     }
 }

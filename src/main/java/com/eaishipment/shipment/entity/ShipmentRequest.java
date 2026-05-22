@@ -10,7 +10,7 @@ import jakarta.persistence.PreUpdate;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "shupment_request")
+@Table(name = "shipment_request")
 public class ShipmentRequest {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,7 +29,7 @@ public class ShipmentRequest {
     private ShipmentItemInfo itemInfo;
 
     @Embedded
-    private ShipmentProcessingInfo shipmentProcessingInfo;
+    private ShipmentProcessingInfo processingInfo;
 
     @Embedded
     private AuditInfo auditInfo;
@@ -46,7 +46,7 @@ public class ShipmentRequest {
         this.warehouseInfo = warehouseInfo;
         this.customerInfo = customerInfo;
         this.itemInfo = itemInfo;
-        this.shipmentProcessingInfo = ShipmentProcessingInfo.received();
+        this.processingInfo = ShipmentProcessingInfo.received();
     }
 
     @PrePersist
@@ -60,11 +60,11 @@ public class ShipmentRequest {
     }
 
     public void updateStatus(ShipmentStatus status, String errorMessage) {
-        this.shipmentProcessingInfo.updateStatus(status, errorMessage);
+        this.processingInfo.updateStatus(status, errorMessage);
     }
 
     public void retrySuccess() {
-        this.shipmentProcessingInfo.retrySuccess();
+        this.processingInfo.retrySuccess();
     }
 
     public Long getId() {
@@ -87,8 +87,8 @@ public class ShipmentRequest {
         return itemInfo;
     }
 
-    public ShipmentProcessingInfo getShipmentProcessingInfo() {
-        return shipmentProcessingInfo;
+    public ShipmentProcessingInfo getProcessingInfo() {
+        return processingInfo;
     }
 
     public AuditInfo getAuditInfo() {
