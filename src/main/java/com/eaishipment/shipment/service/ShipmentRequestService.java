@@ -60,8 +60,7 @@ public class ShipmentRequestService {
 
     @Transactional(readOnly = true)
     public ShipmentDetailResponse getShipmentDetailById(Long id) {
-        ShipmentRequest shipmentRequest = shipmentRequestRepository.findById(id)
-                .orElseThrow(() -> new BusinessException("출고 지시를 찾을 수 없습니다."));
+        ShipmentRequest shipmentRequest = getShipmentRequestById(id);
         return ShipmentRequestMapper.toDetailResponse(shipmentRequest);
     }
 
@@ -76,8 +75,7 @@ public class ShipmentRequestService {
 
     @Transactional
     public ShipmentStatusUpdateResponse updateStatus(Long id, ShipmentStatusUpdateRequest request) {
-        ShipmentRequest shipmentRequest = shipmentRequestRepository.findById(id)
-                .orElseThrow(() -> new BusinessException("출고 지시를 찾을 수 없습니다."));
+        ShipmentRequest shipmentRequest = getShipmentRequestById(id);
         ShipmentStatus status = request.getStatus();
         String message = request.getMessage();
 
@@ -92,14 +90,18 @@ public class ShipmentRequestService {
 
     @Transactional
     public ShipmentRetryResponse retryShipment(Long id) {
-        ShipmentRequest shipmentRequest = shipmentRequestRepository.findById(id)
-                .orElseThrow(() -> new BusinessException("출고 지시를 찾을 수 없습니다."));
+        ShipmentRequest shipmentRequest = getShipmentRequestById(id);
         if (shipmentRequest.getProcessingInfo().getStatus() != ShipmentStatus.FAILED) {
             throw new BusinessException("재처리 대상이 아닙니다.");
         }
 
         shipmentRequest.retrySuccess();
-        
+
         return ShipmentRequestMapper.toRetryResponse(shipmentRequest);
+    }
+
+    private ShipmentRequest getShipmentRequestById(Long id) {
+        return shipmentRequestRepository.findById(id)
+            .orElseThrow(() -> new BusinessException("출고 지시를 찾을 수 없습니다."));
     }
 }

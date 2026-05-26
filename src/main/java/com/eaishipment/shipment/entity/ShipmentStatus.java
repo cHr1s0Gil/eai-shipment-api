@@ -1,10 +1,13 @@
 package com.eaishipment.shipment.entity;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+
+@Schema(description = "Shipment processing status")
 public enum ShipmentStatus {
-    RECEIVED("출고 지시 수신 완료"),
-    PROCESSING("처리 중"),
-    SUCCESS("처리 성공"),
-    FAILED("처리 실패");
+    RECEIVED("Shipment request received"),
+    PROCESSING("Processing"),
+    SUCCESS("Processed successfully"),
+    FAILED("Processing failed");
 
     private final String description;
 

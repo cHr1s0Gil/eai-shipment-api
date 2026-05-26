@@ -10,34 +10,34 @@
     <header class="app-header">
         <div>
             <p class="eyebrow">EAI Shipment API</p>
-            <h1>출고 지시 관리</h1>
+            <h1>Shipment Control Console</h1>
         </div>
         <div class="header-actions">
-            <button type="button" class="secondary-button" id="refreshButton">새로고침</button>
-            <button type="button" class="primary-button" id="openCreateFormButton">출고 지시 등록</button>
+            <button type="button" class="secondary-button" id="refreshButton">Refresh</button>
+            <button type="button" class="primary-button" id="openCreateFormButton">Create Shipment</button>
         </div>
     </header>
 
     <main class="layout">
-        <section class="summary-grid" aria-label="상태 요약">
+        <section class="summary-grid" aria-label="Status summary">
             <button type="button" class="summary-tile active" data-status="ALL">
-                <span>전체</span>
+                <span>All</span>
                 <strong id="countAll">0</strong>
             </button>
             <button type="button" class="summary-tile" data-status="RECEIVED">
-                <span>수신</span>
+                <span>Received</span>
                 <strong id="countReceived">0</strong>
             </button>
             <button type="button" class="summary-tile" data-status="PROCESSING">
-                <span>처리 중</span>
+                <span>Processing</span>
                 <strong id="countProcessing">0</strong>
             </button>
             <button type="button" class="summary-tile" data-status="SUCCESS">
-                <span>성공</span>
+                <span>Success</span>
                 <strong id="countSuccess">0</strong>
             </button>
             <button type="button" class="summary-tile" data-status="FAILED">
-                <span>실패</span>
+                <span>Failed</span>
                 <strong id="countFailed">0</strong>
             </button>
         </section>
@@ -46,8 +46,8 @@
             <section class="panel list-panel">
                 <div class="panel-header">
                     <div>
-                        <h2>출고 지시 목록</h2>
-                        <p id="listMessage">데이터를 불러오는 중입니다.</p>
+                        <h2>Shipment List</h2>
+                        <p id="listMessage">Loading shipment data.</p>
                     </div>
                     <span class="filter-label" id="currentFilterLabel">ALL</span>
                 </div>
@@ -57,13 +57,13 @@
                         <thead>
                             <tr>
                                 <th>ID</th>
-                                <th>출고번호</th>
-                                <th>주문번호</th>
-                                <th>고객</th>
-                                <th>품목</th>
-                                <th>수량</th>
-                                <th>상태</th>
-                                <th>요청일시</th>
+                                <th>Shipment No</th>
+                                <th>Order No</th>
+                                <th>Customer</th>
+                                <th>Material</th>
+                                <th>Quantity</th>
+                                <th>Status</th>
+                                <th>Requested At</th>
                             </tr>
                         </thead>
                         <tbody id="shipmentTableBody"></tbody>
@@ -74,45 +74,71 @@
             <aside class="panel detail-panel">
                 <div class="panel-header">
                     <div>
-                        <h2>상세 정보</h2>
-                        <p id="detailMessage">목록에서 출고 지시를 선택하세요.</p>
+                        <h2>Shipment Detail</h2>
+                        <p id="detailMessage">Select a shipment from the list.</p>
                     </div>
                 </div>
 
                 <dl class="detail-list" id="detailList">
                     <div>
-                        <dt>출고번호</dt>
+                        <dt>Shipment No</dt>
                         <dd>-</dd>
                     </div>
                     <div>
-                        <dt>상태</dt>
+                        <dt>Status</dt>
                         <dd>-</dd>
                     </div>
                     <div>
-                        <dt>고객</dt>
+                        <dt>Customer</dt>
                         <dd>-</dd>
                     </div>
                     <div>
-                        <dt>창고</dt>
+                        <dt>Warehouse</dt>
                         <dd>-</dd>
                     </div>
                     <div>
-                        <dt>품목</dt>
+                        <dt>Material</dt>
                         <dd>-</dd>
                     </div>
                     <div>
-                        <dt>수량</dt>
+                        <dt>Quantity</dt>
                         <dd>-</dd>
                     </div>
                     <div>
-                        <dt>요청일시</dt>
+                        <dt>Message</dt>
                         <dd>-</dd>
                     </div>
                     <div>
-                        <dt>수정일시</dt>
+                        <dt>Requested</dt>
+                        <dd>-</dd>
+                    </div>
+                    <div>
+                        <dt>Updated</dt>
                         <dd>-</dd>
                     </div>
                 </dl>
+
+                <section class="action-panel">
+                    <h3>Status Action</h3>
+                    <label>
+                        Target Status
+                        <select id="statusSelect" disabled>
+                            <option value="RECEIVED">RECEIVED</option>
+                            <option value="PROCESSING">PROCESSING</option>
+                            <option value="SUCCESS">SUCCESS</option>
+                            <option value="FAILED">FAILED</option>
+                        </select>
+                    </label>
+                    <label>
+                        Message
+                        <textarea id="statusMessageInput" rows="3" disabled placeholder="Required when changing status to FAILED."></textarea>
+                    </label>
+                    <div class="action-buttons">
+                        <button type="button" class="secondary-button" id="retryButton" disabled>Retry</button>
+                        <button type="button" class="primary-button" id="updateStatusButton" disabled>Update Status</button>
+                    </div>
+                    <p class="form-message" id="actionMessage"></p>
+                </section>
             </aside>
         </section>
     </main>
@@ -122,50 +148,50 @@
             <div class="dialog-header">
                 <div>
                     <p class="eyebrow">ERP Inbound</p>
-                    <h2>출고 지시 등록</h2>
+                    <h2>Create Shipment Request</h2>
                 </div>
-                <button type="button" class="icon-button" id="closeCreateFormButton" aria-label="닫기">x</button>
+                <button type="button" class="icon-button" id="closeCreateFormButton" aria-label="Close">x</button>
             </div>
 
             <div class="form-grid">
                 <label>
-                    출고번호
+                    Shipment No
                     <input name="shipmentNo" required placeholder="SHP-20260522-001">
                 </label>
                 <label>
-                    주문번호
+                    Order No
                     <input name="orderNo" required placeholder="ORD-20260522-001">
                 </label>
                 <label>
-                    요청일시
+                    Requested At
                     <input name="requestedAt" type="datetime-local" required>
                 </label>
                 <label>
-                    창고코드
+                    Warehouse Code
                     <input name="warehouseCode" required placeholder="WH-SEOUL-01">
                 </label>
                 <label>
-                    고객코드
+                    Customer Code
                     <input name="customerCode" required placeholder="CUST-001">
                 </label>
                 <label>
-                    고객명
-                    <input name="customerName" required placeholder="서울유통">
+                    Customer Name
+                    <input name="customerName" required placeholder="Seoul Distribution">
                 </label>
                 <label>
-                    품목코드
+                    Material Code
                     <input name="materialCode" required placeholder="MAT-001">
                 </label>
                 <label>
-                    품목명
-                    <input name="materialName" required placeholder="생수 500ml">
+                    Material Name
+                    <input name="materialName" required placeholder="Water 500ml">
                 </label>
                 <label>
-                    수량
+                    Quantity
                     <input name="quantity" type="number" min="1" required placeholder="100">
                 </label>
                 <label>
-                    단위
+                    Unit
                     <input name="unit" required placeholder="EA">
                 </label>
             </div>
@@ -173,12 +199,14 @@
             <p class="form-message" id="formMessage"></p>
 
             <div class="dialog-actions">
-                <button type="button" class="secondary-button" id="resetFormButton">초기화</button>
-                <button type="submit" class="primary-button">등록</button>
+                <button type="button" class="secondary-button" id="resetFormButton">Reset</button>
+                <button type="submit" class="primary-button">Create</button>
             </div>
         </form>
     </dialog>
 
+    <script src="/js/api.js"></script>
+    <script src="/js/render.js"></script>
     <script src="/js/shipment.js"></script>
 </body>
 </html>

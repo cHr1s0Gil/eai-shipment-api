@@ -1,12 +1,12 @@
 package com.eaishipment.global.response;
 
 public class ApiResponse<T> {
-    private final String status;
+    private final String resultCode;
     private final String message;
     private final T data;
 
-    private ApiResponse(String status, String message, T data) {
-        this.status = status;
+    private ApiResponse(String resultCode, String message, T data) {
+        this.resultCode = resultCode;
         this.message = message;
         this.data = data;
     }
@@ -19,8 +19,8 @@ public class ApiResponse<T> {
         return new ApiResponse<>("E", message, null);
     }
 
-    public String getStatus() {
-        return status;
+    public String getResultCode() {
+        return resultCode;
     }
 
     public String getMessage() {

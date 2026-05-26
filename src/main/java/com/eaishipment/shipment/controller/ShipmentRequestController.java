@@ -1,5 +1,14 @@
 package com.eaishipment.shipment.controller;
 
+import java.util.List;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -14,20 +23,14 @@ import com.eaishipment.shipment.dto.ShipmentStatusUpdateResponse;
 import com.eaishipment.shipment.entity.ShipmentStatus;
 import com.eaishipment.shipment.service.ShipmentRequestService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
-
-import java.util.List;
-
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 
 @RestController
 @RequestMapping("/api/shipments")
+@Tag(name = "Shipment Request", description = "Shipment registration, lookup, status update, and retry APIs")
 public class ShipmentRequestController {
     private final ShipmentRequestService shipmentRequestService;
 
@@ -36,61 +39,84 @@ public class ShipmentRequestController {
     }
 
     @PostMapping
+    @Operation(summary = "Create shipment request", description = "Receives an ERP shipment request and stores it with RECEIVED status.")
+    @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "201", description = "Shipment request created")
+    @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "400", description = "Invalid request or duplicated shipment number")
     public ResponseEntity<ApiResponse<ShipmentCreateResponse>> createShipment(
             @Valid @RequestBody ShipmentCreateRequest request
-        ) {
+    ) {
         ShipmentCreateResponse response = shipmentRequestService.createShipment(request);
 
         return ResponseEntity
                 .status(HttpStatus.CREATED)
-                .body(ApiResponse.success("출고 지시 수신 성공", response));
+                .body(ApiResponse.success("Shipment request received", response));
     }
 
     @GetMapping
+    @Operation(summary = "Get shipment list", description = "Returns all stored shipment requests.")
+    @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Shipment list returned")
     public ResponseEntity<ApiResponse<List<ShipmentListResponse>>> getShipmentList() {
         List<ShipmentListResponse> response = shipmentRequestService.getShipments();
-        String message = response.isEmpty() ? "출고 지시 데이터가 없습니다." : "출고 지시 목록 조회 성공";
+        String message = response.isEmpty() ? "No shipment data found." : "Shipment list returned";
+
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(ApiResponse.success(message, response));
     }
 
     @GetMapping("/{id}")
+    @Operation(summary = "Get shipment detail", description = "Returns one shipment request by id.")
+    @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Shipment detail returned")
+    @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "400", description = "Invalid id format or shipment not found")
     public ResponseEntity<ApiResponse<ShipmentDetailResponse>> getShipmentDetail(
-        @PathVariable("id") Long id
+            @Parameter(description = "Shipment request id", example = "1")
+            @PathVariable("id") Long id
     ) {
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body(ApiResponse.success("출고 상세정보 조회 성공 id: " + id, shipmentRequestService.getShipmentDetailById(id)));
+                .body(ApiResponse.success("Shipment detail returned", shipmentRequestService.getShipmentDetailById(id)));
     }
 
     @GetMapping("/status/{status}")
+    @Operation(summary = "Get shipment list by status", description = "Returns shipment requests filtered by RECEIVED, PROCESSING, SUCCESS, or FAILED.")
+    @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Shipment list returned")
+    @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "400", description = "Invalid shipment status")
     public ResponseEntity<ApiResponse<List<ShipmentListResponse>>> getShipmentListByStatus(
-        @PathVariable("status") ShipmentStatus status
+            @Parameter(description = "Shipment status", example = "RECEIVED")
+            @PathVariable("status") ShipmentStatus status
     ) {
         List<ShipmentListResponse> response = shipmentRequestService.getShipmentByStatus(status);
-        String message = response.isEmpty() ? "출고 지시 데이터가 없습니다." : "출고 지시 목록 조회 성공";
+        String message = response.isEmpty() ? "No shipment data found." : "Shipment list returned";
+
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(ApiResponse.success(message, response));
     }
 
     @PatchMapping("/{id}/status")
+    @Operation(summary = "Update shipment status", description = "Updates a shipment status. FAILED status requires a message.")
+    @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Shipment status updated")
+    @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "400", description = "Invalid request or shipment not found")
     public ResponseEntity<ApiResponse<ShipmentStatusUpdateResponse>> updateShipmentStatus(
-        @PathVariable("id") Long id,
-        @Valid @RequestBody ShipmentStatusUpdateRequest request
+            @Parameter(description = "Shipment request id", example = "1")
+            @PathVariable("id") Long id,
+            @Valid @RequestBody ShipmentStatusUpdateRequest request
     ) {
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body(ApiResponse.success("출고 지시 상태 변경 성공", shipmentRequestService.updateStatus(id, request)));
+                .body(ApiResponse.success("Shipment status updated", shipmentRequestService.updateStatus(id, request)));
     }
 
     @PostMapping("/{id}/retry")
+    @Operation(summary = "Retry failed shipment", description = "Retries only FAILED shipment requests. On success, retryCount increases and status changes to SUCCESS.")
+    @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Shipment retry completed")
+    @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "400", description = "Shipment is not retryable or not found")
     public ResponseEntity<ApiResponse<ShipmentRetryResponse>> retry(
-        @PathVariable("id") Long id
+            @Parameter(description = "Shipment request id", example = "1")
+            @PathVariable("id") Long id
     ) {
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body(ApiResponse.success("재처리 성공", shipmentRequestService.retryShipment(id)));
+                .body(ApiResponse.success("Shipment retry completed", shipmentRequestService.retryShipment(id)));
     }
 }
