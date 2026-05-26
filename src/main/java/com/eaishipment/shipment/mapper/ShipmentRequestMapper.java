@@ -35,7 +35,8 @@ public class ShipmentRequestMapper {
             request.getItemInfo().getMaterialName(), 
             request.getItemInfo().getQuantity(), 
             request.getItemInfo().getUnit(),
-            request.getProcessingInfo().getStatus(), 
+            request.getProcessingInfo().getStatus(),
+            request.getProcessingInfo().getMessage(), 
             request.getAuditInfo().getCreatedAt(),
             request.getAuditInfo().getUpdatedAt()
         );

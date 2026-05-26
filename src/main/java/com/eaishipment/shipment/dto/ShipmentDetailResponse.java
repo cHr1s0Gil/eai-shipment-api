@@ -17,14 +17,13 @@ public class ShipmentDetailResponse {
     private Integer quantity;
     private String unit;
     private ShipmentStatus status;
+    private String message;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
-    
-
     public ShipmentDetailResponse(Long id, String shipmentNo, String orderNo, LocalDateTime requestedAt, String warehouseCode,
             String customerCode, String customerName, String materialCode, String materialName, Integer quantity,
-            String unit, ShipmentStatus status, LocalDateTime createdAt, LocalDateTime updatedAt) {
+            String unit, ShipmentStatus status, String message, LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.id = id;
         this.shipmentNo = shipmentNo;
         this.orderNo = orderNo;
@@ -37,6 +36,7 @@ public class ShipmentDetailResponse {
         this.quantity = quantity;
         this.unit = unit;
         this.status = status;
+        this.message = message;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
     }
@@ -87,6 +87,10 @@ public class ShipmentDetailResponse {
 
     public ShipmentStatus getStatus() {
         return status;
+    }
+
+    public String getMessage() {
+        return message;
     }
 
     public LocalDateTime getCreatedAt() {
