@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EAI Shipment Console</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <header class="app-header">
+        <div>
+            <p class="eyebrow">EAI Shipment API</p>
+            <h1>출고 지시 관리</h1>
+        </div>
+        <div class="header-actions">
+            <button type="button" class="secondary-button" id="refreshButton">새로고침</button>
+            <button type="button" class="primary-button" id="openCreateFormButton">출고 지시 등록</button>
+        </div>
+    </header>
+
+    <main class="layout">
+        <section class="summary-grid" aria-label="상태 요약">
+            <button type="button" class="summary-tile active" data-status="ALL">
+                <span>전체</span>
+                <strong id="countAll">0</strong>
+            </button>
+            <button type="button" class="summary-tile" data-status="RECEIVED">
+                <span>수신</span>
+                <strong id="countReceived">0</strong>
+            </button>
+            <button type="button" class="summary-tile" data-status="PROCESSING">
+                <span>처리 중</span>
+                <strong id="countProcessing">0</strong>
+            </button>
+            <button type="button" class="summary-tile" data-status="SUCCESS">
+                <span>성공</span>
+                <strong id="countSuccess">0</strong>
+            </button>
+            <button type="button" class="summary-tile" data-status="FAILED">
+                <span>실패</span>
+                <strong id="countFailed">0</strong>
+            </button>
+        </section>
+
+        <section class="content-grid">
+            <section class="panel list-panel">
+                <div class="panel-header">
+                    <div>
+                        <h2>출고 지시 목록</h2>
+                        <p id="listMessage">데이터를 불러오는 중입니다.</p>
+                    </div>
+                    <span class="filter-label" id="currentFilterLabel">ALL</span>
+                </div>
+
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>출고번호</th>
+                                <th>주문번호</th>
+                                <th>고객</th>
+                                <th>품목</th>
+                                <th>수량</th>
+                                <th>상태</th>
+                                <th>요청일시</th>
+                            </tr>
+                        </thead>
+                        <tbody id="shipmentTableBody"></tbody>
+                    </table>
+                </div>
+            </section>
+
+            <aside class="panel detail-panel">
+                <div class="panel-header">
+                    <div>
+                        <h2>상세 정보</h2>
+                        <p id="detailMessage">목록에서 출고 지시를 선택하세요.</p>
+                    </div>
+                </div>
+
+                <dl class="detail-list" id="detailList">
+                    <div>
+                        <dt>출고번호</dt>
+                        <dd>-</dd>
+                    </div>
+                    <div>
+                        <dt>상태</dt>
+                        <dd>-</dd>
+                    </div>
+                    <div>
+                        <dt>고객</dt>
+                        <dd>-</dd>
+                    </div>
+                    <div>
+                        <dt>창고</dt>
+                        <dd>-</dd>
+                    </div>
+                    <div>
+                        <dt>품목</dt>
+                        <dd>-</dd>
+                    </div>
+                    <div>
+                        <dt>수량</dt>
+                        <dd>-</dd>
+                    </div>
+                    <div>
+                        <dt>요청일시</dt>
+                        <dd>-</dd>
+                    </div>
+                    <div>
+                        <dt>수정일시</dt>
+                        <dd>-</dd>
+                    </div>
+                </dl>
+            </aside>
+        </section>
+    </main>
+
+    <dialog class="create-dialog" id="createDialog">
+        <form method="dialog" class="create-form" id="createForm">
+            <div class="dialog-header">
+                <div>
+                    <p class="eyebrow">ERP Inbound</p>
+                    <h2>출고 지시 등록</h2>
+                </div>
+                <button type="button" class="icon-button" id="closeCreateFormButton" aria-label="닫기">x</button>
+            </div>
+
+            <div class="form-grid">
+                <label>
+                    출고번호
+                    <input name="shipmentNo" required placeholder="SHP-20260522-001">
+                </label>
+                <label>
+                    주문번호
+                    <input name="orderNo" required placeholder="ORD-20260522-001">
+                </label>
+                <label>
+                    요청일시
+                    <input name="requestedAt" type="datetime-local" required>
+                </label>
+                <label>
+                    창고코드
+                    <input name="warehouseCode" required placeholder="WH-SEOUL-01">
+                </label>
+                <label>
+                    고객코드
+                    <input name="customerCode" required placeholder="CUST-001">
+                </label>
+                <label>
+                    고객명
+                    <input name="customerName" required placeholder="서울유통">
+                </label>
+                <label>
+                    품목코드
+                    <input name="materialCode" required placeholder="MAT-001">
+                </label>
+                <label>
+                    품목명
+                    <input name="materialName" required placeholder="생수 500ml">
+                </label>
+                <label>
+                    수량
+                    <input name="quantity" type="number" min="1" required placeholder="100">
+                </label>
+                <label>
+                    단위
+                    <input name="unit" required placeholder="EA">
+                </label>
+            </div>
+
+            <p class="form-message" id="formMessage"></p>
+
+            <div class="dialog-actions">
+                <button type="button" class="secondary-button" id="resetFormButton">초기화</button>
+                <button type="submit" class="primary-button">등록</button>
+            </div>
+        </form>
+    </dialog>
+
+    <script src="/js/shipment.js"></script>
+</body>
+</html>

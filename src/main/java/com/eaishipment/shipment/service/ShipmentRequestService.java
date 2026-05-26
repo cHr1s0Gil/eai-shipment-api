@@ -10,6 +10,8 @@ import com.eaishipment.shipment.dto.ShipmentCreateRequest;
 import com.eaishipment.shipment.dto.ShipmentCreateResponse;
 import com.eaishipment.shipment.dto.ShipmentDetailResponse;
 import com.eaishipment.shipment.dto.ShipmentListResponse;
+import com.eaishipment.shipment.dto.ShipmentStatusUpdateRequest;
+import com.eaishipment.shipment.dto.ShipmentStatusUpdateResponse;
 import com.eaishipment.shipment.entity.CustomerInfo;
 import com.eaishipment.shipment.entity.ShipmentItemInfo;
 import com.eaishipment.shipment.entity.ShipmentRequest;
@@ -54,7 +56,7 @@ public class ShipmentRequestService {
     }
 
     @Transactional(readOnly = true)
-    public ShipmentDetailResponse getShipmentDetail(Long id) {
+    public ShipmentDetailResponse getShipmentDetailById(Long id) {
         ShipmentRequest shipmentRequest = shipmentRequestRepository.findById(id).orElseThrow(() -> new BusinessException("출고 지시를 찾을 수 없습니다."));
         return ShipmentRequestMapper.toDetailResponse(shipmentRequest);
     }
@@ -66,5 +68,12 @@ public class ShipmentRequestService {
                 .stream()
                 .map(ShipmentRequestMapper::toListResponse)
                 .toList();
+    }
+
+    @Transactional
+    public ShipmentStatusUpdateResponse updateStatus(Long id, ShipmentStatusUpdateRequest request) {
+        ShipmentRequest shipmentRequest = shipmentRequestRepository.findById(id).orElseThrow(() -> new BusinessException("출고 지시를 찾을 수 없습니다."));
+        shipmentRequest.updateStatus(request.getStatus(), request.getMessage());
+        return ShipmentRequestMapper.toUpdateResponse(shipmentRequest);
     }
 }

@@ -2,6 +2,7 @@ package com.eaishipment.shipment.mapper;
 
 import com.eaishipment.shipment.dto.ShipmentDetailResponse;
 import com.eaishipment.shipment.dto.ShipmentListResponse;
+import com.eaishipment.shipment.dto.ShipmentStatusUpdateResponse;
 import com.eaishipment.shipment.entity.ShipmentRequest;
 
 public class ShipmentRequestMapper {
@@ -37,6 +38,14 @@ public class ShipmentRequestMapper {
             request.getProcessingInfo().getStatus(), 
             request.getAuditInfo().getCreatedAt(),
             request.getAuditInfo().getUpdatedAt()
+        );
+    }
+
+    public static ShipmentStatusUpdateResponse toUpdateResponse(ShipmentRequest request) {
+        return new ShipmentStatusUpdateResponse(
+            request.getRequestInfo().getShipmentNo(), 
+            request.getProcessingInfo().getStatus(), 
+            request.getProcessingInfo().getMessage()
         );
     }
 }

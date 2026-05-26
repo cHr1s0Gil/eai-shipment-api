@@ -14,30 +14,30 @@ public class ShipmentProcessingInfo {
     @Column(name = "retry_count")
     private int retryCount;
 
-    @Column(name = "error_message")
-    private String errorMessage;
+    @Column(name = "message")
+    private String message;
 
     protected ShipmentProcessingInfo() {}
 
-    public ShipmentProcessingInfo(ShipmentStatus status, int retryCount, String errorMessage) {
+    public ShipmentProcessingInfo(ShipmentStatus status, int retryCount, String message) {
         this.status = status;
         this.retryCount = retryCount;
-        this.errorMessage = errorMessage;
+        this.message = message;
     }
 
     public static ShipmentProcessingInfo received() {
         return new ShipmentProcessingInfo(ShipmentStatus.RECEIVED, 0, null);
     }
 
-    public void updateStatus(ShipmentStatus status, String errorMessage) {
+    public void updateStatus(ShipmentStatus status, String message) {
         this.status = status;
-        this.errorMessage = status == ShipmentStatus.FAILED ? errorMessage : null;
+        this.message = status == ShipmentStatus.FAILED ? message : null;
     }
 
     public void retrySuccess() {
         this.retryCount++;
         this.status = ShipmentStatus.SUCCESS;
-        this.errorMessage = null;
+        this.message = null;
     }
 
     public ShipmentStatus getStatus() {
@@ -48,8 +48,8 @@ public class ShipmentProcessingInfo {
         return retryCount;
     }
 
-    public String getErrorMessage() {
-        return errorMessage;
+    public String getMessage() {
+        return message;
     }
 
 }

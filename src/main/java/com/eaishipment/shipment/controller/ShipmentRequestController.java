@@ -8,6 +8,8 @@ import com.eaishipment.shipment.dto.ShipmentCreateRequest;
 import com.eaishipment.shipment.dto.ShipmentCreateResponse;
 import com.eaishipment.shipment.dto.ShipmentDetailResponse;
 import com.eaishipment.shipment.dto.ShipmentListResponse;
+import com.eaishipment.shipment.dto.ShipmentStatusUpdateRequest;
+import com.eaishipment.shipment.dto.ShipmentStatusUpdateResponse;
 import com.eaishipment.shipment.entity.ShipmentStatus;
 import com.eaishipment.shipment.service.ShipmentRequestService;
 
@@ -20,6 +22,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 
@@ -56,7 +59,7 @@ public class ShipmentRequestController {
     public ResponseEntity<ApiResponse<ShipmentDetailResponse>> getShipmentDetail(@PathVariable("id") Long id) {
         return ResponseEntity
             .status(HttpStatus.OK)
-            .body(ApiResponse.success("출고 상세정보 조회 성공 id: " + id, shipmentRequestService.getShipmentDetail(id)));
+            .body(ApiResponse.success("출고 상세정보 조회 성공 id: " + id, shipmentRequestService.getShipmentDetailById(id)));
     }
 
     @GetMapping("/status/{status}")
@@ -66,5 +69,15 @@ public class ShipmentRequestController {
         return ResponseEntity
             .status(HttpStatus.OK)
             .body(ApiResponse.success(message, response));
+    }
+
+    @PatchMapping("/{id}/status")
+    public ResponseEntity<ApiResponse<ShipmentStatusUpdateResponse>> updateShipmentStatus(
+        @PathVariable("id") Long id,
+        @Valid @RequestBody ShipmentStatusUpdateRequest request) {
+        return ResponseEntity
+            .status(HttpStatus.OK)
+            .body(ApiResponse
+            .success("출고 지시 상태 변경 성공", shipmentRequestService.updateStatus(id, request)));
     }
 }
