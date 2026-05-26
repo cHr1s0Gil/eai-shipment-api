@@ -2,6 +2,7 @@ package com.eaishipment.shipment.mapper;
 
 import com.eaishipment.shipment.dto.ShipmentDetailResponse;
 import com.eaishipment.shipment.dto.ShipmentListResponse;
+import com.eaishipment.shipment.dto.ShipmentRetryResponse;
 import com.eaishipment.shipment.dto.ShipmentStatusUpdateResponse;
 import com.eaishipment.shipment.entity.ShipmentRequest;
 
@@ -46,6 +47,15 @@ public class ShipmentRequestMapper {
         return new ShipmentStatusUpdateResponse(
             request.getRequestInfo().getShipmentNo(), 
             request.getProcessingInfo().getStatus(), 
+            request.getProcessingInfo().getMessage()
+        );
+    }
+
+    public static ShipmentRetryResponse toRetryResponse(ShipmentRequest request) {
+        return new ShipmentRetryResponse(
+            request.getRequestInfo().getShipmentNo(), 
+            request.getProcessingInfo().getStatus(), 
+            request.getProcessingInfo().getRetryCount(),
             request.getProcessingInfo().getMessage()
         );
     }

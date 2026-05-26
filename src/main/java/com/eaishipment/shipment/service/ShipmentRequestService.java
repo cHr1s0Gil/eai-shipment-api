@@ -10,6 +10,7 @@ import com.eaishipment.shipment.dto.ShipmentCreateRequest;
 import com.eaishipment.shipment.dto.ShipmentCreateResponse;
 import com.eaishipment.shipment.dto.ShipmentDetailResponse;
 import com.eaishipment.shipment.dto.ShipmentListResponse;
+import com.eaishipment.shipment.dto.ShipmentRetryResponse;
 import com.eaishipment.shipment.dto.ShipmentStatusUpdateRequest;
 import com.eaishipment.shipment.dto.ShipmentStatusUpdateResponse;
 import com.eaishipment.shipment.entity.CustomerInfo;
@@ -31,14 +32,16 @@ public class ShipmentRequestService {
 
     @Transactional
     public ShipmentCreateResponse createShipment(ShipmentCreateRequest request) {
-        if(shipmentRequestRepository.existsByRequestInfo_ShipmentNo(request.getShipmentNo())) {
+        if (shipmentRequestRepository.existsByRequestInfo_ShipmentNo(request.getShipmentNo())) {
             throw new BusinessException("이미 등록된 출고 지시 번호입니다.");
         }
 
-        ShipmentRequestInfo requestInfo = new ShipmentRequestInfo(request.getShipmentNo(), request.getOrderNo(), request.getRequestedAt());
+        ShipmentRequestInfo requestInfo = new ShipmentRequestInfo(request.getShipmentNo(), request.getOrderNo(),
+                request.getRequestedAt());
         WarehouseInfo warehouseInfo = new WarehouseInfo(request.getWarehouseCode());
         CustomerInfo customerInfo = new CustomerInfo(request.getCustomerCode(), request.getCustomerName());
-        ShipmentItemInfo itemInfo = new ShipmentItemInfo(request.getMaterialCode(), request.getMaterialName(), request.getQuantity(), request.getUnit());
+        ShipmentItemInfo itemInfo = new ShipmentItemInfo(request.getMaterialCode(), request.getMaterialName(),
+                request.getQuantity(), request.getUnit());
         ShipmentRequest shipmentRequest = new ShipmentRequest(requestInfo, warehouseInfo, customerInfo, itemInfo);
 
         shipmentRequestRepository.save(shipmentRequest);
@@ -48,7 +51,7 @@ public class ShipmentRequestService {
 
     @Transactional(readOnly = true)
     public List<ShipmentListResponse> getShipments() {
-       return shipmentRequestRepository
+        return shipmentRequestRepository
                 .findAll()
                 .stream()
                 .map(ShipmentRequestMapper::toListResponse)
@@ -57,7 +60,8 @@ public class ShipmentRequestService {
 
     @Transactional(readOnly = true)
     public ShipmentDetailResponse getShipmentDetailById(Long id) {
-        ShipmentRequest shipmentRequest = shipmentRequestRepository.findById(id).orElseThrow(() -> new BusinessException("출고 지시를 찾을 수 없습니다."));
+        ShipmentRequest shipmentRequest = shipmentRequestRepository.findById(id)
+                .orElseThrow(() -> new BusinessException("출고 지시를 찾을 수 없습니다."));
         return ShipmentRequestMapper.toDetailResponse(shipmentRequest);
     }
 
@@ -72,15 +76,30 @@ public class ShipmentRequestService {
 
     @Transactional
     public ShipmentStatusUpdateResponse updateStatus(Long id, ShipmentStatusUpdateRequest request) {
-        ShipmentRequest shipmentRequest = shipmentRequestRepository.findById(id).orElseThrow(() -> new BusinessException("출고 지시를 찾을 수 없습니다."));
+        ShipmentRequest shipmentRequest = shipmentRequestRepository.findById(id)
+                .orElseThrow(() -> new BusinessException("출고 지시를 찾을 수 없습니다."));
         ShipmentStatus status = request.getStatus();
         String message = request.getMessage();
 
-        if(status == ShipmentStatus.FAILED) {
-            if(message == null || message.isBlank()) throw new BusinessException("message는 필수 입니다.");
+        if (status == ShipmentStatus.FAILED) {
+            if (message == null || message.isBlank())
+                throw new BusinessException("message는 필수 입니다.");
         }
 
         shipmentRequest.updateStatus(request.getStatus(), request.getMessage());
         return ShipmentRequestMapper.toUpdateResponse(shipmentRequest);
+    }
+
+    @Transactional
+    public ShipmentRetryResponse retryShipment(Long id) {
+        ShipmentRequest shipmentRequest = shipmentRequestRepository.findById(id)
+                .orElseThrow(() -> new BusinessException("출고 지시를 찾을 수 없습니다."));
+        if (shipmentRequest.getProcessingInfo().getStatus() != ShipmentStatus.FAILED) {
+            throw new BusinessException("재처리 대상이 아닙니다.");
+        }
+
+        shipmentRequest.retrySuccess();
+        
+        return ShipmentRequestMapper.toRetryResponse(shipmentRequest);
     }
 }
