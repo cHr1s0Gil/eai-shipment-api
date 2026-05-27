@@ -105,6 +105,37 @@ class ShipmentRequestControllerTest {
                 .andExpect(jsonPath("$.resultCode").value("E"));
     }
 
+    @Test
+    void dispatchShipment_returnsSuccessResponse() throws Exception {
+        Long id = saveShipmentAndCommit("SHP-API-005");
+
+        mockMvc.perform(post("/api/shipments/{id}/dispatch", id))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.resultCode").value("S"))
+                .andExpect(jsonPath("$.data.status").value("SUCCESS"));
+    }
+
+    @Test
+    void dispatchShipment_returnsFailedStatusWhenShipmentNoContainsFail() throws Exception {
+        Long id = saveShipmentAndCommit("SHP-FAIL-006");
+
+        mockMvc.perform(post("/api/shipments/{id}/dispatch", id))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.resultCode").value("S"))
+                .andExpect(jsonPath("$.data.status").value("FAILED"))
+                .andExpect(jsonPath("$.data.message").value("WMS transmission failed"));
+    }
+
+    @Test
+    void dispatchShipment_returnsBadRequestWhenShipmentIsNotReceived() throws Exception {
+        Long id = saveShipmentAndCommit("SHP-API-007");
+        shipmentRequestService.dispatchShipment(id);
+
+        mockMvc.perform(post("/api/shipments/{id}/dispatch", id))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.resultCode").value("E"));
+    }
+
     private Long saveShipmentAndCommit(String shipmentNo) {
         shipmentRequestService.createShipment(createRequest(shipmentNo));
 

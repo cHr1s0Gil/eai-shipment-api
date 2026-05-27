@@ -9,6 +9,7 @@ import com.eaishipment.global.exception.BusinessException;
 import com.eaishipment.shipment.dto.ShipmentCreateRequest;
 import com.eaishipment.shipment.dto.ShipmentCreateResponse;
 import com.eaishipment.shipment.dto.ShipmentDetailResponse;
+import com.eaishipment.shipment.dto.ShipmentDispatchResponse;
 import com.eaishipment.shipment.dto.ShipmentListResponse;
 import com.eaishipment.shipment.dto.ShipmentRetryResponse;
 import com.eaishipment.shipment.dto.ShipmentStatusUpdateRequest;
@@ -76,6 +77,10 @@ public class ShipmentRequestService {
     @Transactional
     public ShipmentStatusUpdateResponse updateStatus(Long id, ShipmentStatusUpdateRequest request) {
         ShipmentRequest shipmentRequest = getShipmentRequestById(id);
+        if(shipmentRequest.getProcessingInfo().getStatus() == ShipmentStatus.SUCCESS) {
+            throw new BusinessException("이미 처리 완료된 출고 지시는 상태를 변경할 수 없습니다.");
+        }
+
         ShipmentStatus status = request.getStatus();
         String message = request.getMessage();
 
@@ -100,8 +105,31 @@ public class ShipmentRequestService {
         return ShipmentRequestMapper.toRetryResponse(shipmentRequest);
     }
 
+    @Transactional
+    public ShipmentDispatchResponse dispatchShipment(Long id) {
+        ShipmentRequest shipmentRequest = getShipmentRequestById(id);
+        if (shipmentRequest.getProcessingInfo().getStatus() != ShipmentStatus.RECEIVED) {
+            throw new BusinessException("Dispatch 대상이 아닙니다.");
+        }
+
+        shipmentRequest.updateStatus(ShipmentStatus.PROCESSING, null);
+        if (isWmsSendFailed(shipmentRequest)) {
+            shipmentRequest.updateStatus(ShipmentStatus.FAILED, "WMS transmission failed");
+        } else {
+            shipmentRequest.updateStatus(ShipmentStatus.SUCCESS, null);
+        }
+        
+        return ShipmentRequestMapper.toDispatchResponse(shipmentRequest);
+    }
+
     private ShipmentRequest getShipmentRequestById(Long id) {
         return shipmentRequestRepository.findById(id)
-            .orElseThrow(() -> new BusinessException("출고 지시를 찾을 수 없습니다."));
+                .orElseThrow(() -> new BusinessException("출고 지시를 찾을 수 없습니다."));
+    }
+
+    private boolean isWmsSendFailed(ShipmentRequest shipmentRequest) {
+        return shipmentRequest.getRequestInfo()
+                .getShipmentNo()
+                .contains("FAIL");
     }
 }

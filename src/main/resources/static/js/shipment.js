@@ -22,6 +22,7 @@ const elements = {
     statusSelect: document.querySelector("#statusSelect"),
     statusMessageInput: document.querySelector("#statusMessageInput"),
     updateStatusButton: document.querySelector("#updateStatusButton"),
+    dispatchButton: document.querySelector("#dispatchButton"),
     retryButton: document.querySelector("#retryButton"),
     actionMessage: document.querySelector("#actionMessage"),
     countAll: document.querySelector("#countAll"),
@@ -43,6 +44,7 @@ function bindEvents() {
     elements.resetFormButton.addEventListener("click", resetCreateForm);
     elements.createForm.addEventListener("submit", submitCreateForm);
     elements.updateStatusButton.addEventListener("click", updateSelectedStatus);
+    elements.dispatchButton.addEventListener("click", dispatchSelectedShipment);
     elements.retryButton.addEventListener("click", retrySelectedShipment);
 
     elements.summaryTiles.forEach((tile) => {
@@ -155,6 +157,23 @@ async function retrySelectedShipment() {
     }
 }
 
+async function dispatchSelectedShipment() {
+    if (!state.selectedId) {
+        setActionMessage("Select a shipment before dispatch.", "error");
+        return;
+    }
+
+    setActionMessage("Dispatching shipment.", "");
+
+    try {
+        const response = await ShipmentApi.dispatchShipment(state.selectedId);
+        setActionMessage(response.message || "Shipment dispatch completed", "success");
+        await afterMutation();
+    } catch (error) {
+        setActionMessage(error.message, "error");
+    }
+}
+
 async function afterMutation() {
     const selectedId = state.selectedId;
     await loadShipments(state.filter);
@@ -183,6 +202,10 @@ function hydrateActionControls(detail) {
     setActionControls(true);
     elements.statusSelect.value = detail.status || "RECEIVED";
     elements.statusMessageInput.value = detail.message || "";
+    elements.statusSelect.disabled = detail.status === "SUCCESS";
+    elements.statusMessageInput.disabled = detail.status === "SUCCESS";
+    elements.updateStatusButton.disabled = detail.status === "SUCCESS";
+    elements.dispatchButton.disabled = detail.status !== "RECEIVED";
     elements.retryButton.disabled = detail.status !== "FAILED";
     setActionMessage("", "");
 }
@@ -191,6 +214,7 @@ function setActionControls(enabled) {
     elements.statusSelect.disabled = !enabled;
     elements.statusMessageInput.disabled = !enabled;
     elements.updateStatusButton.disabled = !enabled;
+    elements.dispatchButton.disabled = true;
     elements.retryButton.disabled = true;
 
     if (!enabled) {

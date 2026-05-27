@@ -48,11 +48,18 @@ const ShipmentApi = (() => {
         });
     }
 
+    function dispatchShipment(id) {
+        return requestJson(`${API_BASE}/${id}/dispatch`, {
+            method: "POST"
+        });
+    }
+
     return {
         getShipments,
         getShipmentDetail,
         createShipment,
         updateShipmentStatus,
-        retryShipment
+        retryShipment,
+        dispatchShipment
     };
 })();

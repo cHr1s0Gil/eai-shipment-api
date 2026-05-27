@@ -16,6 +16,7 @@ import com.eaishipment.global.exception.BusinessException;
 import com.eaishipment.shipment.dto.ShipmentCreateRequest;
 import com.eaishipment.shipment.dto.ShipmentCreateResponse;
 import com.eaishipment.shipment.dto.ShipmentDetailResponse;
+import com.eaishipment.shipment.dto.ShipmentDispatchResponse;
 import com.eaishipment.shipment.dto.ShipmentRetryResponse;
 import com.eaishipment.shipment.dto.ShipmentStatusUpdateRequest;
 import com.eaishipment.shipment.dto.ShipmentStatusUpdateResponse;
@@ -117,6 +118,37 @@ class ShipmentRequestServiceTest {
         Long id = saveShipmentAndGetId("SHP-TEST-007");
 
         assertThatThrownBy(() -> shipmentRequestService.retryShipment(id))
+                .isInstanceOf(BusinessException.class);
+    }
+
+    @Test
+    void dispatchShipment_changesReceivedShipmentToSuccess() {
+        Long id = saveShipmentAndGetId("SHP-TEST-008");
+
+        ShipmentDispatchResponse response = shipmentRequestService.dispatchShipment(id);
+
+        assertThat(response.getShipmentNo()).isEqualTo("SHP-TEST-008");
+        assertThat(response.getStatus()).isEqualTo(ShipmentStatus.SUCCESS);
+        assertThat(response.getMessage()).isNull();
+    }
+
+    @Test
+    void dispatchShipment_changesShipmentToFailedWhenShipmentNoContainsFail() {
+        Long id = saveShipmentAndGetId("SHP-FAIL-009");
+
+        ShipmentDispatchResponse response = shipmentRequestService.dispatchShipment(id);
+
+        assertThat(response.getShipmentNo()).isEqualTo("SHP-FAIL-009");
+        assertThat(response.getStatus()).isEqualTo(ShipmentStatus.FAILED);
+        assertThat(response.getMessage()).isEqualTo("WMS transmission failed");
+    }
+
+    @Test
+    void dispatchShipment_throwsExceptionWhenShipmentIsNotReceived() {
+        Long id = saveShipmentAndGetId("SHP-TEST-010");
+        shipmentRequestService.dispatchShipment(id);
+
+        assertThatThrownBy(() -> shipmentRequestService.dispatchShipment(id))
                 .isInstanceOf(BusinessException.class);
     }
 
