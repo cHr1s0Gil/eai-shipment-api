@@ -20,15 +20,23 @@ import com.eaishipment.shipment.entity.ShipmentRequest;
 import com.eaishipment.shipment.entity.ShipmentRequestInfo;
 import com.eaishipment.shipment.entity.ShipmentStatus;
 import com.eaishipment.shipment.entity.WarehouseInfo;
+import com.eaishipment.shipment.event.ShipmentDispatchMessage;
 import com.eaishipment.shipment.mapper.ShipmentRequestMapper;
+import com.eaishipment.shipment.producer.ShipmentDispatchProducer;
 import com.eaishipment.shipment.repository.ShipmentRequestRepository;
 
 @Service
 public class ShipmentRequestService {
     private final ShipmentRequestRepository shipmentRequestRepository;
+    
+    private final ShipmentDispatchProducer shipmentDispatchProducer;
 
-    public ShipmentRequestService(ShipmentRequestRepository shipmentRequestRepository) {
+    public ShipmentRequestService(
+        ShipmentRequestRepository shipmentRequestRepository,
+        ShipmentDispatchProducer shipmentDispatchProducer
+    ) {
         this.shipmentRequestRepository = shipmentRequestRepository;
+        this.shipmentDispatchProducer = shipmentDispatchProducer;
     }
 
     @Transactional
@@ -108,18 +116,33 @@ public class ShipmentRequestService {
     @Transactional
     public ShipmentDispatchResponse dispatchShipment(Long id) {
         ShipmentRequest shipmentRequest = getShipmentRequestById(id);
+
         if (shipmentRequest.getProcessingInfo().getStatus() != ShipmentStatus.RECEIVED) {
             throw new BusinessException("Dispatch 대상이 아닙니다.");
         }
 
         shipmentRequest.updateStatus(ShipmentStatus.PROCESSING, null);
-        if (isWmsSendFailed(shipmentRequest)) {
-            shipmentRequest.updateStatus(ShipmentStatus.FAILED, "WMS transmission failed");
-        } else {
-            shipmentRequest.updateStatus(ShipmentStatus.SUCCESS, null);
-        }
+
+        ShipmentDispatchMessage message = new ShipmentDispatchMessage(
+            shipmentRequest.getId(),
+            shipmentRequest.getRequestInfo().getShipmentNo()
+        );
+
+        shipmentDispatchProducer.send(message);
         
         return ShipmentRequestMapper.toDispatchResponse(shipmentRequest);
+    }
+
+    @Transactional
+    public void completeDispatch(Long id) {
+        ShipmentRequest shipmentRequest = getShipmentRequestById(id);
+
+        if(isWmsSendFailed(shipmentRequest)) {
+            shipmentRequest.updateStatus(ShipmentStatus.FAILED, "WMS transmission failed");
+            return;
+        }
+
+        shipmentRequest.updateStatus(ShipmentStatus.SUCCESS, null);
     }
 
     private ShipmentRequest getShipmentRequestById(Long id) {
