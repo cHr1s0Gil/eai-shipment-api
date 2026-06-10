@@ -17,6 +17,9 @@ public class ShipmentProcessingInfo {
     @Column(name = "message")
     private String message;
 
+    @Column(name = "error_payload", columnDefinition = "CLOB")
+    private String errorPayload;
+
     protected ShipmentProcessingInfo() {}
 
     public ShipmentProcessingInfo(ShipmentStatus status, int retryCount, String message) {
@@ -30,14 +33,27 @@ public class ShipmentProcessingInfo {
     }
 
     public void updateStatus(ShipmentStatus status, String message) {
+        updateStatus(status, message, null);
+    }
+
+    public void updateStatus(ShipmentStatus status, String message, String errorPayload) {
         this.status = status;
-        this.message = status == ShipmentStatus.FAILED ? message : null;
+
+        if (status == ShipmentStatus.FAILED) {
+            this.message = message;
+            this.errorPayload = errorPayload;
+            return;
+        }
+
+        this.message = null;
+        this.errorPayload = null;
     }
 
     public void retrySuccess() {
         this.retryCount++;
         this.status = ShipmentStatus.SUCCESS;
         this.message = null;
+        this.errorPayload = null;
     }
 
     public ShipmentStatus getStatus() {
@@ -50,6 +66,10 @@ public class ShipmentProcessingInfo {
 
     public String getMessage() {
         return message;
+    }
+
+    public String getErrorPayload() {
+        return errorPayload;
     }
 
 }

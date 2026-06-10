@@ -9,6 +9,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.util.ReflectionTestUtils;
 
@@ -20,10 +21,12 @@ import com.eaishipment.shipment.dto.ShipmentDispatchResponse;
 import com.eaishipment.shipment.dto.ShipmentRetryResponse;
 import com.eaishipment.shipment.dto.ShipmentStatusUpdateRequest;
 import com.eaishipment.shipment.dto.ShipmentStatusUpdateResponse;
+import com.eaishipment.shipment.entity.ShipmentRequest;
 import com.eaishipment.shipment.entity.ShipmentStatus;
+import com.eaishipment.shipment.producer.ShipmentDispatchProducer;
 import com.eaishipment.shipment.repository.ShipmentRequestRepository;
 
-@SpringBootTest
+@SpringBootTest(properties = "spring.kafka.listener.auto-startup=false")
 @ActiveProfiles("test")
 class ShipmentRequestServiceTest {
 
@@ -32,6 +35,9 @@ class ShipmentRequestServiceTest {
 
     @Autowired
     private ShipmentRequestRepository shipmentRequestRepository;
+
+    @MockitoBean
+    private ShipmentDispatchProducer shipmentDispatchProducer;
 
     @BeforeEach
     void setUp() {
@@ -122,25 +128,51 @@ class ShipmentRequestServiceTest {
     }
 
     @Test
-    void dispatchShipment_changesReceivedShipmentToSuccess() {
+    void dispatchShipment_changesReceivedShipmentToProcessing() {
         Long id = saveShipmentAndGetId("SHP-TEST-008");
 
         ShipmentDispatchResponse response = shipmentRequestService.dispatchShipment(id);
 
         assertThat(response.getShipmentNo()).isEqualTo("SHP-TEST-008");
-        assertThat(response.getStatus()).isEqualTo(ShipmentStatus.SUCCESS);
+        assertThat(response.getStatus()).isEqualTo(ShipmentStatus.PROCESSING);
         assertThat(response.getMessage()).isNull();
     }
 
     @Test
-    void dispatchShipment_changesShipmentToFailedWhenShipmentNoContainsFail() {
-        Long id = saveShipmentAndGetId("SHP-FAIL-009");
+    void completeDispatch_changesProcessingShipmentToSuccess() {
+        Long id = saveShipmentAndGetId("SHP-TEST-009");
+        String payload = """
+                {"shipmentId":%d,"shipmentNo":"SHP-TEST-009"}
+                """.formatted(id);
 
-        ShipmentDispatchResponse response = shipmentRequestService.dispatchShipment(id);
+        shipmentRequestService.dispatchShipment(id);
+        shipmentRequestService.completeDispatch(id, payload);
+
+        ShipmentDetailResponse response = shipmentRequestService.getShipmentDetailById(id);
+        ShipmentRequest shipmentRequest = shipmentRequestRepository.findById(id).orElseThrow();
+
+        assertThat(response.getStatus()).isEqualTo(ShipmentStatus.SUCCESS);
+        assertThat(response.getMessage()).isNull();
+        assertThat(shipmentRequest.getProcessingInfo().getErrorPayload()).isNull();
+    }
+
+    @Test
+    void completeDispatch_changesProcessingShipmentToFailedWhenShipmentNoContainsFail() {
+        Long id = saveShipmentAndGetId("SHP-FAIL-009");
+        String payload = """
+                {"shipmentId":%d,"shipmentNo":"SHP-FAIL-009"}
+                """.formatted(id);
+
+        shipmentRequestService.dispatchShipment(id);
+        shipmentRequestService.completeDispatch(id, payload);
+
+        ShipmentDetailResponse response = shipmentRequestService.getShipmentDetailById(id);
+        ShipmentRequest shipmentRequest = shipmentRequestRepository.findById(id).orElseThrow();
 
         assertThat(response.getShipmentNo()).isEqualTo("SHP-FAIL-009");
         assertThat(response.getStatus()).isEqualTo(ShipmentStatus.FAILED);
         assertThat(response.getMessage()).isEqualTo("WMS transmission failed");
+        assertThat(shipmentRequest.getProcessingInfo().getErrorPayload()).isEqualTo(payload);
     }
 
     @Test

@@ -59,8 +59,12 @@ public class ShipmentRequest {
         this.auditInfo.update();
     }
 
-    public void updateStatus(ShipmentStatus status, String errorMessage) {
-        this.processingInfo.updateStatus(status, errorMessage);
+    public void updateStatus(ShipmentStatus status, String message) {
+        this.processingInfo.updateStatus(status, message);
+    }
+
+    public void updateStatus(ShipmentStatus status, String message, String errorPayload) {
+        this.processingInfo.updateStatus(status, message, errorPayload);
     }
 
     public void retrySuccess() {

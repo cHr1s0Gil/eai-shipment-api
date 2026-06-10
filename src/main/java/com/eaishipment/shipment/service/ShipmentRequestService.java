@@ -2,6 +2,8 @@ package com.eaishipment.shipment.service;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,14 +29,15 @@ import com.eaishipment.shipment.repository.ShipmentRequestRepository;
 
 @Service
 public class ShipmentRequestService {
+    private static final Logger log = LoggerFactory.getLogger(ShipmentRequestService.class);
+
     private final ShipmentRequestRepository shipmentRequestRepository;
-    
+
     private final ShipmentDispatchProducer shipmentDispatchProducer;
 
     public ShipmentRequestService(
-        ShipmentRequestRepository shipmentRequestRepository,
-        ShipmentDispatchProducer shipmentDispatchProducer
-    ) {
+            ShipmentRequestRepository shipmentRequestRepository,
+            ShipmentDispatchProducer shipmentDispatchProducer) {
         this.shipmentRequestRepository = shipmentRequestRepository;
         this.shipmentDispatchProducer = shipmentDispatchProducer;
     }
@@ -85,7 +88,7 @@ public class ShipmentRequestService {
     @Transactional
     public ShipmentStatusUpdateResponse updateStatus(Long id, ShipmentStatusUpdateRequest request) {
         ShipmentRequest shipmentRequest = getShipmentRequestById(id);
-        if(shipmentRequest.getProcessingInfo().getStatus() == ShipmentStatus.SUCCESS) {
+        if (shipmentRequest.getProcessingInfo().getStatus() == ShipmentStatus.SUCCESS) {
             throw new BusinessException("이미 처리 완료된 출고 지시는 상태를 변경할 수 없습니다.");
         }
 
@@ -121,28 +124,45 @@ public class ShipmentRequestService {
             throw new BusinessException("Dispatch 대상이 아닙니다.");
         }
 
+        log.info("Shipment dispatch requested. shipmentId={}, shipmentNo={}",
+                shipmentRequest.getId(),
+                shipmentRequest.getRequestInfo().getShipmentNo());
+
         shipmentRequest.updateStatus(ShipmentStatus.PROCESSING, null);
 
         ShipmentDispatchMessage message = new ShipmentDispatchMessage(
-            shipmentRequest.getId(),
-            shipmentRequest.getRequestInfo().getShipmentNo()
-        );
+                shipmentRequest.getId(),
+                shipmentRequest.getRequestInfo().getShipmentNo());
 
         shipmentDispatchProducer.send(message);
-        
+
         return ShipmentRequestMapper.toDispatchResponse(shipmentRequest);
     }
 
     @Transactional
-    public void completeDispatch(Long id) {
+    public void completeDispatch(Long id, String payload) {
         ShipmentRequest shipmentRequest = getShipmentRequestById(id);
 
-        if(isWmsSendFailed(shipmentRequest)) {
-            shipmentRequest.updateStatus(ShipmentStatus.FAILED, "WMS transmission failed");
+        if (isWmsSendFailed(shipmentRequest)) {
+            shipmentRequest.updateStatus(
+                ShipmentStatus.FAILED, 
+                "WMS transmission failed",
+            payload
+        );
+
+            log.info("Shipment dispatch failed. shipmentId={}, shipmentNo={}, message={}",
+                    shipmentRequest.getId(),
+                    shipmentRequest.getRequestInfo().getShipmentNo(),
+                    "WMS transmission failed");
+
             return;
         }
 
         shipmentRequest.updateStatus(ShipmentStatus.SUCCESS, null);
+
+        log.info("Shipment dispatch completed. shipmentId={}, shipmentNo={}",
+                shipmentRequest.getId(),
+                shipmentRequest.getRequestInfo().getShipmentNo());
     }
 
     private ShipmentRequest getShipmentRequestById(Long id) {

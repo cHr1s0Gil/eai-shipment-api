@@ -15,14 +15,16 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.test.web.servlet.MockMvc;
 
 import com.eaishipment.shipment.dto.ShipmentCreateRequest;
+import com.eaishipment.shipment.producer.ShipmentDispatchProducer;
 import com.eaishipment.shipment.repository.ShipmentRequestRepository;
 import com.eaishipment.shipment.service.ShipmentRequestService;
 
-@SpringBootTest
+@SpringBootTest(properties = "spring.kafka.listener.auto-startup=false")
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
 class ShipmentRequestControllerTest {
@@ -35,6 +37,9 @@ class ShipmentRequestControllerTest {
 
     @Autowired
     private ShipmentRequestRepository shipmentRequestRepository;
+
+    @MockitoBean
+    private ShipmentDispatchProducer shipmentDispatchProducer;
 
     @BeforeEach
     void setUp() {
@@ -112,18 +117,18 @@ class ShipmentRequestControllerTest {
         mockMvc.perform(post("/api/shipments/{id}/dispatch", id))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.resultCode").value("S"))
-                .andExpect(jsonPath("$.data.status").value("SUCCESS"));
+                .andExpect(jsonPath("$.data.status").value("PROCESSING"));
     }
 
     @Test
-    void dispatchShipment_returnsFailedStatusWhenShipmentNoContainsFail() throws Exception {
+    void dispatchShipment_returnsProcessingStatusWhenShipmentNoContainsFail() throws Exception {
         Long id = saveShipmentAndCommit("SHP-FAIL-006");
 
         mockMvc.perform(post("/api/shipments/{id}/dispatch", id))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.resultCode").value("S"))
-                .andExpect(jsonPath("$.data.status").value("FAILED"))
-                .andExpect(jsonPath("$.data.message").value("WMS transmission failed"));
+                .andExpect(jsonPath("$.data.status").value("PROCESSING"))
+                .andExpect(jsonPath("$.data.message").isEmpty());
     }
 
     @Test
