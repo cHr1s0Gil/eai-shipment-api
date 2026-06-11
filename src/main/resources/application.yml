@@ -30,7 +30,7 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
-    show-sql: true
+    show-sql: false
     properties:
       "[hibernate.format_sql]": true
 
@@ -40,8 +40,3 @@ server:
 springdoc:
   swagger-ui:
     path: /swagger-ui.html
-
-logging:
-  level:
-    "[com.eaishipment]": INFO
-    "[org.apache.kafka]": WARN

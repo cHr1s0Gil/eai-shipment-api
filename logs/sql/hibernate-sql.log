@@ -1,0 +1,2530 @@
+2026-06-11 11:10:23.224 DEBUG [http-nio-8080-exec-3] org.hibernate.SQL - 
+    select
+        sr1_0.id,
+        sr1_0.created_at,
+        sr1_0.update_at,
+        sr1_0.customer_code,
+        sr1_0.customer_name,
+        sr1_0.material_code,
+        sr1_0.material_name,
+        sr1_0.quantity,
+        sr1_0.unit,
+        sr1_0.error_payload,
+        sr1_0.message,
+        sr1_0.retry_count,
+        sr1_0.status,
+        sr1_0.order_no,
+        sr1_0.requested_at,
+        sr1_0.shipment_no,
+        sr1_0.warehouse_code 
+    from
+        shipment_request sr1_0
+2026-06-11 11:10:24.004 DEBUG [http-nio-8080-exec-5] org.hibernate.SQL - 
+    select
+        sr1_0.id,
+        sr1_0.created_at,
+        sr1_0.update_at,
+        sr1_0.customer_code,
+        sr1_0.customer_name,
+        sr1_0.material_code,
+        sr1_0.material_name,
+        sr1_0.quantity,
+        sr1_0.unit,
+        sr1_0.error_payload,
+        sr1_0.message,
+        sr1_0.retry_count,
+        sr1_0.status,
+        sr1_0.order_no,
+        sr1_0.requested_at,
+        sr1_0.shipment_no,
+        sr1_0.warehouse_code 
+    from
+        shipment_request sr1_0
+2026-06-11 11:10:24.514 DEBUG [http-nio-8080-exec-7] org.hibernate.SQL - 
+    select
+        sr1_0.id,
+        sr1_0.created_at,
+        sr1_0.update_at,
+        sr1_0.customer_code,
+        sr1_0.customer_name,
+        sr1_0.material_code,
+        sr1_0.material_name,
+        sr1_0.quantity,
+        sr1_0.unit,
+        sr1_0.error_payload,
+        sr1_0.message,
+        sr1_0.retry_count,
+        sr1_0.status,
+        sr1_0.order_no,
+        sr1_0.requested_at,
+        sr1_0.shipment_no,
+        sr1_0.warehouse_code 
+    from
+        shipment_request sr1_0
+2026-06-11 11:10:24.844 DEBUG [http-nio-8080-exec-9] org.hibernate.SQL - 
+    select
+        sr1_0.id,
+        sr1_0.created_at,
+        sr1_0.update_at,
+        sr1_0.customer_code,
+        sr1_0.customer_name,
+        sr1_0.material_code,
+        sr1_0.material_name,
+        sr1_0.quantity,
+        sr1_0.unit,
+        sr1_0.error_payload,
+        sr1_0.message,
+        sr1_0.retry_count,
+        sr1_0.status,
+        sr1_0.order_no,
+        sr1_0.requested_at,
+        sr1_0.shipment_no,
+        sr1_0.warehouse_code 
+    from
+        shipment_request sr1_0
+2026-06-11 11:10:24.999 DEBUG [http-nio-8080-exec-1] org.hibernate.SQL - 
+    select
+        sr1_0.id,
+        sr1_0.created_at,
+        sr1_0.update_at,
+        sr1_0.customer_code,
+        sr1_0.customer_name,
+        sr1_0.material_code,
+        sr1_0.material_name,
+        sr1_0.quantity,
+        sr1_0.unit,
+        sr1_0.error_payload,
+        sr1_0.message,
+        sr1_0.retry_count,
+        sr1_0.status,
+        sr1_0.order_no,
+        sr1_0.requested_at,
+        sr1_0.shipment_no,
+        sr1_0.warehouse_code 
+    from
+        shipment_request sr1_0
+2026-06-11 11:10:27.131 DEBUG [http-nio-8080-exec-3] org.hibernate.SQL - 
+    select
+        sr1_0.id,
+        sr1_0.created_at,
+        sr1_0.update_at,
+        sr1_0.customer_code,
+        sr1_0.customer_name,
+        sr1_0.material_code,
+        sr1_0.material_name,
+        sr1_0.quantity,
+        sr1_0.unit,
+        sr1_0.error_payload,
+        sr1_0.message,
+        sr1_0.retry_count,
+        sr1_0.status,
+        sr1_0.order_no,
+        sr1_0.requested_at,
+        sr1_0.shipment_no,
+        sr1_0.warehouse_code 
+    from
+        shipment_request sr1_0
+2026-06-11 11:10:27.753 DEBUG [http-nio-8080-exec-5] org.hibernate.SQL - 
+    select
+        sr1_0.id,
+        sr1_0.created_at,
+        sr1_0.update_at,
+        sr1_0.customer_code,
+        sr1_0.customer_name,
+        sr1_0.material_code,
+        sr1_0.material_name,
+        sr1_0.quantity,
+        sr1_0.unit,
+        sr1_0.error_payload,
+        sr1_0.message,
+        sr1_0.retry_count,
+        sr1_0.status,
+        sr1_0.order_no,
+        sr1_0.requested_at,
+        sr1_0.shipment_no,
+        sr1_0.warehouse_code 
+    from
+        shipment_request sr1_0
+2026-06-11 11:10:28.235 DEBUG [http-nio-8080-exec-7] org.hibernate.SQL - 
+    select
+        sr1_0.id,
+        sr1_0.created_at,
+        sr1_0.update_at,
+        sr1_0.customer_code,
+        sr1_0.customer_name,
+        sr1_0.material_code,
+        sr1_0.material_name,
+        sr1_0.quantity,
+        sr1_0.unit,
+        sr1_0.error_payload,
+        sr1_0.message,
+        sr1_0.retry_count,
+        sr1_0.status,
+        sr1_0.order_no,
+        sr1_0.requested_at,
+        sr1_0.shipment_no,
+        sr1_0.warehouse_code 
+    from
+        shipment_request sr1_0
+2026-06-11 11:10:31.688 DEBUG [http-nio-8080-exec-3] org.hibernate.SQL - 
+    select
+        sr1_0.id,
+        sr1_0.created_at,
+        sr1_0.update_at,
+        sr1_0.customer_code,
+        sr1_0.customer_name,
+        sr1_0.material_code,
+        sr1_0.material_name,
+        sr1_0.quantity,
+        sr1_0.unit,
+        sr1_0.error_payload,
+        sr1_0.message,
+        sr1_0.retry_count,
+        sr1_0.status,
+        sr1_0.order_no,
+        sr1_0.requested_at,
+        sr1_0.shipment_no,
+        sr1_0.warehouse_code 
+    from
+        shipment_request sr1_0
+2026-06-11 11:10:44.889 DEBUG [http-nio-8080-exec-6] org.hibernate.SQL - 
+    select
+        sr1_0.id,
+        sr1_0.created_at,
+        sr1_0.update_at,
+        sr1_0.customer_code,
+        sr1_0.customer_name,
+        sr1_0.material_code,
+        sr1_0.material_name,
+        sr1_0.quantity,
+        sr1_0.unit,
+        sr1_0.error_payload,
+        sr1_0.message,
+        sr1_0.retry_count,
+        sr1_0.status,
+        sr1_0.order_no,
+        sr1_0.requested_at,
+        sr1_0.shipment_no,
+        sr1_0.warehouse_code 
+    from
+        shipment_request sr1_0
+2026-06-11 11:11:02.551 DEBUG [http-nio-8080-exec-7] org.hibernate.SQL - 
+    select
+        sr1_0.id 
+    from
+        shipment_request sr1_0 
+    where
+        sr1_0.shipment_no=? 
+    fetch
+        first ? rows only
+2026-06-11 11:11:02.570 DEBUG [http-nio-8080-exec-7] org.hibernate.SQL - 
+    insert 
+    into
+        shipment_request
+        (created_at, update_at, customer_code, customer_name, material_code, material_name, quantity, unit, error_payload, message, retry_count, status, order_no, requested_at, shipment_no, warehouse_code, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, default)
+2026-06-11 11:11:02.628 DEBUG [http-nio-8080-exec-8] org.hibernate.SQL - 
+    select
+        sr1_0.id 
+    from
+        shipment_request sr1_0 
+    where
+        sr1_0.shipment_no=? 
+    fetch
+        first ? rows only
+2026-06-11 11:11:02.629 DEBUG [http-nio-8080-exec-8] org.hibernate.SQL - 
+    insert 
+    into
+        shipment_request
+        (created_at, update_at, customer_code, customer_name, material_code, material_name, quantity, unit, error_payload, message, retry_count, status, order_no, requested_at, shipment_no, warehouse_code, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, default)
+2026-06-11 11:11:02.633 DEBUG [http-nio-8080-exec-9] org.hibernate.SQL - 
+    select
+        sr1_0.id,
+        sr1_0.created_at,
+        sr1_0.update_at,
+        sr1_0.customer_code,
+        sr1_0.customer_name,
+        sr1_0.material_code,
+        sr1_0.material_name,
+        sr1_0.quantity,
+        sr1_0.unit,
+        sr1_0.error_payload,
+        sr1_0.message,
+        sr1_0.retry_count,
+        sr1_0.status,
+        sr1_0.order_no,
+        sr1_0.requested_at,
+        sr1_0.shipment_no,
+        sr1_0.warehouse_code 
+    from
+        shipment_request sr1_0
+2026-06-11 11:11:02.661 DEBUG [http-nio-8080-exec-10] org.hibernate.SQL - 
+    select
+        sr1_0.id,
+        sr1_0.created_at,
+        sr1_0.update_at,
+        sr1_0.customer_code,
+        sr1_0.customer_name,
+        sr1_0.material_code,
+        sr1_0.material_name,
+        sr1_0.quantity,
+        sr1_0.unit,
+        sr1_0.error_payload,
+        sr1_0.message,
+        sr1_0.retry_count,
+        sr1_0.status,
+        sr1_0.order_no,
+        sr1_0.requested_at,
+        sr1_0.shipment_no,
+        sr1_0.warehouse_code 
+    from
+        shipment_request sr1_0 
+    where
+        sr1_0.id=?
+2026-06-11 11:11:02.719 DEBUG [http-nio-8080-exec-10] org.hibernate.SQL - 
+    update
+        shipment_request 
+    set
+        created_at=?,
+        update_at=?,
+        customer_code=?,
+        customer_name=?,
+        material_code=?,
+        material_name=?,
+        quantity=?,
+        unit=?,
+        error_payload=?,
+        message=?,
+        retry_count=?,
+        status=?,
+        order_no=?,
+        requested_at=?,
+        shipment_no=?,
+        warehouse_code=? 
+    where
+        id=?
+2026-06-11 11:11:02.726 DEBUG [http-nio-8080-exec-1] org.hibernate.SQL - 
+    select
+        sr1_0.id,
+        sr1_0.created_at,
+        sr1_0.update_at,
+        sr1_0.customer_code,
+        sr1_0.customer_name,
+        sr1_0.material_code,
+        sr1_0.material_name,
+        sr1_0.quantity,
+        sr1_0.unit,
+        sr1_0.error_payload,
+        sr1_0.message,
+        sr1_0.retry_count,
+        sr1_0.status,
+        sr1_0.order_no,
+        sr1_0.requested_at,
+        sr1_0.shipment_no,
+        sr1_0.warehouse_code 
+    from
+        shipment_request sr1_0 
+    where
+        sr1_0.id=?
+2026-06-11 11:11:02.728 DEBUG [http-nio-8080-exec-1] org.hibernate.SQL - 
+    update
+        shipment_request 
+    set
+        created_at=?,
+        update_at=?,
+        customer_code=?,
+        customer_name=?,
+        material_code=?,
+        material_name=?,
+        quantity=?,
+        unit=?,
+        error_payload=?,
+        message=?,
+        retry_count=?,
+        status=?,
+        order_no=?,
+        requested_at=?,
+        shipment_no=?,
+        warehouse_code=? 
+    where
+        id=?
+2026-06-11 11:11:02.740 DEBUG [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] org.hibernate.SQL - 
+    select
+        sr1_0.id,
+        sr1_0.created_at,
+        sr1_0.update_at,
+        sr1_0.customer_code,
+        sr1_0.customer_name,
+        sr1_0.material_code,
+        sr1_0.material_name,
+        sr1_0.quantity,
+        sr1_0.unit,
+        sr1_0.error_payload,
+        sr1_0.message,
+        sr1_0.retry_count,
+        sr1_0.status,
+        sr1_0.order_no,
+        sr1_0.requested_at,
+        sr1_0.shipment_no,
+        sr1_0.warehouse_code 
+    from
+        shipment_request sr1_0 
+    where
+        sr1_0.id=?
+2026-06-11 11:11:02.741 DEBUG [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] org.hibernate.SQL - 
+    update
+        shipment_request 
+    set
+        created_at=?,
+        update_at=?,
+        customer_code=?,
+        customer_name=?,
+        material_code=?,
+        material_name=?,
+        quantity=?,
+        unit=?,
+        error_payload=?,
+        message=?,
+        retry_count=?,
+        status=?,
+        order_no=?,
+        requested_at=?,
+        shipment_no=?,
+        warehouse_code=? 
+    where
+        id=?
+2026-06-11 11:11:02.747 DEBUG [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] org.hibernate.SQL - 
+    select
+        sr1_0.id,
+        sr1_0.created_at,
+        sr1_0.update_at,
+        sr1_0.customer_code,
+        sr1_0.customer_name,
+        sr1_0.material_code,
+        sr1_0.material_name,
+        sr1_0.quantity,
+        sr1_0.unit,
+        sr1_0.error_payload,
+        sr1_0.message,
+        sr1_0.retry_count,
+        sr1_0.status,
+        sr1_0.order_no,
+        sr1_0.requested_at,
+        sr1_0.shipment_no,
+        sr1_0.warehouse_code 
+    from
+        shipment_request sr1_0 
+    where
+        sr1_0.id=?
+2026-06-11 11:11:02.748 DEBUG [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] org.hibernate.SQL - 
+    update
+        shipment_request 
+    set
+        created_at=?,
+        update_at=?,
+        customer_code=?,
+        customer_name=?,
+        material_code=?,
+        material_name=?,
+        quantity=?,
+        unit=?,
+        error_payload=?,
+        message=?,
+        retry_count=?,
+        status=?,
+        order_no=?,
+        requested_at=?,
+        shipment_no=?,
+        warehouse_code=? 
+    where
+        id=?
+2026-06-11 11:11:05.739 DEBUG [http-nio-8080-exec-2] org.hibernate.SQL - 
+    select
+        sr1_0.id,
+        sr1_0.created_at,
+        sr1_0.update_at,
+        sr1_0.customer_code,
+        sr1_0.customer_name,
+        sr1_0.material_code,
+        sr1_0.material_name,
+        sr1_0.quantity,
+        sr1_0.unit,
+        sr1_0.error_payload,
+        sr1_0.message,
+        sr1_0.retry_count,
+        sr1_0.status,
+        sr1_0.order_no,
+        sr1_0.requested_at,
+        sr1_0.shipment_no,
+        sr1_0.warehouse_code 
+    from
+        shipment_request sr1_0 
+    where
+        sr1_0.id=?
+2026-06-11 11:11:05.745 DEBUG [http-nio-8080-exec-3] org.hibernate.SQL - 
+    select
+        sr1_0.id,
+        sr1_0.created_at,
+        sr1_0.update_at,
+        sr1_0.customer_code,
+        sr1_0.customer_name,
+        sr1_0.material_code,
+        sr1_0.material_name,
+        sr1_0.quantity,
+        sr1_0.unit,
+        sr1_0.error_payload,
+        sr1_0.message,
+        sr1_0.retry_count,
+        sr1_0.status,
+        sr1_0.order_no,
+        sr1_0.requested_at,
+        sr1_0.shipment_no,
+        sr1_0.warehouse_code 
+    from
+        shipment_request sr1_0 
+    where
+        sr1_0.id=?
+2026-06-11 11:14:39.176 DEBUG [Test worker] org.hibernate.SQL - 
+    drop table if exists shipment_request cascade 
+2026-06-11 11:14:39.185 DEBUG [Test worker] org.hibernate.SQL - 
+    create table shipment_request (
+        quantity integer,
+        retry_count integer,
+        created_at timestamp(6),
+        id bigint generated by default as identity,
+        requested_at timestamp(6),
+        update_at timestamp(6),
+        customer_code varchar(255),
+        customer_name varchar(255),
+        error_payload CLOB,
+        material_code varchar(255),
+        material_name varchar(255),
+        message varchar(255),
+        order_no varchar(255),
+        shipment_no varchar(255),
+        unit varchar(255),
+        warehouse_code varchar(255),
+        status enum ('FAILED','PROCESSING','RECEIVED','SUCCESS'),
+        primary key (id)
+    )
+2026-06-11 11:14:40.776 DEBUG [Test worker] org.hibernate.SQL - 
+    select
+        sr1_0.id,
+        sr1_0.created_at,
+        sr1_0.update_at,
+        sr1_0.customer_code,
+        sr1_0.customer_name,
+        sr1_0.material_code,
+        sr1_0.material_name,
+        sr1_0.quantity,
+        sr1_0.unit,
+        sr1_0.error_payload,
+        sr1_0.message,
+        sr1_0.retry_count,
+        sr1_0.status,
+        sr1_0.order_no,
+        sr1_0.requested_at,
+        sr1_0.shipment_no,
+        sr1_0.warehouse_code 
+    from
+        shipment_request sr1_0
+2026-06-11 11:14:40.840 DEBUG [Test worker] org.hibernate.SQL - 
+    select
+        sr1_0.id 
+    from
+        shipment_request sr1_0 
+    where
+        sr1_0.shipment_no=? 
+    fetch
+        first ? rows only
+2026-06-11 11:14:40.867 DEBUG [Test worker] org.hibernate.SQL - 
+    insert 
+    into
+        shipment_request
+        (created_at, update_at, customer_code, customer_name, material_code, material_name, quantity, unit, error_payload, message, retry_count, status, order_no, requested_at, shipment_no, warehouse_code, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, default)
+2026-06-11 11:14:40.894 DEBUG [Test worker] org.hibernate.SQL - 
+    select
+        sr1_0.id,
+        sr1_0.created_at,
+        sr1_0.update_at,
+        sr1_0.customer_code,
+        sr1_0.customer_name,
+        sr1_0.material_code,
+        sr1_0.material_name,
+        sr1_0.quantity,
+        sr1_0.unit,
+        sr1_0.error_payload,
+        sr1_0.message,
+        sr1_0.retry_count,
+        sr1_0.status,
+        sr1_0.order_no,
+        sr1_0.requested_at,
+        sr1_0.shipment_no,
+        sr1_0.warehouse_code 
+    from
+        shipment_request sr1_0
+2026-06-11 11:14:40.964 DEBUG [Test worker] org.hibernate.SQL - 
+    select
+        sr1_0.id,
+        sr1_0.created_at,
+        sr1_0.update_at,
+        sr1_0.customer_code,
+        sr1_0.customer_name,
+        sr1_0.material_code,
+        sr1_0.material_name,
+        sr1_0.quantity,
+        sr1_0.unit,
+        sr1_0.error_payload,
+        sr1_0.message,
+        sr1_0.retry_count,
+        sr1_0.status,
+        sr1_0.order_no,
+        sr1_0.requested_at,
+        sr1_0.shipment_no,
+        sr1_0.warehouse_code 
+    from
+        shipment_request sr1_0 
+    where
+        sr1_0.id=?
+2026-06-11 11:14:40.987 DEBUG [Test worker] org.hibernate.SQL - 
+    update
+        shipment_request 
+    set
+        created_at=?,
+        update_at=?,
+        customer_code=?,
+        customer_name=?,
+        material_code=?,
+        material_name=?,
+        quantity=?,
+        unit=?,
+        error_payload=?,
+        message=?,
+        retry_count=?,
+        status=?,
+        order_no=?,
+        requested_at=?,
+        shipment_no=?,
+        warehouse_code=? 
+    where
+        id=?
+2026-06-11 11:14:41.107 DEBUG [Test worker] org.hibernate.SQL - 
+    select
+        sr1_0.id,
+        sr1_0.created_at,
+        sr1_0.update_at,
+        sr1_0.customer_code,
+        sr1_0.customer_name,
+        sr1_0.material_code,
+        sr1_0.material_name,
+        sr1_0.quantity,
+        sr1_0.unit,
+        sr1_0.error_payload,
+        sr1_0.message,
+        sr1_0.retry_count,
+        sr1_0.status,
+        sr1_0.order_no,
+        sr1_0.requested_at,
+        sr1_0.shipment_no,
+        sr1_0.warehouse_code 
+    from
+        shipment_request sr1_0
+2026-06-11 11:14:41.113 DEBUG [Test worker] org.hibernate.SQL - 
+    delete 
+    from
+        shipment_request 
+    where
+        id=?
+2026-06-11 11:14:41.115 DEBUG [Test worker] org.hibernate.SQL - 
+    select
+        sr1_0.id 
+    from
+        shipment_request sr1_0 
+    where
+        sr1_0.shipment_no=? 
+    fetch
+        first ? rows only
+2026-06-11 11:14:41.116 DEBUG [Test worker] org.hibernate.SQL - 
+    insert 
+    into
+        shipment_request
+        (created_at, update_at, customer_code, customer_name, material_code, material_name, quantity, unit, error_payload, message, retry_count, status, order_no, requested_at, shipment_no, warehouse_code, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, default)
+2026-06-11 11:14:41.118 DEBUG [Test worker] org.hibernate.SQL - 
+    select
+        sr1_0.id,
+        sr1_0.created_at,
+        sr1_0.update_at,
+        sr1_0.customer_code,
+        sr1_0.customer_name,
+        sr1_0.material_code,
+        sr1_0.material_name,
+        sr1_0.quantity,
+        sr1_0.unit,
+        sr1_0.error_payload,
+        sr1_0.message,
+        sr1_0.retry_count,
+        sr1_0.status,
+        sr1_0.order_no,
+        sr1_0.requested_at,
+        sr1_0.shipment_no,
+        sr1_0.warehouse_code 
+    from
+        shipment_request sr1_0
+2026-06-11 11:14:41.119 DEBUG [Test worker] org.hibernate.SQL - 
+    select
+        sr1_0.id,
+        sr1_0.created_at,
+        sr1_0.update_at,
+        sr1_0.customer_code,
+        sr1_0.customer_name,
+        sr1_0.material_code,
+        sr1_0.material_name,
+        sr1_0.quantity,
+        sr1_0.unit,
+        sr1_0.error_payload,
+        sr1_0.message,
+        sr1_0.retry_count,
+        sr1_0.status,
+        sr1_0.order_no,
+        sr1_0.requested_at,
+        sr1_0.shipment_no,
+        sr1_0.warehouse_code 
+    from
+        shipment_request sr1_0 
+    where
+        sr1_0.id=?
+2026-06-11 11:14:41.120 DEBUG [Test worker] org.hibernate.SQL - 
+    update
+        shipment_request 
+    set
+        created_at=?,
+        update_at=?,
+        customer_code=?,
+        customer_name=?,
+        material_code=?,
+        material_name=?,
+        quantity=?,
+        unit=?,
+        error_payload=?,
+        message=?,
+        retry_count=?,
+        status=?,
+        order_no=?,
+        requested_at=?,
+        shipment_no=?,
+        warehouse_code=? 
+    where
+        id=?
+2026-06-11 11:14:41.128 DEBUG [Test worker] org.hibernate.SQL - 
+    select
+        sr1_0.id,
+        sr1_0.created_at,
+        sr1_0.update_at,
+        sr1_0.customer_code,
+        sr1_0.customer_name,
+        sr1_0.material_code,
+        sr1_0.material_name,
+        sr1_0.quantity,
+        sr1_0.unit,
+        sr1_0.error_payload,
+        sr1_0.message,
+        sr1_0.retry_count,
+        sr1_0.status,
+        sr1_0.order_no,
+        sr1_0.requested_at,
+        sr1_0.shipment_no,
+        sr1_0.warehouse_code 
+    from
+        shipment_request sr1_0
+2026-06-11 11:14:41.129 DEBUG [Test worker] org.hibernate.SQL - 
+    delete 
+    from
+        shipment_request 
+    where
+        id=?
+2026-06-11 11:14:41.130 DEBUG [Test worker] org.hibernate.SQL - 
+    select
+        sr1_0.id 
+    from
+        shipment_request sr1_0 
+    where
+        sr1_0.shipment_no=? 
+    fetch
+        first ? rows only
+2026-06-11 11:14:41.130 DEBUG [Test worker] org.hibernate.SQL - 
+    insert 
+    into
+        shipment_request
+        (created_at, update_at, customer_code, customer_name, material_code, material_name, quantity, unit, error_payload, message, retry_count, status, order_no, requested_at, shipment_no, warehouse_code, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, default)
+2026-06-11 11:14:41.132 DEBUG [Test worker] org.hibernate.SQL - 
+    select
+        sr1_0.id,
+        sr1_0.created_at,
+        sr1_0.update_at,
+        sr1_0.customer_code,
+        sr1_0.customer_name,
+        sr1_0.material_code,
+        sr1_0.material_name,
+        sr1_0.quantity,
+        sr1_0.unit,
+        sr1_0.error_payload,
+        sr1_0.message,
+        sr1_0.retry_count,
+        sr1_0.status,
+        sr1_0.order_no,
+        sr1_0.requested_at,
+        sr1_0.shipment_no,
+        sr1_0.warehouse_code 
+    from
+        shipment_request sr1_0
+2026-06-11 11:14:41.133 DEBUG [Test worker] org.hibernate.SQL - 
+    select
+        sr1_0.id,
+        sr1_0.created_at,
+        sr1_0.update_at,
+        sr1_0.customer_code,
+        sr1_0.customer_name,
+        sr1_0.material_code,
+        sr1_0.material_name,
+        sr1_0.quantity,
+        sr1_0.unit,
+        sr1_0.error_payload,
+        sr1_0.message,
+        sr1_0.retry_count,
+        sr1_0.status,
+        sr1_0.order_no,
+        sr1_0.requested_at,
+        sr1_0.shipment_no,
+        sr1_0.warehouse_code 
+    from
+        shipment_request sr1_0 
+    where
+        sr1_0.id=?
+2026-06-11 11:14:41.144 DEBUG [Test worker] org.hibernate.SQL - 
+    select
+        sr1_0.id,
+        sr1_0.created_at,
+        sr1_0.update_at,
+        sr1_0.customer_code,
+        sr1_0.customer_name,
+        sr1_0.material_code,
+        sr1_0.material_name,
+        sr1_0.quantity,
+        sr1_0.unit,
+        sr1_0.error_payload,
+        sr1_0.message,
+        sr1_0.retry_count,
+        sr1_0.status,
+        sr1_0.order_no,
+        sr1_0.requested_at,
+        sr1_0.shipment_no,
+        sr1_0.warehouse_code 
+    from
+        shipment_request sr1_0
+2026-06-11 11:14:41.145 DEBUG [Test worker] org.hibernate.SQL - 
+    delete 
+    from
+        shipment_request 
+    where
+        id=?
+2026-06-11 11:14:41.146 DEBUG [Test worker] org.hibernate.SQL - 
+    select
+        sr1_0.id 
+    from
+        shipment_request sr1_0 
+    where
+        sr1_0.shipment_no=? 
+    fetch
+        first ? rows only
+2026-06-11 11:14:41.147 DEBUG [Test worker] org.hibernate.SQL - 
+    insert 
+    into
+        shipment_request
+        (created_at, update_at, customer_code, customer_name, material_code, material_name, quantity, unit, error_payload, message, retry_count, status, order_no, requested_at, shipment_no, warehouse_code, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, default)
+2026-06-11 11:14:41.148 DEBUG [Test worker] org.hibernate.SQL - 
+    select
+        sr1_0.id,
+        sr1_0.created_at,
+        sr1_0.update_at,
+        sr1_0.customer_code,
+        sr1_0.customer_name,
+        sr1_0.material_code,
+        sr1_0.material_name,
+        sr1_0.quantity,
+        sr1_0.unit,
+        sr1_0.error_payload,
+        sr1_0.message,
+        sr1_0.retry_count,
+        sr1_0.status,
+        sr1_0.order_no,
+        sr1_0.requested_at,
+        sr1_0.shipment_no,
+        sr1_0.warehouse_code 
+    from
+        shipment_request sr1_0
+2026-06-11 11:14:41.219 DEBUG [Test worker] org.hibernate.SQL - 
+    select
+        sr1_0.id,
+        sr1_0.created_at,
+        sr1_0.update_at,
+        sr1_0.customer_code,
+        sr1_0.customer_name,
+        sr1_0.material_code,
+        sr1_0.material_name,
+        sr1_0.quantity,
+        sr1_0.unit,
+        sr1_0.error_payload,
+        sr1_0.message,
+        sr1_0.retry_count,
+        sr1_0.status,
+        sr1_0.order_no,
+        sr1_0.requested_at,
+        sr1_0.shipment_no,
+        sr1_0.warehouse_code 
+    from
+        shipment_request sr1_0 
+    where
+        sr1_0.id=?
+2026-06-11 11:14:41.231 DEBUG [Test worker] org.hibernate.SQL - 
+    select
+        sr1_0.id,
+        sr1_0.created_at,
+        sr1_0.update_at,
+        sr1_0.customer_code,
+        sr1_0.customer_name,
+        sr1_0.material_code,
+        sr1_0.material_name,
+        sr1_0.quantity,
+        sr1_0.unit,
+        sr1_0.error_payload,
+        sr1_0.message,
+        sr1_0.retry_count,
+        sr1_0.status,
+        sr1_0.order_no,
+        sr1_0.requested_at,
+        sr1_0.shipment_no,
+        sr1_0.warehouse_code 
+    from
+        shipment_request sr1_0
+2026-06-11 11:14:41.233 DEBUG [Test worker] org.hibernate.SQL - 
+    delete 
+    from
+        shipment_request 
+    where
+        id=?
+2026-06-11 11:14:41.254 DEBUG [Test worker] org.hibernate.SQL - 
+    select
+        sr1_0.id 
+    from
+        shipment_request sr1_0 
+    where
+        sr1_0.shipment_no=? 
+    fetch
+        first ? rows only
+2026-06-11 11:14:41.255 DEBUG [Test worker] org.hibernate.SQL - 
+    insert 
+    into
+        shipment_request
+        (created_at, update_at, customer_code, customer_name, material_code, material_name, quantity, unit, error_payload, message, retry_count, status, order_no, requested_at, shipment_no, warehouse_code, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, default)
+2026-06-11 11:14:41.265 DEBUG [Test worker] org.hibernate.SQL - 
+    select
+        sr1_0.id,
+        sr1_0.created_at,
+        sr1_0.update_at,
+        sr1_0.customer_code,
+        sr1_0.customer_name,
+        sr1_0.material_code,
+        sr1_0.material_name,
+        sr1_0.quantity,
+        sr1_0.unit,
+        sr1_0.error_payload,
+        sr1_0.message,
+        sr1_0.retry_count,
+        sr1_0.status,
+        sr1_0.order_no,
+        sr1_0.requested_at,
+        sr1_0.shipment_no,
+        sr1_0.warehouse_code 
+    from
+        shipment_request sr1_0
+2026-06-11 11:14:41.266 DEBUG [Test worker] org.hibernate.SQL - 
+    delete 
+    from
+        shipment_request 
+    where
+        id=?
+2026-06-11 11:14:41.282 DEBUG [Test worker] org.hibernate.SQL - 
+    select
+        sr1_0.id,
+        sr1_0.created_at,
+        sr1_0.update_at,
+        sr1_0.customer_code,
+        sr1_0.customer_name,
+        sr1_0.material_code,
+        sr1_0.material_name,
+        sr1_0.quantity,
+        sr1_0.unit,
+        sr1_0.error_payload,
+        sr1_0.message,
+        sr1_0.retry_count,
+        sr1_0.status,
+        sr1_0.order_no,
+        sr1_0.requested_at,
+        sr1_0.shipment_no,
+        sr1_0.warehouse_code 
+    from
+        shipment_request sr1_0
+2026-06-11 11:14:41.284 DEBUG [Test worker] org.hibernate.SQL - 
+    select
+        sr1_0.id 
+    from
+        shipment_request sr1_0 
+    where
+        sr1_0.shipment_no=? 
+    fetch
+        first ? rows only
+2026-06-11 11:14:41.285 DEBUG [Test worker] org.hibernate.SQL - 
+    insert 
+    into
+        shipment_request
+        (created_at, update_at, customer_code, customer_name, material_code, material_name, quantity, unit, error_payload, message, retry_count, status, order_no, requested_at, shipment_no, warehouse_code, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, default)
+2026-06-11 11:14:41.286 DEBUG [Test worker] org.hibernate.SQL - 
+    select
+        sr1_0.id,
+        sr1_0.created_at,
+        sr1_0.update_at,
+        sr1_0.customer_code,
+        sr1_0.customer_name,
+        sr1_0.material_code,
+        sr1_0.material_name,
+        sr1_0.quantity,
+        sr1_0.unit,
+        sr1_0.error_payload,
+        sr1_0.message,
+        sr1_0.retry_count,
+        sr1_0.status,
+        sr1_0.order_no,
+        sr1_0.requested_at,
+        sr1_0.shipment_no,
+        sr1_0.warehouse_code 
+    from
+        shipment_request sr1_0
+2026-06-11 11:14:41.288 DEBUG [Test worker] org.hibernate.SQL - 
+    select
+        sr1_0.id,
+        sr1_0.created_at,
+        sr1_0.update_at,
+        sr1_0.customer_code,
+        sr1_0.customer_name,
+        sr1_0.material_code,
+        sr1_0.material_name,
+        sr1_0.quantity,
+        sr1_0.unit,
+        sr1_0.error_payload,
+        sr1_0.message,
+        sr1_0.retry_count,
+        sr1_0.status,
+        sr1_0.order_no,
+        sr1_0.requested_at,
+        sr1_0.shipment_no,
+        sr1_0.warehouse_code 
+    from
+        shipment_request sr1_0
+2026-06-11 11:14:41.300 DEBUG [Test worker] org.hibernate.SQL - 
+    select
+        sr1_0.id,
+        sr1_0.created_at,
+        sr1_0.update_at,
+        sr1_0.customer_code,
+        sr1_0.customer_name,
+        sr1_0.material_code,
+        sr1_0.material_name,
+        sr1_0.quantity,
+        sr1_0.unit,
+        sr1_0.error_payload,
+        sr1_0.message,
+        sr1_0.retry_count,
+        sr1_0.status,
+        sr1_0.order_no,
+        sr1_0.requested_at,
+        sr1_0.shipment_no,
+        sr1_0.warehouse_code 
+    from
+        shipment_request sr1_0
+2026-06-11 11:14:41.301 DEBUG [Test worker] org.hibernate.SQL - 
+    delete 
+    from
+        shipment_request 
+    where
+        id=?
+2026-06-11 11:14:41.303 DEBUG [Test worker] org.hibernate.SQL - 
+    select
+        sr1_0.id 
+    from
+        shipment_request sr1_0 
+    where
+        sr1_0.shipment_no=? 
+    fetch
+        first ? rows only
+2026-06-11 11:14:41.303 DEBUG [Test worker] org.hibernate.SQL - 
+    insert 
+    into
+        shipment_request
+        (created_at, update_at, customer_code, customer_name, material_code, material_name, quantity, unit, error_payload, message, retry_count, status, order_no, requested_at, shipment_no, warehouse_code, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, default)
+2026-06-11 11:14:41.305 DEBUG [Test worker] org.hibernate.SQL - 
+    select
+        sr1_0.id,
+        sr1_0.created_at,
+        sr1_0.update_at,
+        sr1_0.customer_code,
+        sr1_0.customer_name,
+        sr1_0.material_code,
+        sr1_0.material_name,
+        sr1_0.quantity,
+        sr1_0.unit,
+        sr1_0.error_payload,
+        sr1_0.message,
+        sr1_0.retry_count,
+        sr1_0.status,
+        sr1_0.order_no,
+        sr1_0.requested_at,
+        sr1_0.shipment_no,
+        sr1_0.warehouse_code 
+    from
+        shipment_request sr1_0
+2026-06-11 11:14:41.305 DEBUG [Test worker] org.hibernate.SQL - 
+    select
+        sr1_0.id,
+        sr1_0.created_at,
+        sr1_0.update_at,
+        sr1_0.customer_code,
+        sr1_0.customer_name,
+        sr1_0.material_code,
+        sr1_0.material_name,
+        sr1_0.quantity,
+        sr1_0.unit,
+        sr1_0.error_payload,
+        sr1_0.message,
+        sr1_0.retry_count,
+        sr1_0.status,
+        sr1_0.order_no,
+        sr1_0.requested_at,
+        sr1_0.shipment_no,
+        sr1_0.warehouse_code 
+    from
+        shipment_request sr1_0 
+    where
+        sr1_0.id=?
+2026-06-11 11:14:41.307 DEBUG [Test worker] org.hibernate.SQL - 
+    update
+        shipment_request 
+    set
+        created_at=?,
+        update_at=?,
+        customer_code=?,
+        customer_name=?,
+        material_code=?,
+        material_name=?,
+        quantity=?,
+        unit=?,
+        error_payload=?,
+        message=?,
+        retry_count=?,
+        status=?,
+        order_no=?,
+        requested_at=?,
+        shipment_no=?,
+        warehouse_code=? 
+    where
+        id=?
+2026-06-11 11:14:41.308 DEBUG [Test worker] org.hibernate.SQL - 
+    select
+        sr1_0.id,
+        sr1_0.created_at,
+        sr1_0.update_at,
+        sr1_0.customer_code,
+        sr1_0.customer_name,
+        sr1_0.material_code,
+        sr1_0.material_name,
+        sr1_0.quantity,
+        sr1_0.unit,
+        sr1_0.error_payload,
+        sr1_0.message,
+        sr1_0.retry_count,
+        sr1_0.status,
+        sr1_0.order_no,
+        sr1_0.requested_at,
+        sr1_0.shipment_no,
+        sr1_0.warehouse_code 
+    from
+        shipment_request sr1_0 
+    where
+        sr1_0.id=?
+2026-06-11 11:14:41.775 DEBUG [Test worker] org.hibernate.SQL - 
+    drop table if exists shipment_request cascade 
+2026-06-11 11:14:41.776 DEBUG [Test worker] org.hibernate.SQL - 
+    create table shipment_request (
+        quantity integer,
+        retry_count integer,
+        created_at timestamp(6),
+        id bigint generated by default as identity,
+        requested_at timestamp(6),
+        update_at timestamp(6),
+        customer_code varchar(255),
+        customer_name varchar(255),
+        error_payload CLOB,
+        material_code varchar(255),
+        material_name varchar(255),
+        message varchar(255),
+        order_no varchar(255),
+        shipment_no varchar(255),
+        unit varchar(255),
+        warehouse_code varchar(255),
+        status enum ('FAILED','PROCESSING','RECEIVED','SUCCESS'),
+        primary key (id)
+    )
+2026-06-11 11:14:41.941 DEBUG [Test worker] org.hibernate.SQL - 
+    select
+        sr1_0.id,
+        sr1_0.created_at,
+        sr1_0.update_at,
+        sr1_0.customer_code,
+        sr1_0.customer_name,
+        sr1_0.material_code,
+        sr1_0.material_name,
+        sr1_0.quantity,
+        sr1_0.unit,
+        sr1_0.error_payload,
+        sr1_0.message,
+        sr1_0.retry_count,
+        sr1_0.status,
+        sr1_0.order_no,
+        sr1_0.requested_at,
+        sr1_0.shipment_no,
+        sr1_0.warehouse_code 
+    from
+        shipment_request sr1_0
+2026-06-11 11:14:41.995 DEBUG [Test worker] org.hibernate.SQL - 
+    select
+        sr1_0.id,
+        sr1_0.created_at,
+        sr1_0.update_at,
+        sr1_0.customer_code,
+        sr1_0.customer_name,
+        sr1_0.material_code,
+        sr1_0.material_name,
+        sr1_0.quantity,
+        sr1_0.unit,
+        sr1_0.error_payload,
+        sr1_0.message,
+        sr1_0.retry_count,
+        sr1_0.status,
+        sr1_0.order_no,
+        sr1_0.requested_at,
+        sr1_0.shipment_no,
+        sr1_0.warehouse_code 
+    from
+        shipment_request sr1_0 
+    where
+        sr1_0.id=?
+2026-06-11 11:14:42.015 DEBUG [Test worker] org.hibernate.SQL - 
+    select
+        sr1_0.id,
+        sr1_0.created_at,
+        sr1_0.update_at,
+        sr1_0.customer_code,
+        sr1_0.customer_name,
+        sr1_0.material_code,
+        sr1_0.material_name,
+        sr1_0.quantity,
+        sr1_0.unit,
+        sr1_0.error_payload,
+        sr1_0.message,
+        sr1_0.retry_count,
+        sr1_0.status,
+        sr1_0.order_no,
+        sr1_0.requested_at,
+        sr1_0.shipment_no,
+        sr1_0.warehouse_code 
+    from
+        shipment_request sr1_0
+2026-06-11 11:14:42.017 DEBUG [Test worker] org.hibernate.SQL - 
+    select
+        sr1_0.id 
+    from
+        shipment_request sr1_0 
+    where
+        sr1_0.shipment_no=? 
+    fetch
+        first ? rows only
+2026-06-11 11:14:42.019 DEBUG [Test worker] org.hibernate.SQL - 
+    insert 
+    into
+        shipment_request
+        (created_at, update_at, customer_code, customer_name, material_code, material_name, quantity, unit, error_payload, message, retry_count, status, order_no, requested_at, shipment_no, warehouse_code, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, default)
+2026-06-11 11:14:42.270 DEBUG [Test worker] org.hibernate.SQL - 
+    select
+        count(*) 
+    from
+        shipment_request sr1_0
+2026-06-11 11:14:42.275 DEBUG [Test worker] org.hibernate.SQL - 
+    select
+        sr1_0.id,
+        sr1_0.created_at,
+        sr1_0.update_at,
+        sr1_0.customer_code,
+        sr1_0.customer_name,
+        sr1_0.material_code,
+        sr1_0.material_name,
+        sr1_0.quantity,
+        sr1_0.unit,
+        sr1_0.error_payload,
+        sr1_0.message,
+        sr1_0.retry_count,
+        sr1_0.status,
+        sr1_0.order_no,
+        sr1_0.requested_at,
+        sr1_0.shipment_no,
+        sr1_0.warehouse_code 
+    from
+        shipment_request sr1_0
+2026-06-11 11:14:42.297 DEBUG [Test worker] org.hibernate.SQL - 
+    select
+        sr1_0.id,
+        sr1_0.created_at,
+        sr1_0.update_at,
+        sr1_0.customer_code,
+        sr1_0.customer_name,
+        sr1_0.material_code,
+        sr1_0.material_name,
+        sr1_0.quantity,
+        sr1_0.unit,
+        sr1_0.error_payload,
+        sr1_0.message,
+        sr1_0.retry_count,
+        sr1_0.status,
+        sr1_0.order_no,
+        sr1_0.requested_at,
+        sr1_0.shipment_no,
+        sr1_0.warehouse_code 
+    from
+        shipment_request sr1_0
+2026-06-11 11:14:42.298 DEBUG [Test worker] org.hibernate.SQL - 
+    delete 
+    from
+        shipment_request 
+    where
+        id=?
+2026-06-11 11:14:42.301 DEBUG [Test worker] org.hibernate.SQL - 
+    select
+        sr1_0.id 
+    from
+        shipment_request sr1_0 
+    where
+        sr1_0.shipment_no=? 
+    fetch
+        first ? rows only
+2026-06-11 11:14:42.301 DEBUG [Test worker] org.hibernate.SQL - 
+    insert 
+    into
+        shipment_request
+        (created_at, update_at, customer_code, customer_name, material_code, material_name, quantity, unit, error_payload, message, retry_count, status, order_no, requested_at, shipment_no, warehouse_code, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, default)
+2026-06-11 11:14:42.303 DEBUG [Test worker] org.hibernate.SQL - 
+    select
+        sr1_0.id,
+        sr1_0.created_at,
+        sr1_0.update_at,
+        sr1_0.customer_code,
+        sr1_0.customer_name,
+        sr1_0.material_code,
+        sr1_0.material_name,
+        sr1_0.quantity,
+        sr1_0.unit,
+        sr1_0.error_payload,
+        sr1_0.message,
+        sr1_0.retry_count,
+        sr1_0.status,
+        sr1_0.order_no,
+        sr1_0.requested_at,
+        sr1_0.shipment_no,
+        sr1_0.warehouse_code 
+    from
+        shipment_request sr1_0
+2026-06-11 11:14:42.304 DEBUG [Test worker] org.hibernate.SQL - 
+    select
+        sr1_0.id,
+        sr1_0.created_at,
+        sr1_0.update_at,
+        sr1_0.customer_code,
+        sr1_0.customer_name,
+        sr1_0.material_code,
+        sr1_0.material_name,
+        sr1_0.quantity,
+        sr1_0.unit,
+        sr1_0.error_payload,
+        sr1_0.message,
+        sr1_0.retry_count,
+        sr1_0.status,
+        sr1_0.order_no,
+        sr1_0.requested_at,
+        sr1_0.shipment_no,
+        sr1_0.warehouse_code 
+    from
+        shipment_request sr1_0 
+    where
+        sr1_0.id=?
+2026-06-11 11:14:42.305 DEBUG [Test worker] org.hibernate.SQL - 
+    update
+        shipment_request 
+    set
+        created_at=?,
+        update_at=?,
+        customer_code=?,
+        customer_name=?,
+        material_code=?,
+        material_name=?,
+        quantity=?,
+        unit=?,
+        error_payload=?,
+        message=?,
+        retry_count=?,
+        status=?,
+        order_no=?,
+        requested_at=?,
+        shipment_no=?,
+        warehouse_code=? 
+    where
+        id=?
+2026-06-11 11:14:42.310 DEBUG [Test worker] org.hibernate.SQL - 
+    select
+        sr1_0.id,
+        sr1_0.created_at,
+        sr1_0.update_at,
+        sr1_0.customer_code,
+        sr1_0.customer_name,
+        sr1_0.material_code,
+        sr1_0.material_name,
+        sr1_0.quantity,
+        sr1_0.unit,
+        sr1_0.error_payload,
+        sr1_0.message,
+        sr1_0.retry_count,
+        sr1_0.status,
+        sr1_0.order_no,
+        sr1_0.requested_at,
+        sr1_0.shipment_no,
+        sr1_0.warehouse_code 
+    from
+        shipment_request sr1_0
+2026-06-11 11:14:42.313 DEBUG [Test worker] org.hibernate.SQL - 
+    delete 
+    from
+        shipment_request 
+    where
+        id=?
+2026-06-11 11:14:42.315 DEBUG [Test worker] org.hibernate.SQL - 
+    select
+        sr1_0.id 
+    from
+        shipment_request sr1_0 
+    where
+        sr1_0.shipment_no=? 
+    fetch
+        first ? rows only
+2026-06-11 11:14:42.316 DEBUG [Test worker] org.hibernate.SQL - 
+    insert 
+    into
+        shipment_request
+        (created_at, update_at, customer_code, customer_name, material_code, material_name, quantity, unit, error_payload, message, retry_count, status, order_no, requested_at, shipment_no, warehouse_code, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, default)
+2026-06-11 11:14:42.318 DEBUG [Test worker] org.hibernate.SQL - 
+    select
+        sr1_0.id,
+        sr1_0.created_at,
+        sr1_0.update_at,
+        sr1_0.customer_code,
+        sr1_0.customer_name,
+        sr1_0.material_code,
+        sr1_0.material_name,
+        sr1_0.quantity,
+        sr1_0.unit,
+        sr1_0.error_payload,
+        sr1_0.message,
+        sr1_0.retry_count,
+        sr1_0.status,
+        sr1_0.order_no,
+        sr1_0.requested_at,
+        sr1_0.shipment_no,
+        sr1_0.warehouse_code 
+    from
+        shipment_request sr1_0
+2026-06-11 11:14:42.319 DEBUG [Test worker] org.hibernate.SQL - 
+    select
+        sr1_0.id,
+        sr1_0.created_at,
+        sr1_0.update_at,
+        sr1_0.customer_code,
+        sr1_0.customer_name,
+        sr1_0.material_code,
+        sr1_0.material_name,
+        sr1_0.quantity,
+        sr1_0.unit,
+        sr1_0.error_payload,
+        sr1_0.message,
+        sr1_0.retry_count,
+        sr1_0.status,
+        sr1_0.order_no,
+        sr1_0.requested_at,
+        sr1_0.shipment_no,
+        sr1_0.warehouse_code 
+    from
+        shipment_request sr1_0 
+    where
+        sr1_0.id=?
+2026-06-11 11:14:42.323 DEBUG [Test worker] org.hibernate.SQL - 
+    select
+        sr1_0.id,
+        sr1_0.created_at,
+        sr1_0.update_at,
+        sr1_0.customer_code,
+        sr1_0.customer_name,
+        sr1_0.material_code,
+        sr1_0.material_name,
+        sr1_0.quantity,
+        sr1_0.unit,
+        sr1_0.error_payload,
+        sr1_0.message,
+        sr1_0.retry_count,
+        sr1_0.status,
+        sr1_0.order_no,
+        sr1_0.requested_at,
+        sr1_0.shipment_no,
+        sr1_0.warehouse_code 
+    from
+        shipment_request sr1_0
+2026-06-11 11:14:42.324 DEBUG [Test worker] org.hibernate.SQL - 
+    delete 
+    from
+        shipment_request 
+    where
+        id=?
+2026-06-11 11:14:42.325 DEBUG [Test worker] org.hibernate.SQL - 
+    select
+        sr1_0.id 
+    from
+        shipment_request sr1_0 
+    where
+        sr1_0.shipment_no=? 
+    fetch
+        first ? rows only
+2026-06-11 11:14:42.326 DEBUG [Test worker] org.hibernate.SQL - 
+    insert 
+    into
+        shipment_request
+        (created_at, update_at, customer_code, customer_name, material_code, material_name, quantity, unit, error_payload, message, retry_count, status, order_no, requested_at, shipment_no, warehouse_code, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, default)
+2026-06-11 11:14:42.327 DEBUG [Test worker] org.hibernate.SQL - 
+    select
+        sr1_0.id,
+        sr1_0.created_at,
+        sr1_0.update_at,
+        sr1_0.customer_code,
+        sr1_0.customer_name,
+        sr1_0.material_code,
+        sr1_0.material_name,
+        sr1_0.quantity,
+        sr1_0.unit,
+        sr1_0.error_payload,
+        sr1_0.message,
+        sr1_0.retry_count,
+        sr1_0.status,
+        sr1_0.order_no,
+        sr1_0.requested_at,
+        sr1_0.shipment_no,
+        sr1_0.warehouse_code 
+    from
+        shipment_request sr1_0
+2026-06-11 11:14:42.328 DEBUG [Test worker] org.hibernate.SQL - 
+    select
+        sr1_0.id,
+        sr1_0.created_at,
+        sr1_0.update_at,
+        sr1_0.customer_code,
+        sr1_0.customer_name,
+        sr1_0.material_code,
+        sr1_0.material_name,
+        sr1_0.quantity,
+        sr1_0.unit,
+        sr1_0.error_payload,
+        sr1_0.message,
+        sr1_0.retry_count,
+        sr1_0.status,
+        sr1_0.order_no,
+        sr1_0.requested_at,
+        sr1_0.shipment_no,
+        sr1_0.warehouse_code 
+    from
+        shipment_request sr1_0 
+    where
+        sr1_0.id=?
+2026-06-11 11:14:42.329 DEBUG [Test worker] org.hibernate.SQL - 
+    update
+        shipment_request 
+    set
+        created_at=?,
+        update_at=?,
+        customer_code=?,
+        customer_name=?,
+        material_code=?,
+        material_name=?,
+        quantity=?,
+        unit=?,
+        error_payload=?,
+        message=?,
+        retry_count=?,
+        status=?,
+        order_no=?,
+        requested_at=?,
+        shipment_no=?,
+        warehouse_code=? 
+    where
+        id=?
+2026-06-11 11:14:42.334 DEBUG [Test worker] org.hibernate.SQL - 
+    select
+        sr1_0.id,
+        sr1_0.created_at,
+        sr1_0.update_at,
+        sr1_0.customer_code,
+        sr1_0.customer_name,
+        sr1_0.material_code,
+        sr1_0.material_name,
+        sr1_0.quantity,
+        sr1_0.unit,
+        sr1_0.error_payload,
+        sr1_0.message,
+        sr1_0.retry_count,
+        sr1_0.status,
+        sr1_0.order_no,
+        sr1_0.requested_at,
+        sr1_0.shipment_no,
+        sr1_0.warehouse_code 
+    from
+        shipment_request sr1_0
+2026-06-11 11:14:42.335 DEBUG [Test worker] org.hibernate.SQL - 
+    delete 
+    from
+        shipment_request 
+    where
+        id=?
+2026-06-11 11:14:42.336 DEBUG [Test worker] org.hibernate.SQL - 
+    select
+        sr1_0.id 
+    from
+        shipment_request sr1_0 
+    where
+        sr1_0.shipment_no=? 
+    fetch
+        first ? rows only
+2026-06-11 11:14:42.337 DEBUG [Test worker] org.hibernate.SQL - 
+    insert 
+    into
+        shipment_request
+        (created_at, update_at, customer_code, customer_name, material_code, material_name, quantity, unit, error_payload, message, retry_count, status, order_no, requested_at, shipment_no, warehouse_code, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, default)
+2026-06-11 11:14:42.339 DEBUG [Test worker] org.hibernate.SQL - 
+    select
+        sr1_0.id,
+        sr1_0.created_at,
+        sr1_0.update_at,
+        sr1_0.customer_code,
+        sr1_0.customer_name,
+        sr1_0.material_code,
+        sr1_0.material_name,
+        sr1_0.quantity,
+        sr1_0.unit,
+        sr1_0.error_payload,
+        sr1_0.message,
+        sr1_0.retry_count,
+        sr1_0.status,
+        sr1_0.order_no,
+        sr1_0.requested_at,
+        sr1_0.shipment_no,
+        sr1_0.warehouse_code 
+    from
+        shipment_request sr1_0
+2026-06-11 11:14:42.340 DEBUG [Test worker] org.hibernate.SQL - 
+    select
+        sr1_0.id,
+        sr1_0.created_at,
+        sr1_0.update_at,
+        sr1_0.customer_code,
+        sr1_0.customer_name,
+        sr1_0.material_code,
+        sr1_0.material_name,
+        sr1_0.quantity,
+        sr1_0.unit,
+        sr1_0.error_payload,
+        sr1_0.message,
+        sr1_0.retry_count,
+        sr1_0.status,
+        sr1_0.order_no,
+        sr1_0.requested_at,
+        sr1_0.shipment_no,
+        sr1_0.warehouse_code 
+    from
+        shipment_request sr1_0 
+    where
+        sr1_0.id=?
+2026-06-11 11:14:42.345 DEBUG [Test worker] org.hibernate.SQL - 
+    select
+        sr1_0.id,
+        sr1_0.created_at,
+        sr1_0.update_at,
+        sr1_0.customer_code,
+        sr1_0.customer_name,
+        sr1_0.material_code,
+        sr1_0.material_name,
+        sr1_0.quantity,
+        sr1_0.unit,
+        sr1_0.error_payload,
+        sr1_0.message,
+        sr1_0.retry_count,
+        sr1_0.status,
+        sr1_0.order_no,
+        sr1_0.requested_at,
+        sr1_0.shipment_no,
+        sr1_0.warehouse_code 
+    from
+        shipment_request sr1_0
+2026-06-11 11:14:42.348 DEBUG [Test worker] org.hibernate.SQL - 
+    delete 
+    from
+        shipment_request 
+    where
+        id=?
+2026-06-11 11:14:42.350 DEBUG [Test worker] org.hibernate.SQL - 
+    select
+        sr1_0.id 
+    from
+        shipment_request sr1_0 
+    where
+        sr1_0.shipment_no=? 
+    fetch
+        first ? rows only
+2026-06-11 11:14:42.351 DEBUG [Test worker] org.hibernate.SQL - 
+    insert 
+    into
+        shipment_request
+        (created_at, update_at, customer_code, customer_name, material_code, material_name, quantity, unit, error_payload, message, retry_count, status, order_no, requested_at, shipment_no, warehouse_code, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, default)
+2026-06-11 11:14:42.353 DEBUG [Test worker] org.hibernate.SQL - 
+    select
+        sr1_0.id,
+        sr1_0.created_at,
+        sr1_0.update_at,
+        sr1_0.customer_code,
+        sr1_0.customer_name,
+        sr1_0.material_code,
+        sr1_0.material_name,
+        sr1_0.quantity,
+        sr1_0.unit,
+        sr1_0.error_payload,
+        sr1_0.message,
+        sr1_0.retry_count,
+        sr1_0.status,
+        sr1_0.order_no,
+        sr1_0.requested_at,
+        sr1_0.shipment_no,
+        sr1_0.warehouse_code 
+    from
+        shipment_request sr1_0
+2026-06-11 11:14:42.354 DEBUG [Test worker] org.hibernate.SQL - 
+    select
+        sr1_0.id,
+        sr1_0.created_at,
+        sr1_0.update_at,
+        sr1_0.customer_code,
+        sr1_0.customer_name,
+        sr1_0.material_code,
+        sr1_0.material_name,
+        sr1_0.quantity,
+        sr1_0.unit,
+        sr1_0.error_payload,
+        sr1_0.message,
+        sr1_0.retry_count,
+        sr1_0.status,
+        sr1_0.order_no,
+        sr1_0.requested_at,
+        sr1_0.shipment_no,
+        sr1_0.warehouse_code 
+    from
+        shipment_request sr1_0 
+    where
+        sr1_0.id=?
+2026-06-11 11:14:42.355 DEBUG [Test worker] org.hibernate.SQL - 
+    update
+        shipment_request 
+    set
+        created_at=?,
+        update_at=?,
+        customer_code=?,
+        customer_name=?,
+        material_code=?,
+        material_name=?,
+        quantity=?,
+        unit=?,
+        error_payload=?,
+        message=?,
+        retry_count=?,
+        status=?,
+        order_no=?,
+        requested_at=?,
+        shipment_no=?,
+        warehouse_code=? 
+    where
+        id=?
+2026-06-11 11:14:42.356 DEBUG [Test worker] org.hibernate.SQL - 
+    select
+        sr1_0.id,
+        sr1_0.created_at,
+        sr1_0.update_at,
+        sr1_0.customer_code,
+        sr1_0.customer_name,
+        sr1_0.material_code,
+        sr1_0.material_name,
+        sr1_0.quantity,
+        sr1_0.unit,
+        sr1_0.error_payload,
+        sr1_0.message,
+        sr1_0.retry_count,
+        sr1_0.status,
+        sr1_0.order_no,
+        sr1_0.requested_at,
+        sr1_0.shipment_no,
+        sr1_0.warehouse_code 
+    from
+        shipment_request sr1_0 
+    where
+        sr1_0.id=?
+2026-06-11 11:14:42.357 DEBUG [Test worker] org.hibernate.SQL - 
+    update
+        shipment_request 
+    set
+        created_at=?,
+        update_at=?,
+        customer_code=?,
+        customer_name=?,
+        material_code=?,
+        material_name=?,
+        quantity=?,
+        unit=?,
+        error_payload=?,
+        message=?,
+        retry_count=?,
+        status=?,
+        order_no=?,
+        requested_at=?,
+        shipment_no=?,
+        warehouse_code=? 
+    where
+        id=?
+2026-06-11 11:14:42.363 DEBUG [Test worker] org.hibernate.SQL - 
+    select
+        sr1_0.id,
+        sr1_0.created_at,
+        sr1_0.update_at,
+        sr1_0.customer_code,
+        sr1_0.customer_name,
+        sr1_0.material_code,
+        sr1_0.material_name,
+        sr1_0.quantity,
+        sr1_0.unit,
+        sr1_0.error_payload,
+        sr1_0.message,
+        sr1_0.retry_count,
+        sr1_0.status,
+        sr1_0.order_no,
+        sr1_0.requested_at,
+        sr1_0.shipment_no,
+        sr1_0.warehouse_code 
+    from
+        shipment_request sr1_0
+2026-06-11 11:14:42.364 DEBUG [Test worker] org.hibernate.SQL - 
+    delete 
+    from
+        shipment_request 
+    where
+        id=?
+2026-06-11 11:14:42.366 DEBUG [Test worker] org.hibernate.SQL - 
+    select
+        sr1_0.id 
+    from
+        shipment_request sr1_0 
+    where
+        sr1_0.shipment_no=? 
+    fetch
+        first ? rows only
+2026-06-11 11:14:42.367 DEBUG [Test worker] org.hibernate.SQL - 
+    insert 
+    into
+        shipment_request
+        (created_at, update_at, customer_code, customer_name, material_code, material_name, quantity, unit, error_payload, message, retry_count, status, order_no, requested_at, shipment_no, warehouse_code, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, default)
+2026-06-11 11:14:42.368 DEBUG [Test worker] org.hibernate.SQL - 
+    select
+        sr1_0.id,
+        sr1_0.created_at,
+        sr1_0.update_at,
+        sr1_0.customer_code,
+        sr1_0.customer_name,
+        sr1_0.material_code,
+        sr1_0.material_name,
+        sr1_0.quantity,
+        sr1_0.unit,
+        sr1_0.error_payload,
+        sr1_0.message,
+        sr1_0.retry_count,
+        sr1_0.status,
+        sr1_0.order_no,
+        sr1_0.requested_at,
+        sr1_0.shipment_no,
+        sr1_0.warehouse_code 
+    from
+        shipment_request sr1_0
+2026-06-11 11:14:42.369 DEBUG [Test worker] org.hibernate.SQL - 
+    select
+        sr1_0.id,
+        sr1_0.created_at,
+        sr1_0.update_at,
+        sr1_0.customer_code,
+        sr1_0.customer_name,
+        sr1_0.material_code,
+        sr1_0.material_name,
+        sr1_0.quantity,
+        sr1_0.unit,
+        sr1_0.error_payload,
+        sr1_0.message,
+        sr1_0.retry_count,
+        sr1_0.status,
+        sr1_0.order_no,
+        sr1_0.requested_at,
+        sr1_0.shipment_no,
+        sr1_0.warehouse_code 
+    from
+        shipment_request sr1_0 
+    where
+        sr1_0.id=?
+2026-06-11 11:14:42.370 DEBUG [Test worker] org.hibernate.SQL - 
+    update
+        shipment_request 
+    set
+        created_at=?,
+        update_at=?,
+        customer_code=?,
+        customer_name=?,
+        material_code=?,
+        material_name=?,
+        quantity=?,
+        unit=?,
+        error_payload=?,
+        message=?,
+        retry_count=?,
+        status=?,
+        order_no=?,
+        requested_at=?,
+        shipment_no=?,
+        warehouse_code=? 
+    where
+        id=?
+2026-06-11 11:14:42.371 DEBUG [Test worker] org.hibernate.SQL - 
+    select
+        sr1_0.id,
+        sr1_0.created_at,
+        sr1_0.update_at,
+        sr1_0.customer_code,
+        sr1_0.customer_name,
+        sr1_0.material_code,
+        sr1_0.material_name,
+        sr1_0.quantity,
+        sr1_0.unit,
+        sr1_0.error_payload,
+        sr1_0.message,
+        sr1_0.retry_count,
+        sr1_0.status,
+        sr1_0.order_no,
+        sr1_0.requested_at,
+        sr1_0.shipment_no,
+        sr1_0.warehouse_code 
+    from
+        shipment_request sr1_0 
+    where
+        sr1_0.id=?
+2026-06-11 11:14:42.372 DEBUG [Test worker] org.hibernate.SQL - 
+    update
+        shipment_request 
+    set
+        created_at=?,
+        update_at=?,
+        customer_code=?,
+        customer_name=?,
+        material_code=?,
+        material_name=?,
+        quantity=?,
+        unit=?,
+        error_payload=?,
+        message=?,
+        retry_count=?,
+        status=?,
+        order_no=?,
+        requested_at=?,
+        shipment_no=?,
+        warehouse_code=? 
+    where
+        id=?
+2026-06-11 11:14:42.373 DEBUG [Test worker] org.hibernate.SQL - 
+    select
+        sr1_0.id,
+        sr1_0.created_at,
+        sr1_0.update_at,
+        sr1_0.customer_code,
+        sr1_0.customer_name,
+        sr1_0.material_code,
+        sr1_0.material_name,
+        sr1_0.quantity,
+        sr1_0.unit,
+        sr1_0.error_payload,
+        sr1_0.message,
+        sr1_0.retry_count,
+        sr1_0.status,
+        sr1_0.order_no,
+        sr1_0.requested_at,
+        sr1_0.shipment_no,
+        sr1_0.warehouse_code 
+    from
+        shipment_request sr1_0 
+    where
+        sr1_0.id=?
+2026-06-11 11:14:42.373 DEBUG [Test worker] org.hibernate.SQL - 
+    select
+        sr1_0.id,
+        sr1_0.created_at,
+        sr1_0.update_at,
+        sr1_0.customer_code,
+        sr1_0.customer_name,
+        sr1_0.material_code,
+        sr1_0.material_name,
+        sr1_0.quantity,
+        sr1_0.unit,
+        sr1_0.error_payload,
+        sr1_0.message,
+        sr1_0.retry_count,
+        sr1_0.status,
+        sr1_0.order_no,
+        sr1_0.requested_at,
+        sr1_0.shipment_no,
+        sr1_0.warehouse_code 
+    from
+        shipment_request sr1_0 
+    where
+        sr1_0.id=?
+2026-06-11 11:14:42.377 DEBUG [Test worker] org.hibernate.SQL - 
+    select
+        sr1_0.id,
+        sr1_0.created_at,
+        sr1_0.update_at,
+        sr1_0.customer_code,
+        sr1_0.customer_name,
+        sr1_0.material_code,
+        sr1_0.material_name,
+        sr1_0.quantity,
+        sr1_0.unit,
+        sr1_0.error_payload,
+        sr1_0.message,
+        sr1_0.retry_count,
+        sr1_0.status,
+        sr1_0.order_no,
+        sr1_0.requested_at,
+        sr1_0.shipment_no,
+        sr1_0.warehouse_code 
+    from
+        shipment_request sr1_0
+2026-06-11 11:14:42.379 DEBUG [Test worker] org.hibernate.SQL - 
+    delete 
+    from
+        shipment_request 
+    where
+        id=?
+2026-06-11 11:14:42.380 DEBUG [Test worker] org.hibernate.SQL - 
+    select
+        sr1_0.id 
+    from
+        shipment_request sr1_0 
+    where
+        sr1_0.shipment_no=? 
+    fetch
+        first ? rows only
+2026-06-11 11:14:42.381 DEBUG [Test worker] org.hibernate.SQL - 
+    insert 
+    into
+        shipment_request
+        (created_at, update_at, customer_code, customer_name, material_code, material_name, quantity, unit, error_payload, message, retry_count, status, order_no, requested_at, shipment_no, warehouse_code, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, default)
+2026-06-11 11:14:42.382 DEBUG [Test worker] org.hibernate.SQL - 
+    select
+        sr1_0.id,
+        sr1_0.created_at,
+        sr1_0.update_at,
+        sr1_0.customer_code,
+        sr1_0.customer_name,
+        sr1_0.material_code,
+        sr1_0.material_name,
+        sr1_0.quantity,
+        sr1_0.unit,
+        sr1_0.error_payload,
+        sr1_0.message,
+        sr1_0.retry_count,
+        sr1_0.status,
+        sr1_0.order_no,
+        sr1_0.requested_at,
+        sr1_0.shipment_no,
+        sr1_0.warehouse_code 
+    from
+        shipment_request sr1_0
+2026-06-11 11:14:42.383 DEBUG [Test worker] org.hibernate.SQL - 
+    select
+        sr1_0.id,
+        sr1_0.created_at,
+        sr1_0.update_at,
+        sr1_0.customer_code,
+        sr1_0.customer_name,
+        sr1_0.material_code,
+        sr1_0.material_name,
+        sr1_0.quantity,
+        sr1_0.unit,
+        sr1_0.error_payload,
+        sr1_0.message,
+        sr1_0.retry_count,
+        sr1_0.status,
+        sr1_0.order_no,
+        sr1_0.requested_at,
+        sr1_0.shipment_no,
+        sr1_0.warehouse_code 
+    from
+        shipment_request sr1_0 
+    where
+        sr1_0.id=?
+2026-06-11 11:14:42.387 DEBUG [Test worker] org.hibernate.SQL - 
+    select
+        sr1_0.id,
+        sr1_0.created_at,
+        sr1_0.update_at,
+        sr1_0.customer_code,
+        sr1_0.customer_name,
+        sr1_0.material_code,
+        sr1_0.material_name,
+        sr1_0.quantity,
+        sr1_0.unit,
+        sr1_0.error_payload,
+        sr1_0.message,
+        sr1_0.retry_count,
+        sr1_0.status,
+        sr1_0.order_no,
+        sr1_0.requested_at,
+        sr1_0.shipment_no,
+        sr1_0.warehouse_code 
+    from
+        shipment_request sr1_0
+2026-06-11 11:14:42.389 DEBUG [Test worker] org.hibernate.SQL - 
+    delete 
+    from
+        shipment_request 
+    where
+        id=?
+2026-06-11 11:14:42.390 DEBUG [Test worker] org.hibernate.SQL - 
+    select
+        sr1_0.id 
+    from
+        shipment_request sr1_0 
+    where
+        sr1_0.shipment_no=? 
+    fetch
+        first ? rows only
+2026-06-11 11:14:42.391 DEBUG [Test worker] org.hibernate.SQL - 
+    insert 
+    into
+        shipment_request
+        (created_at, update_at, customer_code, customer_name, material_code, material_name, quantity, unit, error_payload, message, retry_count, status, order_no, requested_at, shipment_no, warehouse_code, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, default)
+2026-06-11 11:14:42.394 DEBUG [Test worker] org.hibernate.SQL - 
+    select
+        sr1_0.id 
+    from
+        shipment_request sr1_0 
+    where
+        sr1_0.shipment_no=? 
+    fetch
+        first ? rows only
+2026-06-11 11:14:42.399 DEBUG [Test worker] org.hibernate.SQL - 
+    select
+        sr1_0.id,
+        sr1_0.created_at,
+        sr1_0.update_at,
+        sr1_0.customer_code,
+        sr1_0.customer_name,
+        sr1_0.material_code,
+        sr1_0.material_name,
+        sr1_0.quantity,
+        sr1_0.unit,
+        sr1_0.error_payload,
+        sr1_0.message,
+        sr1_0.retry_count,
+        sr1_0.status,
+        sr1_0.order_no,
+        sr1_0.requested_at,
+        sr1_0.shipment_no,
+        sr1_0.warehouse_code 
+    from
+        shipment_request sr1_0
+2026-06-11 11:14:42.400 DEBUG [Test worker] org.hibernate.SQL - 
+    delete 
+    from
+        shipment_request 
+    where
+        id=?
+2026-06-11 11:14:42.402 DEBUG [Test worker] org.hibernate.SQL - 
+    select
+        sr1_0.id 
+    from
+        shipment_request sr1_0 
+    where
+        sr1_0.shipment_no=? 
+    fetch
+        first ? rows only
+2026-06-11 11:14:42.402 DEBUG [Test worker] org.hibernate.SQL - 
+    insert 
+    into
+        shipment_request
+        (created_at, update_at, customer_code, customer_name, material_code, material_name, quantity, unit, error_payload, message, retry_count, status, order_no, requested_at, shipment_no, warehouse_code, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, default)
+2026-06-11 11:14:42.404 DEBUG [Test worker] org.hibernate.SQL - 
+    select
+        sr1_0.id,
+        sr1_0.created_at,
+        sr1_0.update_at,
+        sr1_0.customer_code,
+        sr1_0.customer_name,
+        sr1_0.material_code,
+        sr1_0.material_name,
+        sr1_0.quantity,
+        sr1_0.unit,
+        sr1_0.error_payload,
+        sr1_0.message,
+        sr1_0.retry_count,
+        sr1_0.status,
+        sr1_0.order_no,
+        sr1_0.requested_at,
+        sr1_0.shipment_no,
+        sr1_0.warehouse_code 
+    from
+        shipment_request sr1_0
+2026-06-11 11:14:42.405 DEBUG [Test worker] org.hibernate.SQL - 
+    select
+        sr1_0.id,
+        sr1_0.created_at,
+        sr1_0.update_at,
+        sr1_0.customer_code,
+        sr1_0.customer_name,
+        sr1_0.material_code,
+        sr1_0.material_name,
+        sr1_0.quantity,
+        sr1_0.unit,
+        sr1_0.error_payload,
+        sr1_0.message,
+        sr1_0.retry_count,
+        sr1_0.status,
+        sr1_0.order_no,
+        sr1_0.requested_at,
+        sr1_0.shipment_no,
+        sr1_0.warehouse_code 
+    from
+        shipment_request sr1_0 
+    where
+        sr1_0.id=?
+2026-06-11 11:14:42.406 DEBUG [Test worker] org.hibernate.SQL - 
+    update
+        shipment_request 
+    set
+        created_at=?,
+        update_at=?,
+        customer_code=?,
+        customer_name=?,
+        material_code=?,
+        material_name=?,
+        quantity=?,
+        unit=?,
+        error_payload=?,
+        message=?,
+        retry_count=?,
+        status=?,
+        order_no=?,
+        requested_at=?,
+        shipment_no=?,
+        warehouse_code=? 
+    where
+        id=?
+2026-06-11 11:14:42.407 DEBUG [Test worker] org.hibernate.SQL - 
+    select
+        sr1_0.id,
+        sr1_0.created_at,
+        sr1_0.update_at,
+        sr1_0.customer_code,
+        sr1_0.customer_name,
+        sr1_0.material_code,
+        sr1_0.material_name,
+        sr1_0.quantity,
+        sr1_0.unit,
+        sr1_0.error_payload,
+        sr1_0.message,
+        sr1_0.retry_count,
+        sr1_0.status,
+        sr1_0.order_no,
+        sr1_0.requested_at,
+        sr1_0.shipment_no,
+        sr1_0.warehouse_code 
+    from
+        shipment_request sr1_0 
+    where
+        sr1_0.id=?
+2026-06-11 11:14:42.408 DEBUG [Test worker] org.hibernate.SQL - 
+    update
+        shipment_request 
+    set
+        created_at=?,
+        update_at=?,
+        customer_code=?,
+        customer_name=?,
+        material_code=?,
+        material_name=?,
+        quantity=?,
+        unit=?,
+        error_payload=?,
+        message=?,
+        retry_count=?,
+        status=?,
+        order_no=?,
+        requested_at=?,
+        shipment_no=?,
+        warehouse_code=? 
+    where
+        id=?
+2026-06-11 11:14:42.410 DEBUG [Test worker] org.hibernate.SQL - 
+    select
+        sr1_0.id,
+        sr1_0.created_at,
+        sr1_0.update_at,
+        sr1_0.customer_code,
+        sr1_0.customer_name,
+        sr1_0.material_code,
+        sr1_0.material_name,
+        sr1_0.quantity,
+        sr1_0.unit,
+        sr1_0.error_payload,
+        sr1_0.message,
+        sr1_0.retry_count,
+        sr1_0.status,
+        sr1_0.order_no,
+        sr1_0.requested_at,
+        sr1_0.shipment_no,
+        sr1_0.warehouse_code 
+    from
+        shipment_request sr1_0 
+    where
+        sr1_0.id=?
+2026-06-11 11:14:42.411 DEBUG [Test worker] org.hibernate.SQL - 
+    select
+        sr1_0.id,
+        sr1_0.created_at,
+        sr1_0.update_at,
+        sr1_0.customer_code,
+        sr1_0.customer_name,
+        sr1_0.material_code,
+        sr1_0.material_name,
+        sr1_0.quantity,
+        sr1_0.unit,
+        sr1_0.error_payload,
+        sr1_0.message,
+        sr1_0.retry_count,
+        sr1_0.status,
+        sr1_0.order_no,
+        sr1_0.requested_at,
+        sr1_0.shipment_no,
+        sr1_0.warehouse_code 
+    from
+        shipment_request sr1_0 
+    where
+        sr1_0.id=?
+2026-06-11 11:14:42.414 DEBUG [Test worker] org.hibernate.SQL - 
+    select
+        sr1_0.id,
+        sr1_0.created_at,
+        sr1_0.update_at,
+        sr1_0.customer_code,
+        sr1_0.customer_name,
+        sr1_0.material_code,
+        sr1_0.material_name,
+        sr1_0.quantity,
+        sr1_0.unit,
+        sr1_0.error_payload,
+        sr1_0.message,
+        sr1_0.retry_count,
+        sr1_0.status,
+        sr1_0.order_no,
+        sr1_0.requested_at,
+        sr1_0.shipment_no,
+        sr1_0.warehouse_code 
+    from
+        shipment_request sr1_0
+2026-06-11 11:14:42.417 DEBUG [Test worker] org.hibernate.SQL - 
+    delete 
+    from
+        shipment_request 
+    where
+        id=?
+2026-06-11 11:14:42.419 DEBUG [Test worker] org.hibernate.SQL - 
+    select
+        sr1_0.id 
+    from
+        shipment_request sr1_0 
+    where
+        sr1_0.shipment_no=? 
+    fetch
+        first ? rows only
+2026-06-11 11:14:42.419 DEBUG [Test worker] org.hibernate.SQL - 
+    insert 
+    into
+        shipment_request
+        (created_at, update_at, customer_code, customer_name, material_code, material_name, quantity, unit, error_payload, message, retry_count, status, order_no, requested_at, shipment_no, warehouse_code, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, default)
+2026-06-11 11:14:42.420 DEBUG [Test worker] org.hibernate.SQL - 
+    select
+        sr1_0.id,
+        sr1_0.created_at,
+        sr1_0.update_at,
+        sr1_0.customer_code,
+        sr1_0.customer_name,
+        sr1_0.material_code,
+        sr1_0.material_name,
+        sr1_0.quantity,
+        sr1_0.unit,
+        sr1_0.error_payload,
+        sr1_0.message,
+        sr1_0.retry_count,
+        sr1_0.status,
+        sr1_0.order_no,
+        sr1_0.requested_at,
+        sr1_0.shipment_no,
+        sr1_0.warehouse_code 
+    from
+        shipment_request sr1_0
+2026-06-11 11:14:42.421 DEBUG [Test worker] org.hibernate.SQL - 
+    select
+        sr1_0.id,
+        sr1_0.created_at,
+        sr1_0.update_at,
+        sr1_0.customer_code,
+        sr1_0.customer_name,
+        sr1_0.material_code,
+        sr1_0.material_name,
+        sr1_0.quantity,
+        sr1_0.unit,
+        sr1_0.error_payload,
+        sr1_0.message,
+        sr1_0.retry_count,
+        sr1_0.status,
+        sr1_0.order_no,
+        sr1_0.requested_at,
+        sr1_0.shipment_no,
+        sr1_0.warehouse_code 
+    from
+        shipment_request sr1_0 
+    where
+        sr1_0.id=?
+2026-06-11 11:14:42.422 DEBUG [Test worker] org.hibernate.SQL - 
+    update
+        shipment_request 
+    set
+        created_at=?,
+        update_at=?,
+        customer_code=?,
+        customer_name=?,
+        material_code=?,
+        material_name=?,
+        quantity=?,
+        unit=?,
+        error_payload=?,
+        message=?,
+        retry_count=?,
+        status=?,
+        order_no=?,
+        requested_at=?,
+        shipment_no=?,
+        warehouse_code=? 
+    where
+        id=?
+2026-06-11 11:14:42.423 DEBUG [Test worker] org.hibernate.SQL - 
+    select
+        sr1_0.id,
+        sr1_0.created_at,
+        sr1_0.update_at,
+        sr1_0.customer_code,
+        sr1_0.customer_name,
+        sr1_0.material_code,
+        sr1_0.material_name,
+        sr1_0.quantity,
+        sr1_0.unit,
+        sr1_0.error_payload,
+        sr1_0.message,
+        sr1_0.retry_count,
+        sr1_0.status,
+        sr1_0.order_no,
+        sr1_0.requested_at,
+        sr1_0.shipment_no,
+        sr1_0.warehouse_code 
+    from
+        shipment_request sr1_0 
+    where
+        sr1_0.id=?
+2026-06-11 11:14:42.434 DEBUG [SpringApplicationShutdownHook] org.hibernate.SQL - 
+    drop table if exists shipment_request cascade 
+2026-06-11 11:14:42.441 DEBUG [SpringApplicationShutdownHook] org.hibernate.SQL - 
+    drop table if exists shipment_request cascade 
