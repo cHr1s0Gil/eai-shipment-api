@@ -145,10 +145,9 @@ public class ShipmentRequestService {
 
         if (isWmsSendFailed(shipmentRequest)) {
             shipmentRequest.updateStatus(
-                ShipmentStatus.FAILED, 
-                "WMS transmission failed",
-            payload
-        );
+                    ShipmentStatus.FAILED,
+                    "WMS transmission failed",
+                    payload);
 
             log.info("Shipment dispatch failed. shipmentId={}, shipmentNo={}, message={}",
                     shipmentRequest.getId(),
@@ -163,6 +162,27 @@ public class ShipmentRequestService {
         log.info("Shipment dispatch completed. shipmentId={}, shipmentNo={}",
                 shipmentRequest.getId(),
                 shipmentRequest.getRequestInfo().getShipmentNo());
+    }
+
+    @Transactional
+    public int dispatchReceivedShipments() {
+        List<ShipmentRequest> shipmentRequests = shipmentRequestRepository
+                .findByProcessingInfo_Status(ShipmentStatus.RECEIVED);
+
+        int count = 0;
+        for (ShipmentRequest shipmentRequest : shipmentRequests) {
+            try {
+                dispatchShipment(shipmentRequest.getId());
+                count++;
+            } catch (Exception e) {
+                log.error("Shipment dispatch scheduler item failed. shipmentId={}",
+                        shipmentRequest.getId(),
+                        e);
+            }
+
+        }
+
+        return count;
     }
 
     private ShipmentRequest getShipmentRequestById(Long id) {

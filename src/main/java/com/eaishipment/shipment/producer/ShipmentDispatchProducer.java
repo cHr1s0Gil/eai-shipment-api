@@ -24,11 +24,23 @@ public class ShipmentDispatchProducer {
                 message.getShipmentId(),
                 message.getShipmentNo());
 
-        kafkaTemplate.send(TOPIC, message.getShipmentNo(), message);
+        kafkaTemplate.send(TOPIC, message.getShipmentNo(), message)
+                .whenComplete((result, exception) -> {
+                    if (exception != null) {
+                        log.error("Kafka publish failed. topic={}, shipmentId={}, shipmentNo={}",
+                                TOPIC,
+                                message.getShipmentId(),
+                                message.getShipmentNo(),
+                                exception);
+                        return;
+                    }
 
-        log.info("Shipment dispatch message published. topic={}, shipmentId={}, shipmentNo={}",
-                TOPIC,
-                message.getShipmentId(),
-                message.getShipmentNo());
+                    log.info("Kafka publish succeeded. topic={}, partition={}, offset={}, shipmentId={}, shipmentNo={}",
+                            result.getRecordMetadata().topic(),
+                            result.getRecordMetadata().partition(),
+                            result.getRecordMetadata().offset(),
+                            message.getShipmentId(),
+                            message.getShipmentNo());
+                });
     }
 }

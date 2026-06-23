@@ -40,3 +40,9 @@ server:
 springdoc:
   swagger-ui:
     path: /swagger-ui.html
+
+shipment:
+  dispatch:
+    scheduler:
+      cron: 
+        default: "0 */5 * * * *"
