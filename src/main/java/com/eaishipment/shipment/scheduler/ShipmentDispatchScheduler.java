@@ -1,5 +1,7 @@
 package com.eaishipment.shipment.scheduler;
 
+import java.util.concurrent.atomic.AtomicBoolean;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -11,6 +13,8 @@ import com.eaishipment.shipment.service.ShipmentRequestService;
 public class ShipmentDispatchScheduler {
     private static final Logger log = LoggerFactory.getLogger(ShipmentDispatchScheduler.class);
 
+    private final AtomicBoolean enabled = new AtomicBoolean(true);
+
     private final ShipmentRequestService shipmentRequestService;
 
     public ShipmentDispatchScheduler(ShipmentRequestService shipmentRequestService) {
@@ -19,6 +23,10 @@ public class ShipmentDispatchScheduler {
 
     @Scheduled(cron = "${shipment.dispatch.scheduler.cron.default}")
     public void dispatchReceivedShipments() {
+        if (!isEnabled()) {
+            log.debug("Shipment dispatch scheduler skipped. scheduler disabled.");
+            return;
+        }
         int count = shipmentRequestService.dispatchReceivedShipments();
 
         if (count == 0) {
@@ -27,5 +35,19 @@ public class ShipmentDispatchScheduler {
         }
 
         log.info("Shipment dispatch scheduler completed. count={}", count);
+    }
+
+    public void enable() {
+        enabled.set(true);
+        log.info("Shipment dispatch scheduler enabled.");
+    }
+
+    public void disable() {
+        enabled.set(false);
+        log.info("Shipment dispatch scheduler disabled.");
+    }
+
+    public boolean isEnabled() {
+        return enabled.get();
     }
 }
