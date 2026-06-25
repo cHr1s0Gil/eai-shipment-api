@@ -1,6 +1,7 @@
 package com.eaishipment.shipment.service;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -118,21 +119,30 @@ public class ShipmentRequestService {
 
     @Transactional
     public ShipmentDispatchResponse dispatchShipment(Long id) {
+        String dispatchBatchId = "MANUAL-" + UUID.randomUUID().toString().replace("-", "");
+        return dispatchShipment(id, dispatchBatchId);
+    }
+
+    private ShipmentDispatchResponse dispatchShipment(Long id, String dispatchBatchId) {
         ShipmentRequest shipmentRequest = getShipmentRequestById(id);
 
         if (shipmentRequest.getProcessingInfo().getStatus() != ShipmentStatus.RECEIVED) {
             throw new BusinessException("Dispatch 대상이 아닙니다.");
         }
 
-        log.info("Shipment dispatch requested. shipmentId={}, shipmentNo={}",
+        log.info("Shipment dispatch requested. shipmentId={}, shipmentNo={}, dispatchBatchId={}",
                 shipmentRequest.getId(),
-                shipmentRequest.getRequestInfo().getShipmentNo());
+                shipmentRequest.getRequestInfo().getShipmentNo(),
+                dispatchBatchId);
 
+        shipmentRequest.updateDispatchBatchId(dispatchBatchId);
         shipmentRequest.updateStatus(ShipmentStatus.PROCESSING, null);
 
         ShipmentDispatchMessage message = new ShipmentDispatchMessage(
                 shipmentRequest.getId(),
-                shipmentRequest.getRequestInfo().getShipmentNo());
+                shipmentRequest.getRequestInfo().getShipmentNo(),
+                dispatchBatchId
+            );
 
         shipmentDispatchProducer.send(message);
 
@@ -149,34 +159,37 @@ public class ShipmentRequestService {
                     "WMS transmission failed",
                     payload);
 
-            log.info("Shipment dispatch failed. shipmentId={}, shipmentNo={}, message={}",
+            log.info("Shipment dispatch failed. shipmentId={}, shipmentNo={}, message={}, dispatchBatchId={}",
                     shipmentRequest.getId(),
                     shipmentRequest.getRequestInfo().getShipmentNo(),
-                    "WMS transmission failed");
+                    "WMS transmission failed",
+                    shipmentRequest.getProcessingInfo().getDispatchBatchId());
 
             return;
         }
 
         shipmentRequest.updateStatus(ShipmentStatus.SUCCESS, null);
 
-        log.info("Shipment dispatch completed. shipmentId={}, shipmentNo={}",
+        log.info("Shipment dispatch completed. shipmentId={}, shipmentNo={}, dispatchBatchId={}",
                 shipmentRequest.getId(),
-                shipmentRequest.getRequestInfo().getShipmentNo());
+                shipmentRequest.getRequestInfo().getShipmentNo(),
+                shipmentRequest.getProcessingInfo().getDispatchBatchId());
     }
 
     @Transactional
-    public int dispatchReceivedShipments() {
+    public int dispatchReceivedShipments(String dispatchBatchId) {
         List<ShipmentRequest> shipmentRequests = shipmentRequestRepository
                 .findByProcessingInfo_Status(ShipmentStatus.RECEIVED);
 
         int count = 0;
         for (ShipmentRequest shipmentRequest : shipmentRequests) {
             try {
-                dispatchShipment(shipmentRequest.getId());
+                dispatchShipment(shipmentRequest.getId(), dispatchBatchId);
                 count++;
             } catch (Exception e) {
-                log.error("Shipment dispatch scheduler item failed. shipmentId={}",
+                log.error("Shipment dispatch scheduler item failed. shipmentId={}, dispatchBatchId={}",
                         shipmentRequest.getId(),
+                        dispatchBatchId,
                         e);
             }
 

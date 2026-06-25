@@ -1,5 +1,6 @@
 package com.eaishipment.shipment.scheduler;
 
+import java.util.UUID;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import org.slf4j.Logger;
@@ -27,14 +28,16 @@ public class ShipmentDispatchScheduler {
             log.debug("Shipment dispatch scheduler skipped. scheduler disabled.");
             return;
         }
-        int count = shipmentRequestService.dispatchReceivedShipments();
+
+        String dispatchBatchId = "DISPATCH-" + UUID.randomUUID().toString().replace("-", "");
+        int count = shipmentRequestService.dispatchReceivedShipments(dispatchBatchId);
 
         if (count == 0) {
             log.debug("Shipment dispatch scheduler skipped. count=0");
             return;
         }
 
-        log.info("Shipment dispatch scheduler completed. count={}", count);
+        log.info("Shipment dispatch scheduler completed. dispatchBatchId={} count={}", dispatchBatchId, count);
     }
 
     public void enable() {

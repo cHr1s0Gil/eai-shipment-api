@@ -27,24 +27,27 @@ public class ShipmentDispatchConsumer {
     @KafkaListener(topics = "shipment-dispatch", groupId = "eai-shipment-api")
     public void consume(ShipmentDispatchMessage message) {
         String payload = toPayload(message);
-        log.info("Shipment dispatch message consumed. shipmentId={}, shipmentNo={}",
+        log.info("Shipment dispatch message consumed. shipmentId={}, shipmentNo={}, dispatchBatchId={}",
                 message.getShipmentId(),
-                message.getShipmentNo());
+                message.getShipmentNo(),
+                message.getDispatchBatchId());
 
         shipmentRequestService.completeDispatch(message.getShipmentId(), payload);
 
-        log.info("Shipment dispatch message processed. shipmentId={}, shipmentNo={}",
+        log.info("Shipment dispatch message processed. shipmentId={}, shipmentNo={}, dispatchBatchId={}",
                 message.getShipmentId(),
-                message.getShipmentNo());
+                message.getShipmentNo(),
+                message.getDispatchBatchId());
     }
 
     private String toPayload(ShipmentDispatchMessage message) {
         try {
             return objectMapper.writeValueAsString(message);
         } catch(JsonProcessingException e) {
-            log.warn("Failed to serialize shipment dispatch message. shipmentId={}, shipmentNo={}",
+            log.warn("Failed to serialize shipment dispatch message. shipmentId={}, shipmentNo={}, dispatchBatchId={}",
                 message.getShipmentId(),
                 message.getShipmentNo(),
+                message.getDispatchBatchId(),
                 e);
             return message.toString();
         }

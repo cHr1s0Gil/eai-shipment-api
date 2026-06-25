@@ -19,28 +19,31 @@ public class ShipmentDispatchProducer {
     }
 
     public void send(ShipmentDispatchMessage message) {
-        log.info("Shipment dispatch message publishing. topic={}, shipmentId={}, shipmentNo={}",
+        log.info("Shipment dispatch message publishing. topic={}, shipmentId={}, shipmentNo={}, dispatchBatchId={}",
                 TOPIC,
                 message.getShipmentId(),
-                message.getShipmentNo());
+                message.getShipmentNo(),
+                message.getDispatchBatchId());
 
         kafkaTemplate.send(TOPIC, message.getShipmentNo(), message)
                 .whenComplete((result, exception) -> {
                     if (exception != null) {
-                        log.error("Kafka publish failed. topic={}, shipmentId={}, shipmentNo={}",
+                        log.error("Kafka publish failed. topic={}, shipmentId={}, shipmentNo={}, dispatchBatchId={}",
                                 TOPIC,
                                 message.getShipmentId(),
                                 message.getShipmentNo(),
+                                message.getDispatchBatchId(),
                                 exception);
                         return;
                     }
 
-                    log.info("Kafka publish succeeded. topic={}, partition={}, offset={}, shipmentId={}, shipmentNo={}",
+                    log.info("Kafka publish succeeded. topic={}, partition={}, offset={}, shipmentId={}, shipmentNo={}, dispatchBatchId={}",
                             result.getRecordMetadata().topic(),
                             result.getRecordMetadata().partition(),
                             result.getRecordMetadata().offset(),
                             message.getShipmentId(),
-                            message.getShipmentNo());
+                            message.getShipmentNo(),
+                            message.getDispatchBatchId());
                 });
     }
 }

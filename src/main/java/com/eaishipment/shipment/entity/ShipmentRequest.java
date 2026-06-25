@@ -59,6 +59,10 @@ public class ShipmentRequest {
         this.auditInfo.update();
     }
 
+    public void updateDispatchBatchId(String dispatchBatchId) {
+        this.processingInfo.updateDispatchBatchId(dispatchBatchId);
+    }
+
     public void updateStatus(ShipmentStatus status, String message) {
         this.processingInfo.updateStatus(status, message);
     }

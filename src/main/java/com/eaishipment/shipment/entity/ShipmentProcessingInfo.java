@@ -7,6 +7,9 @@ import jakarta.persistence.Enumerated;
 
 @Embeddable
 public class ShipmentProcessingInfo {
+    @Column(name = "dispatch_batch_id")
+    private String dispatchBatchId;
+
     @Enumerated(EnumType.STRING)
     @Column(name = "status")
     private ShipmentStatus status;
@@ -22,14 +25,19 @@ public class ShipmentProcessingInfo {
 
     protected ShipmentProcessingInfo() {}
 
-    public ShipmentProcessingInfo(ShipmentStatus status, int retryCount, String message) {
+    public ShipmentProcessingInfo(String dispatchBatchId, ShipmentStatus status, int retryCount, String message) {
+        this.dispatchBatchId = dispatchBatchId;
         this.status = status;
         this.retryCount = retryCount;
         this.message = message;
     }
 
     public static ShipmentProcessingInfo received() {
-        return new ShipmentProcessingInfo(ShipmentStatus.RECEIVED, 0, null);
+        return new ShipmentProcessingInfo(null, ShipmentStatus.RECEIVED, 0, null);
+    }
+
+    public void updateDispatchBatchId(String dispatchBatchId) {
+        this.dispatchBatchId = dispatchBatchId;
     }
 
     public void updateStatus(ShipmentStatus status, String message) {
@@ -54,6 +62,10 @@ public class ShipmentProcessingInfo {
         this.status = ShipmentStatus.SUCCESS;
         this.message = null;
         this.errorPayload = null;
+    }
+
+    public String getDispatchBatchId() {
+        return dispatchBatchId;
     }
 
     public ShipmentStatus getStatus() {
