@@ -6,7 +6,7 @@ import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
 
 import com.eaishipment.shipment.event.ShipmentDispatchMessage;
-import com.eaishipment.shipment.service.ShipmentRequestService;
+import com.eaishipment.shipment.service.ShipmentDispatchResultService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -14,13 +14,13 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class ShipmentDispatchConsumer {
     private static final Logger log = LoggerFactory.getLogger(ShipmentDispatchConsumer.class);
 
-    private final ShipmentRequestService shipmentRequestService;
+    private final ShipmentDispatchResultService shipmentDispatchResultService;
     private final ObjectMapper objectMapper;
 
     public ShipmentDispatchConsumer(
-            ShipmentRequestService shipmentRequestService,
+            ShipmentDispatchResultService shipmentDispatchResultService,
             ObjectMapper objectMapper) {
-        this.shipmentRequestService = shipmentRequestService;
+        this.shipmentDispatchResultService = shipmentDispatchResultService;
         this.objectMapper = objectMapper;
     }
 
@@ -32,7 +32,7 @@ public class ShipmentDispatchConsumer {
                 message.getShipmentNo(),
                 message.getDispatchBatchId());
 
-        shipmentRequestService.completeDispatch(message.getShipmentId(), payload);
+        shipmentDispatchResultService.completeDispatch(message.getShipmentId(), payload);
 
         log.info("Shipment dispatch message processed. shipmentId={}, shipmentNo={}, dispatchBatchId={}",
                 message.getShipmentId(),

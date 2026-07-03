@@ -22,6 +22,7 @@ import com.eaishipment.shipment.dto.ShipmentRetryResponse;
 import com.eaishipment.shipment.dto.ShipmentStatusUpdateRequest;
 import com.eaishipment.shipment.dto.ShipmentStatusUpdateResponse;
 import com.eaishipment.shipment.entity.ShipmentStatus;
+import com.eaishipment.shipment.service.ShipmentDispatchService;
 import com.eaishipment.shipment.service.ShipmentRequestService;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -34,9 +35,12 @@ import jakarta.validation.Valid;
 @Tag(name = "Shipment Request", description = "Shipment registration, lookup, status update, and retry APIs")
 public class ShipmentRequestController {
 	private final ShipmentRequestService shipmentRequestService;
+	private final ShipmentDispatchService shipmentDispatchService;
 
-	public ShipmentRequestController(ShipmentRequestService shipmentRequestService) {
+	public ShipmentRequestController(ShipmentRequestService shipmentRequestService,
+			ShipmentDispatchService shipmentDispatchService) {
 		this.shipmentRequestService = shipmentRequestService;
+		this.shipmentDispatchService = shipmentDispatchService;
 	}
 
 	@PostMapping
@@ -121,6 +125,6 @@ public class ShipmentRequestController {
 			@PathVariable("id") Long id) {
 		return ResponseEntity
 				.status(HttpStatus.OK)
-				.body(ApiResponse.success("Shipment Dispatch complete", shipmentRequestService.dispatchShipment(id)));
+				.body(ApiResponse.success("Shipment Dispatch complete", shipmentDispatchService.dispatchShipment(id)));
 	}
 }

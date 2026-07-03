@@ -22,6 +22,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import com.eaishipment.shipment.dto.ShipmentCreateRequest;
 import com.eaishipment.shipment.producer.ShipmentDispatchProducer;
 import com.eaishipment.shipment.repository.ShipmentRequestRepository;
+import com.eaishipment.shipment.service.ShipmentDispatchService;
 import com.eaishipment.shipment.service.ShipmentRequestService;
 
 @SpringBootTest(properties = "spring.kafka.listener.auto-startup=false")
@@ -34,6 +35,9 @@ class ShipmentRequestControllerTest {
 
     @Autowired
     private ShipmentRequestService shipmentRequestService;
+
+    @Autowired
+    private ShipmentDispatchService shipmentDispatchService;
 
     @Autowired
     private ShipmentRequestRepository shipmentRequestRepository;
@@ -134,7 +138,7 @@ class ShipmentRequestControllerTest {
     @Test
     void dispatchShipment_returnsBadRequestWhenShipmentIsNotReceived() throws Exception {
         Long id = saveShipmentAndCommit("SHP-API-007");
-        shipmentRequestService.dispatchShipment(id);
+        shipmentDispatchService.dispatchShipment(id);
 
         mockMvc.perform(post("/api/shipments/{id}/dispatch", id))
                 .andExpect(status().isBadRequest())

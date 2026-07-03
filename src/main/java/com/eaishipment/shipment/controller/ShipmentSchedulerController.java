@@ -27,32 +27,32 @@ public class ShipmentSchedulerController {
     @GetMapping
     @Operation(summary = "Get shipment scheduler status", description = "Returns whether the automatic shipment dispatch scheduler is currently enabled.")
     @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Shipment scheduler status returned")
-    public ResponseEntity<ApiResponse<ShipmentSchedulerStatusResponse>> getScheduleStatus() {
-        boolean schedulerStatus = shipmentDispatchScheduler.isEnabled();
+    public ResponseEntity<ApiResponse<ShipmentSchedulerStatusResponse>> getDispatchSchedulerStatus() {
+        boolean schedulerStatus = shipmentDispatchScheduler.isDispatchEnabled();
         return createResponse("Shipment scheduler status returned.", schedulerStatus);
     }
 
     @PatchMapping("/enable")
     @Operation(summary = "Enable shipment scheduler", description = "Enables the automatic shipment dispatch scheduler. This endpoint should be restricted to authorized operators.")
     @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Shipment scheduler enabled")
-    public ResponseEntity<ApiResponse<ShipmentSchedulerStatusResponse>> enableSchedule() {
-        if (shipmentDispatchScheduler.isEnabled()) {
+    public ResponseEntity<ApiResponse<ShipmentSchedulerStatusResponse>> enableDispatchScheduler() {
+        if (shipmentDispatchScheduler.isDispatchEnabled()) {
             return createResponse("Shipment scheduler is already enabled.", true);
         }
 
-        shipmentDispatchScheduler.enable();
+        shipmentDispatchScheduler.enableDispatch();
         return createResponse("Shipment scheduler enabled.", true);
     }
 
     @PatchMapping("/disable")
     @Operation(summary = "Disable shipment scheduler", description = "Disables the automatic shipment dispatch scheduler. This endpoint should be restricted to authorized operators.")
     @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Shipment scheduler disabled")
-    public ResponseEntity<ApiResponse<ShipmentSchedulerStatusResponse>> disableSchedule() {
-        if (!shipmentDispatchScheduler.isEnabled()) {
+    public ResponseEntity<ApiResponse<ShipmentSchedulerStatusResponse>> disableDispatchScheduler() {
+        if (!shipmentDispatchScheduler.isDispatchEnabled()) {
             return createResponse("Shipment scheduler is already disabled.", false);
         }
 
-        shipmentDispatchScheduler.disable();
+        shipmentDispatchScheduler.disableDispatch();
         return createResponse("Shipment scheduler disabled.", false);
     }
 
