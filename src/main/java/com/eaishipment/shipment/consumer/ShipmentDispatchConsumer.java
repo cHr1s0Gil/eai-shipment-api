@@ -7,8 +7,8 @@ import org.springframework.stereotype.Component;
 
 import com.eaishipment.shipment.event.ShipmentDispatchMessage;
 import com.eaishipment.shipment.service.ShipmentDispatchResultService;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.core.JacksonException;
+import tools.jackson.databind.ObjectMapper;
 
 @Component
 public class ShipmentDispatchConsumer {
@@ -43,7 +43,7 @@ public class ShipmentDispatchConsumer {
     private String toPayload(ShipmentDispatchMessage message) {
         try {
             return objectMapper.writeValueAsString(message);
-        } catch(JsonProcessingException e) {
+        } catch(JacksonException e) {
             log.warn("Failed to serialize shipment dispatch message. shipmentId={}, shipmentNo={}, dispatchBatchId={}",
                 message.getShipmentId(),
                 message.getShipmentNo(),
