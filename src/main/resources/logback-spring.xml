@@ -40,12 +40,25 @@
         </triggeringPolicy>
     </appender>
 
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>WARN</level>
+        </filter>
+
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level [%thread] %logger{36} - %msg%n</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+
     <logger name="com.eaishipment" level="INFO" additivity="false">
         <appender-ref ref="APP_FILE" />
+        <appender-ref ref="CONSOLE" />
     </logger>
 
     <logger name="org.apache.kafka" level="WARN" additivity="false">
         <appender-ref ref="APP_FILE" />
+        <appender-ref ref="CONSOLE" />
     </logger>
 
     <logger name="org.hibernate.SQL" level="DEBUG" additivity="false">
@@ -58,5 +71,6 @@
 
     <root level="INFO">
         <appender-ref ref="APP_FILE" />
+        <appender-ref ref="CONSOLE" />
     </root>
 </configuration>
