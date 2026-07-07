@@ -31612,3 +31612,1081 @@
     drop table if exists shipment_request cascade 
 2026-07-07 14:02:40.114 DEBUG [SpringApplicationShutdownHook] org.hibernate.SQL - 
     drop table if exists shipment_request cascade 
+2026-07-07 14:10:00.387 DEBUG [scheduling-1] org.hibernate.SQL - 
+    select
+        sr1_0.id,
+        sr1_0.created_at,
+        sr1_0.updated_at,
+        sr1_0.customer_code,
+        sr1_0.customer_name,
+        sr1_0.material_code,
+        sr1_0.material_name,
+        sr1_0.quantity,
+        sr1_0.unit,
+        sr1_0.dispatch_batch_id,
+        sr1_0.error_payload,
+        sr1_0.message,
+        sr1_0.retry_count,
+        sr1_0.status,
+        sr1_0.order_no,
+        sr1_0.requested_at,
+        sr1_0.shipment_no,
+        sr1_0.warehouse_code 
+    from
+        shipment_request sr1_0 
+    where
+        sr1_0.status=?
+2026-07-07 14:10:00.419 DEBUG [scheduling-1] org.hibernate.SQL - 
+    select
+        sr1_0.id,
+        sr1_0.created_at,
+        sr1_0.updated_at,
+        sr1_0.customer_code,
+        sr1_0.customer_name,
+        sr1_0.material_code,
+        sr1_0.material_name,
+        sr1_0.quantity,
+        sr1_0.unit,
+        sr1_0.dispatch_batch_id,
+        sr1_0.error_payload,
+        sr1_0.message,
+        sr1_0.retry_count,
+        sr1_0.status,
+        sr1_0.order_no,
+        sr1_0.requested_at,
+        sr1_0.shipment_no,
+        sr1_0.warehouse_code 
+    from
+        shipment_request sr1_0 
+    where
+        sr1_0.status=? 
+        and sr1_0.updated_at<?
+2026-07-07 14:15:00.002 DEBUG [scheduling-1] org.hibernate.SQL - 
+    select
+        sr1_0.id,
+        sr1_0.created_at,
+        sr1_0.updated_at,
+        sr1_0.customer_code,
+        sr1_0.customer_name,
+        sr1_0.material_code,
+        sr1_0.material_name,
+        sr1_0.quantity,
+        sr1_0.unit,
+        sr1_0.dispatch_batch_id,
+        sr1_0.error_payload,
+        sr1_0.message,
+        sr1_0.retry_count,
+        sr1_0.status,
+        sr1_0.order_no,
+        sr1_0.requested_at,
+        sr1_0.shipment_no,
+        sr1_0.warehouse_code 
+    from
+        shipment_request sr1_0 
+    where
+        sr1_0.status=? 
+        and sr1_0.updated_at<?
+2026-07-07 14:15:00.004 DEBUG [scheduling-1] org.hibernate.SQL - 
+    select
+        sr1_0.id,
+        sr1_0.created_at,
+        sr1_0.updated_at,
+        sr1_0.customer_code,
+        sr1_0.customer_name,
+        sr1_0.material_code,
+        sr1_0.material_name,
+        sr1_0.quantity,
+        sr1_0.unit,
+        sr1_0.dispatch_batch_id,
+        sr1_0.error_payload,
+        sr1_0.message,
+        sr1_0.retry_count,
+        sr1_0.status,
+        sr1_0.order_no,
+        sr1_0.requested_at,
+        sr1_0.shipment_no,
+        sr1_0.warehouse_code 
+    from
+        shipment_request sr1_0 
+    where
+        sr1_0.status=?
+2026-07-07 14:20:00.001 DEBUG [scheduling-1] org.hibernate.SQL - 
+    select
+        sr1_0.id,
+        sr1_0.created_at,
+        sr1_0.updated_at,
+        sr1_0.customer_code,
+        sr1_0.customer_name,
+        sr1_0.material_code,
+        sr1_0.material_name,
+        sr1_0.quantity,
+        sr1_0.unit,
+        sr1_0.dispatch_batch_id,
+        sr1_0.error_payload,
+        sr1_0.message,
+        sr1_0.retry_count,
+        sr1_0.status,
+        sr1_0.order_no,
+        sr1_0.requested_at,
+        sr1_0.shipment_no,
+        sr1_0.warehouse_code 
+    from
+        shipment_request sr1_0 
+    where
+        sr1_0.status=? 
+        and sr1_0.updated_at<?
+2026-07-07 14:20:00.002 DEBUG [scheduling-1] org.hibernate.SQL - 
+    select
+        sr1_0.id,
+        sr1_0.created_at,
+        sr1_0.updated_at,
+        sr1_0.customer_code,
+        sr1_0.customer_name,
+        sr1_0.material_code,
+        sr1_0.material_name,
+        sr1_0.quantity,
+        sr1_0.unit,
+        sr1_0.dispatch_batch_id,
+        sr1_0.error_payload,
+        sr1_0.message,
+        sr1_0.retry_count,
+        sr1_0.status,
+        sr1_0.order_no,
+        sr1_0.requested_at,
+        sr1_0.shipment_no,
+        sr1_0.warehouse_code 
+    from
+        shipment_request sr1_0 
+    where
+        sr1_0.status=?
+2026-07-07 14:25:00.001 DEBUG [scheduling-1] org.hibernate.SQL - 
+    select
+        sr1_0.id,
+        sr1_0.created_at,
+        sr1_0.updated_at,
+        sr1_0.customer_code,
+        sr1_0.customer_name,
+        sr1_0.material_code,
+        sr1_0.material_name,
+        sr1_0.quantity,
+        sr1_0.unit,
+        sr1_0.dispatch_batch_id,
+        sr1_0.error_payload,
+        sr1_0.message,
+        sr1_0.retry_count,
+        sr1_0.status,
+        sr1_0.order_no,
+        sr1_0.requested_at,
+        sr1_0.shipment_no,
+        sr1_0.warehouse_code 
+    from
+        shipment_request sr1_0 
+    where
+        sr1_0.status=? 
+        and sr1_0.updated_at<?
+2026-07-07 14:25:00.003 DEBUG [scheduling-1] org.hibernate.SQL - 
+    select
+        sr1_0.id,
+        sr1_0.created_at,
+        sr1_0.updated_at,
+        sr1_0.customer_code,
+        sr1_0.customer_name,
+        sr1_0.material_code,
+        sr1_0.material_name,
+        sr1_0.quantity,
+        sr1_0.unit,
+        sr1_0.dispatch_batch_id,
+        sr1_0.error_payload,
+        sr1_0.message,
+        sr1_0.retry_count,
+        sr1_0.status,
+        sr1_0.order_no,
+        sr1_0.requested_at,
+        sr1_0.shipment_no,
+        sr1_0.warehouse_code 
+    from
+        shipment_request sr1_0 
+    where
+        sr1_0.status=?
+2026-07-07 14:30:00.001 DEBUG [scheduling-1] org.hibernate.SQL - 
+    select
+        sr1_0.id,
+        sr1_0.created_at,
+        sr1_0.updated_at,
+        sr1_0.customer_code,
+        sr1_0.customer_name,
+        sr1_0.material_code,
+        sr1_0.material_name,
+        sr1_0.quantity,
+        sr1_0.unit,
+        sr1_0.dispatch_batch_id,
+        sr1_0.error_payload,
+        sr1_0.message,
+        sr1_0.retry_count,
+        sr1_0.status,
+        sr1_0.order_no,
+        sr1_0.requested_at,
+        sr1_0.shipment_no,
+        sr1_0.warehouse_code 
+    from
+        shipment_request sr1_0 
+    where
+        sr1_0.status=? 
+        and sr1_0.updated_at<?
+2026-07-07 14:30:00.003 DEBUG [scheduling-1] org.hibernate.SQL - 
+    select
+        sr1_0.id,
+        sr1_0.created_at,
+        sr1_0.updated_at,
+        sr1_0.customer_code,
+        sr1_0.customer_name,
+        sr1_0.material_code,
+        sr1_0.material_name,
+        sr1_0.quantity,
+        sr1_0.unit,
+        sr1_0.dispatch_batch_id,
+        sr1_0.error_payload,
+        sr1_0.message,
+        sr1_0.retry_count,
+        sr1_0.status,
+        sr1_0.order_no,
+        sr1_0.requested_at,
+        sr1_0.shipment_no,
+        sr1_0.warehouse_code 
+    from
+        shipment_request sr1_0 
+    where
+        sr1_0.status=?
+2026-07-07 14:35:00.002 DEBUG [scheduling-1] org.hibernate.SQL - 
+    select
+        sr1_0.id,
+        sr1_0.created_at,
+        sr1_0.updated_at,
+        sr1_0.customer_code,
+        sr1_0.customer_name,
+        sr1_0.material_code,
+        sr1_0.material_name,
+        sr1_0.quantity,
+        sr1_0.unit,
+        sr1_0.dispatch_batch_id,
+        sr1_0.error_payload,
+        sr1_0.message,
+        sr1_0.retry_count,
+        sr1_0.status,
+        sr1_0.order_no,
+        sr1_0.requested_at,
+        sr1_0.shipment_no,
+        sr1_0.warehouse_code 
+    from
+        shipment_request sr1_0 
+    where
+        sr1_0.status=?
+2026-07-07 14:35:00.005 DEBUG [scheduling-1] org.hibernate.SQL - 
+    select
+        sr1_0.id,
+        sr1_0.created_at,
+        sr1_0.updated_at,
+        sr1_0.customer_code,
+        sr1_0.customer_name,
+        sr1_0.material_code,
+        sr1_0.material_name,
+        sr1_0.quantity,
+        sr1_0.unit,
+        sr1_0.dispatch_batch_id,
+        sr1_0.error_payload,
+        sr1_0.message,
+        sr1_0.retry_count,
+        sr1_0.status,
+        sr1_0.order_no,
+        sr1_0.requested_at,
+        sr1_0.shipment_no,
+        sr1_0.warehouse_code 
+    from
+        shipment_request sr1_0 
+    where
+        sr1_0.status=? 
+        and sr1_0.updated_at<?
+2026-07-07 14:40:00.002 DEBUG [scheduling-1] org.hibernate.SQL - 
+    select
+        sr1_0.id,
+        sr1_0.created_at,
+        sr1_0.updated_at,
+        sr1_0.customer_code,
+        sr1_0.customer_name,
+        sr1_0.material_code,
+        sr1_0.material_name,
+        sr1_0.quantity,
+        sr1_0.unit,
+        sr1_0.dispatch_batch_id,
+        sr1_0.error_payload,
+        sr1_0.message,
+        sr1_0.retry_count,
+        sr1_0.status,
+        sr1_0.order_no,
+        sr1_0.requested_at,
+        sr1_0.shipment_no,
+        sr1_0.warehouse_code 
+    from
+        shipment_request sr1_0 
+    where
+        sr1_0.status=?
+2026-07-07 14:40:00.004 DEBUG [scheduling-1] org.hibernate.SQL - 
+    select
+        sr1_0.id,
+        sr1_0.created_at,
+        sr1_0.updated_at,
+        sr1_0.customer_code,
+        sr1_0.customer_name,
+        sr1_0.material_code,
+        sr1_0.material_name,
+        sr1_0.quantity,
+        sr1_0.unit,
+        sr1_0.dispatch_batch_id,
+        sr1_0.error_payload,
+        sr1_0.message,
+        sr1_0.retry_count,
+        sr1_0.status,
+        sr1_0.order_no,
+        sr1_0.requested_at,
+        sr1_0.shipment_no,
+        sr1_0.warehouse_code 
+    from
+        shipment_request sr1_0 
+    where
+        sr1_0.status=? 
+        and sr1_0.updated_at<?
+2026-07-07 14:45:00.001 DEBUG [scheduling-1] org.hibernate.SQL - 
+    select
+        sr1_0.id,
+        sr1_0.created_at,
+        sr1_0.updated_at,
+        sr1_0.customer_code,
+        sr1_0.customer_name,
+        sr1_0.material_code,
+        sr1_0.material_name,
+        sr1_0.quantity,
+        sr1_0.unit,
+        sr1_0.dispatch_batch_id,
+        sr1_0.error_payload,
+        sr1_0.message,
+        sr1_0.retry_count,
+        sr1_0.status,
+        sr1_0.order_no,
+        sr1_0.requested_at,
+        sr1_0.shipment_no,
+        sr1_0.warehouse_code 
+    from
+        shipment_request sr1_0 
+    where
+        sr1_0.status=?
+2026-07-07 14:45:00.004 DEBUG [scheduling-1] org.hibernate.SQL - 
+    select
+        sr1_0.id,
+        sr1_0.created_at,
+        sr1_0.updated_at,
+        sr1_0.customer_code,
+        sr1_0.customer_name,
+        sr1_0.material_code,
+        sr1_0.material_name,
+        sr1_0.quantity,
+        sr1_0.unit,
+        sr1_0.dispatch_batch_id,
+        sr1_0.error_payload,
+        sr1_0.message,
+        sr1_0.retry_count,
+        sr1_0.status,
+        sr1_0.order_no,
+        sr1_0.requested_at,
+        sr1_0.shipment_no,
+        sr1_0.warehouse_code 
+    from
+        shipment_request sr1_0 
+    where
+        sr1_0.status=? 
+        and sr1_0.updated_at<?
+2026-07-07 14:50:00.001 DEBUG [scheduling-1] org.hibernate.SQL - 
+    select
+        sr1_0.id,
+        sr1_0.created_at,
+        sr1_0.updated_at,
+        sr1_0.customer_code,
+        sr1_0.customer_name,
+        sr1_0.material_code,
+        sr1_0.material_name,
+        sr1_0.quantity,
+        sr1_0.unit,
+        sr1_0.dispatch_batch_id,
+        sr1_0.error_payload,
+        sr1_0.message,
+        sr1_0.retry_count,
+        sr1_0.status,
+        sr1_0.order_no,
+        sr1_0.requested_at,
+        sr1_0.shipment_no,
+        sr1_0.warehouse_code 
+    from
+        shipment_request sr1_0 
+    where
+        sr1_0.status=? 
+        and sr1_0.updated_at<?
+2026-07-07 14:50:00.002 DEBUG [scheduling-1] org.hibernate.SQL - 
+    select
+        sr1_0.id,
+        sr1_0.created_at,
+        sr1_0.updated_at,
+        sr1_0.customer_code,
+        sr1_0.customer_name,
+        sr1_0.material_code,
+        sr1_0.material_name,
+        sr1_0.quantity,
+        sr1_0.unit,
+        sr1_0.dispatch_batch_id,
+        sr1_0.error_payload,
+        sr1_0.message,
+        sr1_0.retry_count,
+        sr1_0.status,
+        sr1_0.order_no,
+        sr1_0.requested_at,
+        sr1_0.shipment_no,
+        sr1_0.warehouse_code 
+    from
+        shipment_request sr1_0 
+    where
+        sr1_0.status=?
+2026-07-07 14:55:00.000 DEBUG [scheduling-1] org.hibernate.SQL - 
+    select
+        sr1_0.id,
+        sr1_0.created_at,
+        sr1_0.updated_at,
+        sr1_0.customer_code,
+        sr1_0.customer_name,
+        sr1_0.material_code,
+        sr1_0.material_name,
+        sr1_0.quantity,
+        sr1_0.unit,
+        sr1_0.dispatch_batch_id,
+        sr1_0.error_payload,
+        sr1_0.message,
+        sr1_0.retry_count,
+        sr1_0.status,
+        sr1_0.order_no,
+        sr1_0.requested_at,
+        sr1_0.shipment_no,
+        sr1_0.warehouse_code 
+    from
+        shipment_request sr1_0 
+    where
+        sr1_0.status=?
+2026-07-07 14:55:00.002 DEBUG [scheduling-1] org.hibernate.SQL - 
+    select
+        sr1_0.id,
+        sr1_0.created_at,
+        sr1_0.updated_at,
+        sr1_0.customer_code,
+        sr1_0.customer_name,
+        sr1_0.material_code,
+        sr1_0.material_name,
+        sr1_0.quantity,
+        sr1_0.unit,
+        sr1_0.dispatch_batch_id,
+        sr1_0.error_payload,
+        sr1_0.message,
+        sr1_0.retry_count,
+        sr1_0.status,
+        sr1_0.order_no,
+        sr1_0.requested_at,
+        sr1_0.shipment_no,
+        sr1_0.warehouse_code 
+    from
+        shipment_request sr1_0 
+    where
+        sr1_0.status=? 
+        and sr1_0.updated_at<?
+2026-07-07 15:00:00.002 DEBUG [scheduling-1] org.hibernate.SQL - 
+    select
+        sr1_0.id,
+        sr1_0.created_at,
+        sr1_0.updated_at,
+        sr1_0.customer_code,
+        sr1_0.customer_name,
+        sr1_0.material_code,
+        sr1_0.material_name,
+        sr1_0.quantity,
+        sr1_0.unit,
+        sr1_0.dispatch_batch_id,
+        sr1_0.error_payload,
+        sr1_0.message,
+        sr1_0.retry_count,
+        sr1_0.status,
+        sr1_0.order_no,
+        sr1_0.requested_at,
+        sr1_0.shipment_no,
+        sr1_0.warehouse_code 
+    from
+        shipment_request sr1_0 
+    where
+        sr1_0.status=?
+2026-07-07 15:00:00.003 DEBUG [scheduling-1] org.hibernate.SQL - 
+    select
+        sr1_0.id,
+        sr1_0.created_at,
+        sr1_0.updated_at,
+        sr1_0.customer_code,
+        sr1_0.customer_name,
+        sr1_0.material_code,
+        sr1_0.material_name,
+        sr1_0.quantity,
+        sr1_0.unit,
+        sr1_0.dispatch_batch_id,
+        sr1_0.error_payload,
+        sr1_0.message,
+        sr1_0.retry_count,
+        sr1_0.status,
+        sr1_0.order_no,
+        sr1_0.requested_at,
+        sr1_0.shipment_no,
+        sr1_0.warehouse_code 
+    from
+        shipment_request sr1_0 
+    where
+        sr1_0.status=? 
+        and sr1_0.updated_at<?
+2026-07-07 15:05:00.000 DEBUG [scheduling-1] org.hibernate.SQL - 
+    select
+        sr1_0.id,
+        sr1_0.created_at,
+        sr1_0.updated_at,
+        sr1_0.customer_code,
+        sr1_0.customer_name,
+        sr1_0.material_code,
+        sr1_0.material_name,
+        sr1_0.quantity,
+        sr1_0.unit,
+        sr1_0.dispatch_batch_id,
+        sr1_0.error_payload,
+        sr1_0.message,
+        sr1_0.retry_count,
+        sr1_0.status,
+        sr1_0.order_no,
+        sr1_0.requested_at,
+        sr1_0.shipment_no,
+        sr1_0.warehouse_code 
+    from
+        shipment_request sr1_0 
+    where
+        sr1_0.status=?
+2026-07-07 15:05:00.002 DEBUG [scheduling-1] org.hibernate.SQL - 
+    select
+        sr1_0.id,
+        sr1_0.created_at,
+        sr1_0.updated_at,
+        sr1_0.customer_code,
+        sr1_0.customer_name,
+        sr1_0.material_code,
+        sr1_0.material_name,
+        sr1_0.quantity,
+        sr1_0.unit,
+        sr1_0.dispatch_batch_id,
+        sr1_0.error_payload,
+        sr1_0.message,
+        sr1_0.retry_count,
+        sr1_0.status,
+        sr1_0.order_no,
+        sr1_0.requested_at,
+        sr1_0.shipment_no,
+        sr1_0.warehouse_code 
+    from
+        shipment_request sr1_0 
+    where
+        sr1_0.status=? 
+        and sr1_0.updated_at<?
+2026-07-07 15:10:00.001 DEBUG [scheduling-1] org.hibernate.SQL - 
+    select
+        sr1_0.id,
+        sr1_0.created_at,
+        sr1_0.updated_at,
+        sr1_0.customer_code,
+        sr1_0.customer_name,
+        sr1_0.material_code,
+        sr1_0.material_name,
+        sr1_0.quantity,
+        sr1_0.unit,
+        sr1_0.dispatch_batch_id,
+        sr1_0.error_payload,
+        sr1_0.message,
+        sr1_0.retry_count,
+        sr1_0.status,
+        sr1_0.order_no,
+        sr1_0.requested_at,
+        sr1_0.shipment_no,
+        sr1_0.warehouse_code 
+    from
+        shipment_request sr1_0 
+    where
+        sr1_0.status=? 
+        and sr1_0.updated_at<?
+2026-07-07 15:10:00.003 DEBUG [scheduling-1] org.hibernate.SQL - 
+    select
+        sr1_0.id,
+        sr1_0.created_at,
+        sr1_0.updated_at,
+        sr1_0.customer_code,
+        sr1_0.customer_name,
+        sr1_0.material_code,
+        sr1_0.material_name,
+        sr1_0.quantity,
+        sr1_0.unit,
+        sr1_0.dispatch_batch_id,
+        sr1_0.error_payload,
+        sr1_0.message,
+        sr1_0.retry_count,
+        sr1_0.status,
+        sr1_0.order_no,
+        sr1_0.requested_at,
+        sr1_0.shipment_no,
+        sr1_0.warehouse_code 
+    from
+        shipment_request sr1_0 
+    where
+        sr1_0.status=?
+2026-07-07 15:15:00.000 DEBUG [scheduling-1] org.hibernate.SQL - 
+    select
+        sr1_0.id,
+        sr1_0.created_at,
+        sr1_0.updated_at,
+        sr1_0.customer_code,
+        sr1_0.customer_name,
+        sr1_0.material_code,
+        sr1_0.material_name,
+        sr1_0.quantity,
+        sr1_0.unit,
+        sr1_0.dispatch_batch_id,
+        sr1_0.error_payload,
+        sr1_0.message,
+        sr1_0.retry_count,
+        sr1_0.status,
+        sr1_0.order_no,
+        sr1_0.requested_at,
+        sr1_0.shipment_no,
+        sr1_0.warehouse_code 
+    from
+        shipment_request sr1_0 
+    where
+        sr1_0.status=? 
+        and sr1_0.updated_at<?
+2026-07-07 15:15:00.002 DEBUG [scheduling-1] org.hibernate.SQL - 
+    select
+        sr1_0.id,
+        sr1_0.created_at,
+        sr1_0.updated_at,
+        sr1_0.customer_code,
+        sr1_0.customer_name,
+        sr1_0.material_code,
+        sr1_0.material_name,
+        sr1_0.quantity,
+        sr1_0.unit,
+        sr1_0.dispatch_batch_id,
+        sr1_0.error_payload,
+        sr1_0.message,
+        sr1_0.retry_count,
+        sr1_0.status,
+        sr1_0.order_no,
+        sr1_0.requested_at,
+        sr1_0.shipment_no,
+        sr1_0.warehouse_code 
+    from
+        shipment_request sr1_0 
+    where
+        sr1_0.status=?
+2026-07-07 15:20:00.002 DEBUG [scheduling-1] org.hibernate.SQL - 
+    select
+        sr1_0.id,
+        sr1_0.created_at,
+        sr1_0.updated_at,
+        sr1_0.customer_code,
+        sr1_0.customer_name,
+        sr1_0.material_code,
+        sr1_0.material_name,
+        sr1_0.quantity,
+        sr1_0.unit,
+        sr1_0.dispatch_batch_id,
+        sr1_0.error_payload,
+        sr1_0.message,
+        sr1_0.retry_count,
+        sr1_0.status,
+        sr1_0.order_no,
+        sr1_0.requested_at,
+        sr1_0.shipment_no,
+        sr1_0.warehouse_code 
+    from
+        shipment_request sr1_0 
+    where
+        sr1_0.status=? 
+        and sr1_0.updated_at<?
+2026-07-07 15:20:00.005 DEBUG [scheduling-1] org.hibernate.SQL - 
+    select
+        sr1_0.id,
+        sr1_0.created_at,
+        sr1_0.updated_at,
+        sr1_0.customer_code,
+        sr1_0.customer_name,
+        sr1_0.material_code,
+        sr1_0.material_name,
+        sr1_0.quantity,
+        sr1_0.unit,
+        sr1_0.dispatch_batch_id,
+        sr1_0.error_payload,
+        sr1_0.message,
+        sr1_0.retry_count,
+        sr1_0.status,
+        sr1_0.order_no,
+        sr1_0.requested_at,
+        sr1_0.shipment_no,
+        sr1_0.warehouse_code 
+    from
+        shipment_request sr1_0 
+    where
+        sr1_0.status=?
+2026-07-07 15:25:00.000 DEBUG [scheduling-1] org.hibernate.SQL - 
+    select
+        sr1_0.id,
+        sr1_0.created_at,
+        sr1_0.updated_at,
+        sr1_0.customer_code,
+        sr1_0.customer_name,
+        sr1_0.material_code,
+        sr1_0.material_name,
+        sr1_0.quantity,
+        sr1_0.unit,
+        sr1_0.dispatch_batch_id,
+        sr1_0.error_payload,
+        sr1_0.message,
+        sr1_0.retry_count,
+        sr1_0.status,
+        sr1_0.order_no,
+        sr1_0.requested_at,
+        sr1_0.shipment_no,
+        sr1_0.warehouse_code 
+    from
+        shipment_request sr1_0 
+    where
+        sr1_0.status=? 
+        and sr1_0.updated_at<?
+2026-07-07 15:25:00.002 DEBUG [scheduling-1] org.hibernate.SQL - 
+    select
+        sr1_0.id,
+        sr1_0.created_at,
+        sr1_0.updated_at,
+        sr1_0.customer_code,
+        sr1_0.customer_name,
+        sr1_0.material_code,
+        sr1_0.material_name,
+        sr1_0.quantity,
+        sr1_0.unit,
+        sr1_0.dispatch_batch_id,
+        sr1_0.error_payload,
+        sr1_0.message,
+        sr1_0.retry_count,
+        sr1_0.status,
+        sr1_0.order_no,
+        sr1_0.requested_at,
+        sr1_0.shipment_no,
+        sr1_0.warehouse_code 
+    from
+        shipment_request sr1_0 
+    where
+        sr1_0.status=?
+2026-07-07 15:30:00.003 DEBUG [scheduling-1] org.hibernate.SQL - 
+    select
+        sr1_0.id,
+        sr1_0.created_at,
+        sr1_0.updated_at,
+        sr1_0.customer_code,
+        sr1_0.customer_name,
+        sr1_0.material_code,
+        sr1_0.material_name,
+        sr1_0.quantity,
+        sr1_0.unit,
+        sr1_0.dispatch_batch_id,
+        sr1_0.error_payload,
+        sr1_0.message,
+        sr1_0.retry_count,
+        sr1_0.status,
+        sr1_0.order_no,
+        sr1_0.requested_at,
+        sr1_0.shipment_no,
+        sr1_0.warehouse_code 
+    from
+        shipment_request sr1_0 
+    where
+        sr1_0.status=?
+2026-07-07 15:30:00.004 DEBUG [scheduling-1] org.hibernate.SQL - 
+    select
+        sr1_0.id,
+        sr1_0.created_at,
+        sr1_0.updated_at,
+        sr1_0.customer_code,
+        sr1_0.customer_name,
+        sr1_0.material_code,
+        sr1_0.material_name,
+        sr1_0.quantity,
+        sr1_0.unit,
+        sr1_0.dispatch_batch_id,
+        sr1_0.error_payload,
+        sr1_0.message,
+        sr1_0.retry_count,
+        sr1_0.status,
+        sr1_0.order_no,
+        sr1_0.requested_at,
+        sr1_0.shipment_no,
+        sr1_0.warehouse_code 
+    from
+        shipment_request sr1_0 
+    where
+        sr1_0.status=? 
+        and sr1_0.updated_at<?
+2026-07-07 15:35:00.001 DEBUG [scheduling-1] org.hibernate.SQL - 
+    select
+        sr1_0.id,
+        sr1_0.created_at,
+        sr1_0.updated_at,
+        sr1_0.customer_code,
+        sr1_0.customer_name,
+        sr1_0.material_code,
+        sr1_0.material_name,
+        sr1_0.quantity,
+        sr1_0.unit,
+        sr1_0.dispatch_batch_id,
+        sr1_0.error_payload,
+        sr1_0.message,
+        sr1_0.retry_count,
+        sr1_0.status,
+        sr1_0.order_no,
+        sr1_0.requested_at,
+        sr1_0.shipment_no,
+        sr1_0.warehouse_code 
+    from
+        shipment_request sr1_0 
+    where
+        sr1_0.status=?
+2026-07-07 15:35:00.004 DEBUG [scheduling-1] org.hibernate.SQL - 
+    select
+        sr1_0.id,
+        sr1_0.created_at,
+        sr1_0.updated_at,
+        sr1_0.customer_code,
+        sr1_0.customer_name,
+        sr1_0.material_code,
+        sr1_0.material_name,
+        sr1_0.quantity,
+        sr1_0.unit,
+        sr1_0.dispatch_batch_id,
+        sr1_0.error_payload,
+        sr1_0.message,
+        sr1_0.retry_count,
+        sr1_0.status,
+        sr1_0.order_no,
+        sr1_0.requested_at,
+        sr1_0.shipment_no,
+        sr1_0.warehouse_code 
+    from
+        shipment_request sr1_0 
+    where
+        sr1_0.status=? 
+        and sr1_0.updated_at<?
+2026-07-07 15:40:00.001 DEBUG [scheduling-1] org.hibernate.SQL - 
+    select
+        sr1_0.id,
+        sr1_0.created_at,
+        sr1_0.updated_at,
+        sr1_0.customer_code,
+        sr1_0.customer_name,
+        sr1_0.material_code,
+        sr1_0.material_name,
+        sr1_0.quantity,
+        sr1_0.unit,
+        sr1_0.dispatch_batch_id,
+        sr1_0.error_payload,
+        sr1_0.message,
+        sr1_0.retry_count,
+        sr1_0.status,
+        sr1_0.order_no,
+        sr1_0.requested_at,
+        sr1_0.shipment_no,
+        sr1_0.warehouse_code 
+    from
+        shipment_request sr1_0 
+    where
+        sr1_0.status=?
+2026-07-07 15:40:00.003 DEBUG [scheduling-1] org.hibernate.SQL - 
+    select
+        sr1_0.id,
+        sr1_0.created_at,
+        sr1_0.updated_at,
+        sr1_0.customer_code,
+        sr1_0.customer_name,
+        sr1_0.material_code,
+        sr1_0.material_name,
+        sr1_0.quantity,
+        sr1_0.unit,
+        sr1_0.dispatch_batch_id,
+        sr1_0.error_payload,
+        sr1_0.message,
+        sr1_0.retry_count,
+        sr1_0.status,
+        sr1_0.order_no,
+        sr1_0.requested_at,
+        sr1_0.shipment_no,
+        sr1_0.warehouse_code 
+    from
+        shipment_request sr1_0 
+    where
+        sr1_0.status=? 
+        and sr1_0.updated_at<?
+2026-07-07 15:45:00.001 DEBUG [scheduling-1] org.hibernate.SQL - 
+    select
+        sr1_0.id,
+        sr1_0.created_at,
+        sr1_0.updated_at,
+        sr1_0.customer_code,
+        sr1_0.customer_name,
+        sr1_0.material_code,
+        sr1_0.material_name,
+        sr1_0.quantity,
+        sr1_0.unit,
+        sr1_0.dispatch_batch_id,
+        sr1_0.error_payload,
+        sr1_0.message,
+        sr1_0.retry_count,
+        sr1_0.status,
+        sr1_0.order_no,
+        sr1_0.requested_at,
+        sr1_0.shipment_no,
+        sr1_0.warehouse_code 
+    from
+        shipment_request sr1_0 
+    where
+        sr1_0.status=? 
+        and sr1_0.updated_at<?
+2026-07-07 15:45:00.003 DEBUG [scheduling-1] org.hibernate.SQL - 
+    select
+        sr1_0.id,
+        sr1_0.created_at,
+        sr1_0.updated_at,
+        sr1_0.customer_code,
+        sr1_0.customer_name,
+        sr1_0.material_code,
+        sr1_0.material_name,
+        sr1_0.quantity,
+        sr1_0.unit,
+        sr1_0.dispatch_batch_id,
+        sr1_0.error_payload,
+        sr1_0.message,
+        sr1_0.retry_count,
+        sr1_0.status,
+        sr1_0.order_no,
+        sr1_0.requested_at,
+        sr1_0.shipment_no,
+        sr1_0.warehouse_code 
+    from
+        shipment_request sr1_0 
+    where
+        sr1_0.status=?
+2026-07-07 15:50:00.002 DEBUG [scheduling-1] org.hibernate.SQL - 
+    select
+        sr1_0.id,
+        sr1_0.created_at,
+        sr1_0.updated_at,
+        sr1_0.customer_code,
+        sr1_0.customer_name,
+        sr1_0.material_code,
+        sr1_0.material_name,
+        sr1_0.quantity,
+        sr1_0.unit,
+        sr1_0.dispatch_batch_id,
+        sr1_0.error_payload,
+        sr1_0.message,
+        sr1_0.retry_count,
+        sr1_0.status,
+        sr1_0.order_no,
+        sr1_0.requested_at,
+        sr1_0.shipment_no,
+        sr1_0.warehouse_code 
+    from
+        shipment_request sr1_0 
+    where
+        sr1_0.status=? 
+        and sr1_0.updated_at<?
+2026-07-07 15:50:00.004 DEBUG [scheduling-1] org.hibernate.SQL - 
+    select
+        sr1_0.id,
+        sr1_0.created_at,
+        sr1_0.updated_at,
+        sr1_0.customer_code,
+        sr1_0.customer_name,
+        sr1_0.material_code,
+        sr1_0.material_name,
+        sr1_0.quantity,
+        sr1_0.unit,
+        sr1_0.dispatch_batch_id,
+        sr1_0.error_payload,
+        sr1_0.message,
+        sr1_0.retry_count,
+        sr1_0.status,
+        sr1_0.order_no,
+        sr1_0.requested_at,
+        sr1_0.shipment_no,
+        sr1_0.warehouse_code 
+    from
+        shipment_request sr1_0 
+    where
+        sr1_0.status=?
+2026-07-07 15:55:00.002 DEBUG [scheduling-1] org.hibernate.SQL - 
+    select
+        sr1_0.id,
+        sr1_0.created_at,
+        sr1_0.updated_at,
+        sr1_0.customer_code,
+        sr1_0.customer_name,
+        sr1_0.material_code,
+        sr1_0.material_name,
+        sr1_0.quantity,
+        sr1_0.unit,
+        sr1_0.dispatch_batch_id,
+        sr1_0.error_payload,
+        sr1_0.message,
+        sr1_0.retry_count,
+        sr1_0.status,
+        sr1_0.order_no,
+        sr1_0.requested_at,
+        sr1_0.shipment_no,
+        sr1_0.warehouse_code 
+    from
+        shipment_request sr1_0 
+    where
+        sr1_0.status=?
+2026-07-07 15:55:00.003 DEBUG [scheduling-1] org.hibernate.SQL - 
+    select
+        sr1_0.id,
+        sr1_0.created_at,
+        sr1_0.updated_at,
+        sr1_0.customer_code,
+        sr1_0.customer_name,
+        sr1_0.material_code,
+        sr1_0.material_name,
+        sr1_0.quantity,
+        sr1_0.unit,
+        sr1_0.dispatch_batch_id,
+        sr1_0.error_payload,
+        sr1_0.message,
+        sr1_0.retry_count,
+        sr1_0.status,
+        sr1_0.order_no,
+        sr1_0.requested_at,
+        sr1_0.shipment_no,
+        sr1_0.warehouse_code 
+    from
+        shipment_request sr1_0 
+    where
+        sr1_0.status=? 
+        and sr1_0.updated_at<?
