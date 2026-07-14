@@ -1,4 +1,6 @@
 spring:
+  config:
+    import: optional:file:.env[.properties]
   application:
     name: java-eai-shipment
 
@@ -35,6 +37,11 @@ spring:
     properties:
       "[hibernate.format_sql]": true
 
+security:
+  api-key:
+    header-name: X-API-KEY
+    value: ${EAI_API_KEY:local-dev-api-key}
+
 server:
   port: 8080
 
@@ -48,3 +55,5 @@ shipment:
       cron: 
         default: "0 */5 * * * *"
     timeout-minutes: 10
+
+    

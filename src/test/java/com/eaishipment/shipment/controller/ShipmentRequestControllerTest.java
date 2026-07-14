@@ -30,6 +30,9 @@ import com.eaishipment.shipment.service.ShipmentRequestService;
 @ActiveProfiles("test")
 class ShipmentRequestControllerTest {
 
+    private static final String API_KEY_HEADER = "X-API-KEY";
+    private static final String API_KEY_VALUE = "local-dev-api-key";
+
     @Autowired
     private MockMvc mockMvc;
 
@@ -70,7 +73,8 @@ class ShipmentRequestControllerTest {
                         """))
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.resultCode").value("S"))
-                .andExpect(jsonPath("$.data.shipmentNo").value("SHP-API-001"));
+                .andExpect(jsonPath("$.data.shipmentNo").value("SHP-API-001")
+                );
     }
 
     @Test
@@ -95,6 +99,7 @@ class ShipmentRequestControllerTest {
         Long id = saveShipmentAndCommit("SHP-API-003");
 
         mockMvc.perform(patch("/api/shipments/{id}/status", id)
+                .header(API_KEY_HEADER, API_KEY_VALUE)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("""
                         {
@@ -109,7 +114,8 @@ class ShipmentRequestControllerTest {
     void retryNonFailedShipment_returnsBadRequest() throws Exception {
         Long id = saveShipmentAndCommit("SHP-API-004");
 
-        mockMvc.perform(post("/api/shipments/{id}/retry", id))
+        mockMvc.perform(post("/api/shipments/{id}/retry", id)
+                .header(API_KEY_HEADER, API_KEY_VALUE))
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$.resultCode").value("E"));
     }
@@ -118,7 +124,8 @@ class ShipmentRequestControllerTest {
     void dispatchShipment_returnsSuccessResponse() throws Exception {
         Long id = saveShipmentAndCommit("SHP-API-005");
 
-        mockMvc.perform(post("/api/shipments/{id}/dispatch", id))
+        mockMvc.perform(post("/api/shipments/{id}/dispatch", id)
+                .header(API_KEY_HEADER, API_KEY_VALUE))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.resultCode").value("S"))
                 .andExpect(jsonPath("$.data.status").value("PROCESSING"));
@@ -128,7 +135,8 @@ class ShipmentRequestControllerTest {
     void dispatchShipment_returnsProcessingStatusWhenShipmentNoContainsFail() throws Exception {
         Long id = saveShipmentAndCommit("SHP-FAIL-006");
 
-        mockMvc.perform(post("/api/shipments/{id}/dispatch", id))
+        mockMvc.perform(post("/api/shipments/{id}/dispatch", id)
+                .header(API_KEY_HEADER, API_KEY_VALUE))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.resultCode").value("S"))
                 .andExpect(jsonPath("$.data.status").value("PROCESSING"))
@@ -140,7 +148,8 @@ class ShipmentRequestControllerTest {
         Long id = saveShipmentAndCommit("SHP-API-007");
         shipmentDispatchService.dispatchShipment(id);
 
-        mockMvc.perform(post("/api/shipments/{id}/dispatch", id))
+        mockMvc.perform(post("/api/shipments/{id}/dispatch", id)
+                .header(API_KEY_HEADER, API_KEY_VALUE))
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$.resultCode").value("E"));
     }

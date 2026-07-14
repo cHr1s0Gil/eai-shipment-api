@@ -24,7 +24,10 @@ dependencies {
 	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:3.0.3'
 	implementation 'org.springframework.boot:spring-boot-starter-kafka'
 	implementation 'org.springframework.boot:spring-boot-h2console'
-	
+	implementation "org.springframework.boot:spring-boot-starter-security"
+
+	annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+
 	runtimeOnly 'com.h2database:h2'
 	
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
