@@ -1,8 +1,45 @@
-const ShipmentApi = (() => {
+﻿const ShipmentApi = (() => {
     const API_BASE = "/api/shipments";
+    const API_KEY_STORAGE_KEY = "eai-shipment-api-key";
+
+    function getApiKey() {
+        return localStorage.getItem(API_KEY_STORAGE_KEY) || "";
+    }
+
+    function setApiKey(apiKey) {
+        const normalizedKey = apiKey.trim();
+
+        if (normalizedKey) {
+            localStorage.setItem(API_KEY_STORAGE_KEY, normalizedKey);
+            return;
+        }
+
+        clearApiKey();
+    }
+
+    function clearApiKey() {
+        localStorage.removeItem(API_KEY_STORAGE_KEY);
+    }
+
+    function withApiKeyHeaders(headers = {}) {
+        const apiKey = getApiKey();
+
+        if (!apiKey) {
+            return headers;
+        }
+
+        return {
+            ...headers,
+            "x-api-key": apiKey
+        };
+    }
 
     async function requestJson(url, options = {}) {
-        const response = await fetch(url, options);
+        const requestOptions = {
+            ...options,
+            headers: withApiKeyHeaders(options.headers || {})
+        };
+        const response = await fetch(url, requestOptions);
         const contentType = response.headers.get("content-type") || "";
         const body = contentType.includes("application/json") ? await response.json() : null;
 
@@ -55,6 +92,9 @@ const ShipmentApi = (() => {
     }
 
     return {
+        getApiKey,
+        setApiKey,
+        clearApiKey,
         getShipments,
         getShipmentDetail,
         createShipment,

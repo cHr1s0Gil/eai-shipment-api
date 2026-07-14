@@ -11,3 +11,7 @@ spring:
     show-sql: false
     properties:
       "[hibernate.format_sql]": true
+      
+security:
+  api-key:
+    value: api-key-test

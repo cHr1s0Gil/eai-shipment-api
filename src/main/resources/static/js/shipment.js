@@ -1,4 +1,4 @@
-const state = {
+﻿const state = {
     filter: "ALL",
     shipments: [],
     selectedId: null,
@@ -25,6 +25,10 @@ const elements = {
     dispatchButton: document.querySelector("#dispatchButton"),
     retryButton: document.querySelector("#retryButton"),
     actionMessage: document.querySelector("#actionMessage"),
+    apiKeyInput: document.querySelector("#apiKeyInput"),
+    saveApiKeyButton: document.querySelector("#saveApiKeyButton"),
+    clearApiKeyButton: document.querySelector("#clearApiKeyButton"),
+    apiKeyStatus: document.querySelector("#apiKeyStatus"),
     countAll: document.querySelector("#countAll"),
     countReceived: document.querySelector("#countReceived"),
     countProcessing: document.querySelector("#countProcessing"),
@@ -34,6 +38,7 @@ const elements = {
 
 document.addEventListener("DOMContentLoaded", () => {
     bindEvents();
+    hydrateApiKeyControl();
     loadShipments("ALL");
 });
 
@@ -46,6 +51,14 @@ function bindEvents() {
     elements.updateStatusButton.addEventListener("click", updateSelectedStatus);
     elements.dispatchButton.addEventListener("click", dispatchSelectedShipment);
     elements.retryButton.addEventListener("click", retrySelectedShipment);
+    elements.saveApiKeyButton.addEventListener("click", saveApiKey);
+    elements.clearApiKeyButton.addEventListener("click", clearApiKey);
+    elements.apiKeyInput.addEventListener("keydown", (event) => {
+        if (event.key === "Enter") {
+            event.preventDefault();
+            saveApiKey();
+        }
+    });
 
     elements.summaryTiles.forEach((tile) => {
         tile.addEventListener("click", () => {
@@ -54,6 +67,28 @@ function bindEvents() {
     });
 }
 
+function hydrateApiKeyControl() {
+    const apiKey = ShipmentApi.getApiKey();
+    elements.apiKeyInput.value = apiKey;
+    setApiKeyStatus(apiKey ? "Key saved" : "Key not set", apiKey ? "success" : "");
+}
+
+function saveApiKey() {
+    ShipmentApi.setApiKey(elements.apiKeyInput.value);
+    hydrateApiKeyControl();
+    loadShipments(state.filter);
+}
+
+function clearApiKey() {
+    ShipmentApi.clearApiKey();
+    hydrateApiKeyControl();
+    loadShipments(state.filter);
+}
+
+function setApiKeyStatus(message, type) {
+    elements.apiKeyStatus.textContent = message;
+    elements.apiKeyStatus.className = `api-key-status ${type || ""}`.trim();
+}
 async function loadShipments(status) {
     state.filter = status;
     state.selectedId = null;
@@ -251,3 +286,4 @@ function setActionMessage(message, type) {
     elements.actionMessage.textContent = message;
     elements.actionMessage.className = `form-message ${type || ""}`.trim();
 }
+

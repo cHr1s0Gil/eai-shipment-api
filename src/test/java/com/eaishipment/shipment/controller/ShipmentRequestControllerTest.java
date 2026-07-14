@@ -31,7 +31,7 @@ import com.eaishipment.shipment.service.ShipmentRequestService;
 class ShipmentRequestControllerTest {
 
     private static final String API_KEY_HEADER = "X-API-KEY";
-    private static final String API_KEY_VALUE = "local-dev-api-key";
+    private static final String API_KEY_VALUE = "api-key-test";
 
     @Autowired
     private MockMvc mockMvc;
@@ -56,6 +56,7 @@ class ShipmentRequestControllerTest {
     @Test
     void createShipment_returnsCreatedResponse() throws Exception {
         mockMvc.perform(post("/api/shipments")
+                .header(API_KEY_HEADER, API_KEY_VALUE)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("""
                         {
@@ -73,15 +74,15 @@ class ShipmentRequestControllerTest {
                         """))
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.resultCode").value("S"))
-                .andExpect(jsonPath("$.data.shipmentNo").value("SHP-API-001")
-                );
+                .andExpect(jsonPath("$.data.shipmentNo").value("SHP-API-001"));
     }
 
     @Test
     void getShipmentList_returnsSavedShipments() throws Exception {
         saveShipmentAndCommit("SHP-API-002");
 
-        mockMvc.perform(get("/api/shipments"))
+        mockMvc.perform(get("/api/shipments")
+                .header(API_KEY_HEADER, API_KEY_VALUE))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.resultCode").value("S"))
                 .andExpect(jsonPath("$.data[0].shipmentNo").value("SHP-API-002"));
@@ -89,7 +90,8 @@ class ShipmentRequestControllerTest {
 
     @Test
     void getShipmentByInvalidStatus_returnsBadRequest() throws Exception {
-        mockMvc.perform(get("/api/shipments/status/INVALID"))
+        mockMvc.perform(get("/api/shipments/status/INVALID")
+                .header(API_KEY_HEADER, API_KEY_VALUE))
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$.resultCode").value("E"));
     }
@@ -152,6 +154,23 @@ class ShipmentRequestControllerTest {
                 .header(API_KEY_HEADER, API_KEY_VALUE))
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$.resultCode").value("E"));
+    }
+
+    @Test
+    void getShipmentListWithoutApiKey_returnsUnauthorized() throws Exception {
+        mockMvc.perform(get("/api/shipments"))
+                .andExpect(status().isUnauthorized())
+                .andExpect(jsonPath("$.resultCode").value("E"))
+                .andExpect(jsonPath("$.message").value("Invalid API key"));
+    }
+
+    @Test
+    void getShipmentListWithInvalidApiKey_returnUnauthorized() throws Exception {
+        mockMvc.perform(get("/api/shipments")
+                .header(API_KEY_HEADER, "wrong-api-key"))
+                .andExpect(status().isUnauthorized())
+                .andExpect(jsonPath("$.resultCode").value("E"))
+                .andExpect(jsonPath("$.message").value("Invalid API key"));
     }
 
     private Long saveShipmentAndCommit(String shipmentNo) {

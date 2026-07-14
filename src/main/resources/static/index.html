@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
@@ -13,6 +13,12 @@
             <h1>Shipment Control Console</h1>
         </div>
         <div class="header-actions">
+            <div class="api-key-control" aria-label="API key settings">
+                <input type="password" id="apiKeyInput" placeholder="x-api-key" autocomplete="off">
+                <button type="button" class="secondary-button" id="saveApiKeyButton">Save Key</button>
+                <button type="button" class="secondary-button" id="clearApiKeyButton">Clear</button>
+                <span id="apiKeyStatus" class="api-key-status">Key not set</span>
+            </div>
             <button type="button" class="secondary-button" id="refreshButton">Refresh</button>
             <button type="button" class="primary-button" id="openCreateFormButton">Create Shipment</button>
         </div>
@@ -211,3 +217,4 @@
     <script src="/js/shipment.js"></script>
 </body>
 </html>
+

@@ -1,4 +1,4 @@
-:root {
+﻿:root {
     color-scheme: light;
     --bg: #f5f7fb;
     --surface: #ffffff;
@@ -77,6 +77,35 @@ h2 {
     display: flex;
     align-items: center;
     gap: 10px;
+}
+
+.api-key-control {
+    display: grid;
+    grid-template-columns: minmax(190px, 260px) auto auto;
+    align-items: center;
+    gap: 8px;
+}
+
+.api-key-control input {
+    min-height: 38px;
+    background: #0f172a;
+    border-color: rgba(255, 255, 255, 0.28);
+    color: #ffffff;
+}
+
+.api-key-control input::placeholder {
+    color: #94a3b8;
+}
+
+.api-key-status {
+    grid-column: 1 / -1;
+    color: #cbd5e1;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.api-key-status.success {
+    color: #8fd8d2;
 }
 
 .primary-button,
@@ -427,6 +456,11 @@ textarea:disabled {
         flex-wrap: wrap;
     }
 
+    .api-key-control {
+        width: 100%;
+        grid-template-columns: minmax(180px, 1fr) auto auto;
+    }
+
     .summary-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
     }
@@ -457,8 +491,13 @@ textarea:disabled {
         width: 100%;
     }
 
+    .api-key-control {
+        grid-template-columns: 1fr;
+    }
+
     .primary-button,
     .secondary-button {
         flex: 1;
     }
 }
+
