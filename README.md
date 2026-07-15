@@ -557,7 +557,7 @@ security:
 테스트 코드에서는 다음 값을 사용합니다.
 
 ```java
-private static final String API_KEY_HEADER = "X-API-KEY";
+private static final String API_KEY_HEADER = "x-api-key";
 private static final String API_KEY_VALUE = "api-key-test";
 ```
 
