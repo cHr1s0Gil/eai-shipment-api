@@ -64161,3 +64161,65 @@ Unconditional classes:
 2026-07-14 16:14:06.297 INFO  [SpringApplicationShutdownHook] o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
 2026-07-14 16:14:06.304 INFO  [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
 2026-07-14 16:14:06.306 INFO  [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2026-07-15 08:57:27.670 INFO  [background-preinit] o.h.validator.internal.util.Version - HV000001: Hibernate Validator 9.1.0.Final
+2026-07-15 08:57:27.905 INFO  [main] c.eaishipment.EaiShipmentApplication - Starting EaiShipmentApplication using Java 21.0.11 with PID 11176 (C:\Users\cHr1s0\Desktop\project\eai-shipment-api\build\classes\java\main started by cHr1s0 in C:\Users\cHr1s0\Desktop\project\eai-shipment-api)
+2026-07-15 08:57:27.907 INFO  [main] c.eaishipment.EaiShipmentApplication - No active profile set, falling back to 1 default profile: "default"
+2026-07-15 08:57:30.184 INFO  [main] o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-07-15 08:57:30.273 INFO  [main] o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 72 ms. Found 1 JPA repository interface.
+2026-07-15 08:57:31.404 INFO  [main] o.s.boot.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2026-07-15 08:57:31.429 INFO  [main] o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2026-07-15 08:57:31.435 INFO  [main] o.a.catalina.core.StandardService - Starting service [Tomcat]
+2026-07-15 08:57:31.435 INFO  [main] o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/11.0.22]
+2026-07-15 08:57:31.588 INFO  [main] o.s.b.w.c.s.WebApplicationContextInitializer - Root WebApplicationContext: initialization completed in 3505 ms
+2026-07-15 08:57:31.968 INFO  [main] org.hibernate.orm.jpa - HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-07-15 08:57:32.109 INFO  [main] org.hibernate.orm.core - HHH000001: Hibernate ORM core version 7.4.1.Final
+2026-07-15 08:57:32.927 INFO  [main] o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-07-15 08:57:32.984 INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-07-15 08:57:33.485 INFO  [main] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection conn0: url=jdbc:h2:file:D:/h2/eai-shipment-api/shipmentdb user=SA
+2026-07-15 08:57:33.488 INFO  [main] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-07-15 08:57:33.585 INFO  [main] o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:h2:file:D:/h2/eai-shipment-api/shipmentdb]
+	Database driver: H2 JDBC Driver
+	Database dialect: H2Dialect
+	Database version: 2.4.240
+	Default catalog/schema: SHIPMENTDB/PUBLIC
+	Autocommit mode: undefined/unknown
+	Isolation level: READ_COMMITTED [default READ_COMMITTED]
+	JDBC fetch size: 100
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-07-15 08:57:34.757 INFO  [main] org.hibernate.orm.core - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-07-15 08:57:34.829 INFO  [main] o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-07-15 08:57:34.940 INFO  [main] o.s.d.j.r.q.QueryEnhancerFactories - Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-07-15 08:57:35.642 WARN  [main] o.s.b.s.a.UserDetailsServiceAutoConfiguration - 
+
+Using generated security password: 89b73882-2363-4c68-9e50-cd404a3c1aa4
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2026-07-15 08:57:35.657 INFO  [main] o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with UserDetailsService bean with name inMemoryUserDetailsManager
+2026-07-15 08:57:35.912 INFO  [main] o.s.b.w.a.WelcomePageHandlerMapping - Adding welcome page: class path resource [static/index.html]
+2026-07-15 08:57:36.292 INFO  [main] o.s.b.h.a.H2ConsoleAutoConfiguration - H2 console available at '/h2-console'. Database available at 'jdbc:h2:file:D:/h2/eai-shipment-api/shipmentdb'
+2026-07-15 08:57:36.411 INFO  [main] o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2026-07-15 08:57:36.452 INFO  [main] o.s.boot.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/'
+2026-07-15 08:57:36.565 INFO  [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-07-15 08:57:36.566 INFO  [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2026-07-15 08:57:36.568 INFO  [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet - Completed initialization in 2 ms
+2026-07-15 08:57:36.848 INFO  [main] c.eaishipment.EaiShipmentApplication - Started EaiShipmentApplication in 11.883 seconds (process running for 13.86)
+2026-07-15 08:57:36.851 WARN  [main] o.s.c.events.SpringDocAppInitializer - SpringDoc /v3/api-docs endpoint is enabled by default. To disable it in production, set the property 'springdoc.api-docs.enabled=false'
+2026-07-15 08:57:36.851 WARN  [main] o.s.c.events.SpringDocAppInitializer - SpringDoc /swagger-ui.html endpoint is enabled by default. To disable it in production, set the property 'springdoc.swagger-ui.enabled=false'
+2026-07-15 08:57:40.455 INFO  [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] o.s.k.l.KafkaMessageListenerContainer - eai-shipment-api: partitions assigned: [shipment-dispatch-0]
+2026-07-15 09:00:00.497 INFO  [scheduling-1] c.e.s.s.ShipmentDispatchService - Shipment dispatch requested. shipmentId=105, shipmentNo=SHP-SEC-A-20260714145527, dispatchBatchId=DISPATCH-8db5b31a7eca4f58a8ccc1deeebb49d4
+2026-07-15 09:00:00.497 INFO  [scheduling-1] c.e.s.p.ShipmentDispatchProducer - Shipment dispatch message publishing. topic=shipment-dispatch, shipmentId=105, shipmentNo=SHP-SEC-A-20260714145527, dispatchBatchId=DISPATCH-8db5b31a7eca4f58a8ccc1deeebb49d4
+2026-07-15 09:00:00.593 INFO  [scheduling-1] c.e.s.s.ShipmentDispatchService - Shipment dispatch requested. shipmentId=106, shipmentNo=SHP-SEC-B-20260714145527, dispatchBatchId=DISPATCH-8db5b31a7eca4f58a8ccc1deeebb49d4
+2026-07-15 09:00:00.593 INFO  [scheduling-1] c.e.s.p.ShipmentDispatchProducer - Shipment dispatch message publishing. topic=shipment-dispatch, shipmentId=106, shipmentNo=SHP-SEC-B-20260714145527, dispatchBatchId=DISPATCH-8db5b31a7eca4f58a8ccc1deeebb49d4
+2026-07-15 09:00:00.620 INFO  [scheduling-1] c.e.s.s.ShipmentDispatchScheduler - Shipment dispatch scheduler completed. dispatchBatchId=DISPATCH-8db5b31a7eca4f58a8ccc1deeebb49d4 count=2
+2026-07-15 09:00:00.674 INFO  [kafka-producer-network-thread | java-eai-shipment-producer-1] c.e.s.p.ShipmentDispatchProducer - Kafka publish succeeded. topic=shipment-dispatch, partition=0, offset=49, shipmentId=105, shipmentNo=SHP-SEC-A-20260714145527, dispatchBatchId=DISPATCH-8db5b31a7eca4f58a8ccc1deeebb49d4
+2026-07-15 09:00:00.674 INFO  [kafka-producer-network-thread | java-eai-shipment-producer-1] c.e.s.p.ShipmentDispatchProducer - Kafka publish succeeded. topic=shipment-dispatch, partition=0, offset=50, shipmentId=106, shipmentNo=SHP-SEC-B-20260714145527, dispatchBatchId=DISPATCH-8db5b31a7eca4f58a8ccc1deeebb49d4
+2026-07-15 09:00:00.757 INFO  [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] c.e.s.c.ShipmentDispatchConsumer - Shipment dispatch message consumed. shipmentId=105, shipmentNo=SHP-SEC-A-20260714145527, dispatchBatchId=DISPATCH-8db5b31a7eca4f58a8ccc1deeebb49d4
+2026-07-15 09:00:00.760 INFO  [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] c.e.s.s.ShipmentDispatchResultService - Shipment dispatch completed. shipmentId=105, shipmentNo=SHP-SEC-A-20260714145527, dispatchBatchId=DISPATCH-8db5b31a7eca4f58a8ccc1deeebb49d4
+2026-07-15 09:00:00.761 INFO  [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] c.e.s.c.ShipmentDispatchConsumer - Shipment dispatch message processed. shipmentId=105, shipmentNo=SHP-SEC-A-20260714145527, dispatchBatchId=DISPATCH-8db5b31a7eca4f58a8ccc1deeebb49d4
+2026-07-15 09:00:00.762 INFO  [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] c.e.s.c.ShipmentDispatchConsumer - Shipment dispatch message consumed. shipmentId=106, shipmentNo=SHP-SEC-B-20260714145527, dispatchBatchId=DISPATCH-8db5b31a7eca4f58a8ccc1deeebb49d4
+2026-07-15 09:00:00.763 INFO  [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] c.e.s.s.ShipmentDispatchResultService - Shipment dispatch completed. shipmentId=106, shipmentNo=SHP-SEC-B-20260714145527, dispatchBatchId=DISPATCH-8db5b31a7eca4f58a8ccc1deeebb49d4
+2026-07-15 09:00:00.764 INFO  [org.springframework.kafka.KafkaListenerEndpointContainer#0-0-C-1] c.e.s.c.ShipmentDispatchConsumer - Shipment dispatch message processed. shipmentId=106, shipmentNo=SHP-SEC-B-20260714145527, dispatchBatchId=DISPATCH-8db5b31a7eca4f58a8ccc1deeebb49d4

@@ -39,7 +39,7 @@ spring:
 
 security:
   api-key:
-    header-name: X-API-KEY
+    header-name: x-api-key
     value: ${EAI_API_KEY:local-dev-api-key}
 
 server:

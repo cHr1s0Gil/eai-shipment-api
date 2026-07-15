@@ -1,10 +1,8 @@
-# eai-shipment-api
+﻿# eai-shipment-api
 
-ERP에서 WMS로 출고 지시가 전달되는 상황을 가정한 Spring Boot 기반 EAI 출고 지시 처리 API 프로젝트입니다.
+ERP에서 전달된 출고 지시를 EAI 서버가 수신하고, DB 적재, 상태 관리, Kafka 기반 WMS 전송 시뮬레이션, 스케줄러 자동 dispatch, 실패/재처리 흐름까지 다루는 Spring Boot 기반 EAI 출고 지시 처리 API 프로젝트입니다.
 
-ERP로부터 출고 지시 데이터를 수신하고, DB에 저장한 뒤 조회, 상태 관리, 실패 처리, 재처리, Kafka 기반 비동기 전송, 스케줄러 기반 자동 dispatch까지 처리하는 흐름을 구현했습니다.
-
-현재 MVP에서는 실제 ERP와 WMS 서버를 별도로 구현하지 않습니다. 하나의 Spring Boot 애플리케이션 안에서 API 서버, Kafka Producer, Kafka Consumer를 함께 두고 EAI 처리 흐름을 시뮬레이션합니다.
+현재 프로젝트는 포트폴리오 목적의 MVP입니다. 실제 ERP/WMS 서버를 별도로 구현하지 않고, 하나의 Spring Boot 애플리케이션 안에서 API 서버, Kafka Producer, Kafka Consumer를 함께 실행하여 EAI 처리 흐름을 시뮬레이션합니다.
 
 ## 기술 스택
 
@@ -13,34 +11,36 @@ ERP로부터 출고 지시 데이터를 수신하고, DB에 저장한 뒤 조회
 - Gradle
 - Spring Web
 - Spring Data JPA
-- H2 File Database
+- Spring Security
+- H2 Database
 - Bean Validation
-- springdoc-openapi / Swagger UI
 - Spring Kafka
-- Docker Compose
 - Apache Kafka
+- Docker Compose
 - Kafka UI
+- springdoc-openapi / Swagger UI
 - Logback
 - Static HTML/CSS/JavaScript UI
 - JUnit 5 / Spring Boot Test
 
-## 프로젝트 목적
+## 주요 기능
 
-실무 EAI 운영 업무에서 자주 볼 수 있는 출고 지시 연동 흐름을 Spring Boot 백엔드 프로젝트로 재구성하는 것이 목표입니다.
-
-기본 흐름은 다음과 같습니다.
-
-```text
-ERP 출고 지시 생성
--> EAI API 수신
--> DB 적재
--> 전송 대상 선별
--> WMS 전송 요청
--> 성공/실패 상태 반영
--> 실패 건 재처리
-```
-
-기존 업무에서 사용하는 상태 기반 배치 처리 방식을 참고하되, 별도 전송 flag 컬럼을 추가하기보다 `ShipmentStatus` 상태값을 중심으로 흐름을 단순화했습니다.
+- ERP 출고 지시 수신 API
+- 출고 지시 등록, 목록 조회, 상세 조회
+- 상태별 출고 지시 조회
+- 출고 상태 변경
+- 실패 건 재처리
+- 수동 dispatch
+- 스케줄러 기반 자동 dispatch
+- Kafka Producer 메시지 발행
+- Kafka Consumer 메시지 수신 및 처리 결과 반영
+- 장기 PROCESSING 상태 timeout 처리
+- x-api-key 기반 API 보호
+- 공통 API 응답 포맷
+- 전역 예외 처리
+- 애플리케이션 로그 / Hibernate SQL 로그 분리
+- 정적 HTML UI
+- 컨트롤러 / 서비스 테스트
 
 ## 전체 처리 흐름
 
@@ -68,7 +68,7 @@ ERP 출고 지시 생성
   v
 [ShipmentDispatchConsumer]
   |
-  | WMS 처리 시뮬레이션
+  | WMS 처리 결과 시뮬레이션
   v
 [DB Status Update]
   |
@@ -77,46 +77,51 @@ ERP 출고 지시 생성
 [조회 / 재처리 / 운영 확인]
 ```
 
-현재는 WMS 서버가 없으므로 `ShipmentDispatchConsumer`가 같은 Spring Boot 애플리케이션 안에서 WMS 처리 결과를 시뮬레이션합니다. 실제 운영 구조에서는 EAI 서버가 Producer, WMS 또는 WMS 연계 서버가 Consumer가 되는 형태로 분리될 수 있습니다.
+현재는 WMS 서버가 없기 때문에 `ShipmentDispatchConsumer`가 같은 Spring Boot 애플리케이션 안에서 WMS 처리 결과를 시뮬레이션합니다.
 
-## 주요 기능
+실제 구조에서는 다음처럼 분리될 수 있습니다.
 
-- ERP 출고 지시 수신 API
-- 출고 지시 DB 저장
-- 출고 지시 목록 조회
-- 출고 지시 상세 조회
-- 상태별 출고 지시 조회
-- 출고 지시 상태 변경
-- 실패 건 재처리
-- 수동 dispatch
-- 스케줄러 기반 자동 dispatch
-- Kafka Producer 메시지 발행
-- Kafka Consumer 메시지 수신
-- 처리 성공/실패 상태 반영
-- 장기 PROCESSING 상태 timeout 처리
-- 공통 API 응답 포맷
-- 전역 예외 처리
-- Swagger API 문서
-- H2 Console
-- Kafka UI
-- 애플리케이션 로그 / Hibernate SQL 로그 분리
-- 서비스 책임 분리 리팩토링
-- 서비스/컨트롤러 테스트
+```text
+EAI API Server -> Kafka Producer -> Kafka Broker -> WMS Consumer
+```
+
+## 상태 흐름
+
+| 상태 | 의미 |
+| --- | --- |
+| RECEIVED | ERP 출고 지시 수신 완료, WMS 전송 대기 |
+| PROCESSING | WMS 전송 요청 또는 처리 중 |
+| SUCCESS | 처리 성공 |
+| FAILED | 처리 실패 |
+
+정상 흐름:
+
+```text
+RECEIVED -> PROCESSING -> SUCCESS
+```
+
+실패 및 재처리 흐름:
+
+```text
+RECEIVED -> PROCESSING -> FAILED -> retry -> SUCCESS
+```
+
+`FAILED` 상태는 실패 사유가 필요하며, `message` 필드에 실패 원인을 저장합니다. 필요 시 실패 당시 payload는 `errorPayload`에 저장할 수 있습니다.
 
 ## 도메인 모델
 
 출고 지시는 `ShipmentRequest` 엔티티를 중심으로 관리합니다.
 
-DB는 MVP 기준으로 `shipment_request` 단일 테이블을 사용합니다. Java 코드에서는 역할별 값 객체를 `@Embeddable` / `@Embedded`로 분리했습니다.
+DB는 MVP 기준으로 `shipment_request` 단일 테이블을 사용하지만, Java 코드에서는 의미별 값 객체를 `@Embeddable` / `@Embedded`로 분리했습니다.
 
 ```text
 ShipmentRequest
-├── ShipmentRequestInfo      출고 지시 기본 정보
-├── WarehouseInfo            창고 정보
-├── CustomerInfo             고객 정보
-├── ShipmentItemInfo         품목 정보
-├── ShipmentProcessingInfo   처리 상태 정보
-└── AuditInfo                생성/수정 시간
+├─ ShipmentRequestInfo      출고 지시 기본 정보
+├─ WarehouseInfo            창고 정보
+├─ CustomerInfo             고객 정보
+├─ ShipmentItemInfo         품목 정보
+├─ ShipmentProcessingInfo   처리 상태 정보
+└─ AuditInfo                생성/수정 시간
 ```
 
 | 값 객체 | 주요 필드 |
@@ -128,63 +133,24 @@ ShipmentRequest
 | ShipmentProcessingInfo | status, retryCount, message, errorPayload, dispatchBatchId |
 | AuditInfo | createdAt, updatedAt |
 
-## 상태값
-
-| 상태 | 의미 |
-| --- | --- |
-| RECEIVED | ERP 출고 지시 수신 완료, WMS 전송 대기 |
-| PROCESSING | WMS 전송 요청 또는 처리 중 |
-| SUCCESS | 처리 성공 |
-| FAILED | 처리 실패 |
-
-기본 성공 흐름은 다음과 같습니다.
-
-```text
-RECEIVED -> PROCESSING -> SUCCESS
-```
-
-실패 흐름은 다음과 같습니다.
-
-```text
-RECEIVED -> PROCESSING -> FAILED -> retry -> SUCCESS
-```
-
-`FAILED` 상태가 되면 실패 사유를 `message`에 저장하고, 필요한 경우 실패 당시 payload를 `errorPayload`에 저장합니다. `FAILED`가 아닌 상태로 변경되면 실패 메시지와 payload는 정리합니다.
-
-## 서비스 책임 분리
-
-초기에는 `ShipmentRequestService` 하나에 등록, 조회, dispatch, Consumer 결과 처리, timeout 처리 로직이 함께 있었습니다.
-
-Kafka와 Scheduler 기능이 추가되면서 다음과 같이 책임을 분리했습니다.
+## 서비스 클래스 구조
 
 ```text
 shipment/service
-├── ShipmentRequestService
-├── ShipmentDispatchService
-├── ShipmentDispatchResultService
-└── ShipmentTimeoutService
+├─ ShipmentRequestService
+├─ ShipmentDispatchService
+├─ ShipmentDispatchResultService
+└─ ShipmentTimeoutService
 ```
 
 | 서비스 | 책임 |
 | --- | --- |
 | ShipmentRequestService | 출고 지시 등록, 조회, 상태 변경, 재처리 |
-| ShipmentDispatchService | RECEIVED 대상 dispatch, PROCESSING 변경, Kafka 메시지 발행 요청 |
+| ShipmentDispatchService | RECEIVED 건 dispatch, PROCESSING 변경, Kafka 발행 요청 |
 | ShipmentDispatchResultService | Kafka Consumer 처리 결과를 SUCCESS/FAILED로 반영 |
 | ShipmentTimeoutService | 오래된 PROCESSING 건을 FAILED로 전환 |
 
-Producer와 Consumer는 Kafka 입출력에 집중하고, 실제 업무 판단과 DB 상태 변경은 Service 계층에서 처리합니다.
-
-```text
-Controller / Scheduler
--> Service
--> Repository / Producer
-```
-
-```text
-Kafka Consumer
--> DispatchResultService
--> Repository
-```
+Producer와 Consumer는 Kafka 입출력에 집중하고, DB 상태 변경과 업무 판단은 Service 계층에서 처리합니다.
 
 ## Kafka 처리 구조
 
@@ -194,12 +160,12 @@ Kafka Consumer
 shipment-dispatch
 ```
 
-### Message
+### Message 예시
 
 ```json
 {
   "shipmentId": 1,
-  "shipmentNo": "SHP-20260703-001",
+  "shipmentNo": "SHP-20260714-001",
   "dispatchBatchId": "DISPATCH-..."
 }
 ```
@@ -232,7 +198,7 @@ ShipmentDispatchResultService 호출
 DB 상태를 SUCCESS 또는 FAILED로 변경
 ```
 
-현재 WMS 시뮬레이션 규칙은 다음과 같습니다.
+현재 WMS 시뮬레이션 규칙:
 
 ```text
 shipmentNo에 FAIL 포함 -> FAILED
@@ -241,7 +207,7 @@ shipmentNo에 FAIL 포함 -> FAILED
 
 ## Scheduler
 
-`@EnableScheduling`과 `@Scheduled`를 사용해 주기적으로 출고 지시를 처리합니다.
+`@EnableScheduling`과 `@Scheduled`를 사용하여 주기적으로 출고 지시를 처리합니다.
 
 기본 cron 설정:
 
@@ -254,7 +220,7 @@ shipment:
     timeout-minutes: 10
 ```
 
-즉, 서버 시작 시간을 기준으로 5분마다 도는 `fixedRate` 방식이 아니라 서버 시간 기준 매 5분 정각에 실행됩니다.
+즉 서버 시간 기준 매 5분 정각에 실행됩니다.
 
 스케줄러는 다음 작업을 수행합니다.
 
@@ -276,18 +242,15 @@ RECEIVED 조회
 
 ### PROCESSING timeout
 
-`PROCESSING` 상태가 오래 유지되는 건은 자동 재전송하지 않습니다.
-
-EAI 서버가 WMS에 실제로 보냈는지, WMS가 처리 중인지, Kafka 처리 중 문제가 생겼는지 서버가 확정할 수 없기 때문입니다. 자동 재전송은 중복 출고 위험이 있으므로 timeout 대상은 `FAILED`로 전환하고 운영자 또는 사용자가 확인 후 재처리하도록 설계했습니다.
+오래된 `PROCESSING` 건은 자동 재전송하지 않습니다.
 
 ```text
 PROCESSING 상태가 10분 이상 지속
--> FAILED로 전환
+-> FAILED 전환
 -> message = Dispatch timeout
--> 운영자 확인 후 재처리
 ```
 
-## 스케줄러 제어 API
+## Scheduler 제어 API
 
 스케줄러 dispatch는 서버 재시작 없이 enable / disable 할 수 있습니다.
 
@@ -297,11 +260,11 @@ PROCESSING 상태가 10분 이상 지속
 | PATCH | `/api/shipments/scheduler/enable` | dispatch scheduler 활성화 |
 | PATCH | `/api/shipments/scheduler/disable` | dispatch scheduler 비활성화 |
 
-현재는 `AtomicBoolean` 기반 인메모리 플래그로 관리합니다. 서버 재시작 시 기본값으로 초기화됩니다.
-
-추후 운영 환경에서는 DB 또는 설정 저장소 기반 제어로 확장할 수 있습니다.
+현재는 `AtomicBoolean` 기반 인메모리 플래그로 관리합니다. 서버 재시작 시 기본값(true)으로 초기화됩니다.
 
 ## API 목록
+
+모든 `/api/**` 요청은 `x-api-key` 헤더가 필요합니다.
 
 | Method | URL | 설명 |
 | --- | --- | --- |
@@ -316,6 +279,66 @@ PROCESSING 상태가 10분 이상 지속
 | PATCH | `/api/shipments/scheduler/enable` | 스케줄러 활성화 |
 | PATCH | `/api/shipments/scheduler/disable` | 스케줄러 비활성화 |
 
+## API Key 인증
+
+Spring Security와 커스텀 `OncePerRequestFilter`를 사용하여 `/api/**` 요청을 보호합니다.
+
+인증 헤더:
+
+```http
+x-api-key: your-api-key
+```
+
+보안 관련 클래스:
+
+```text
+com.eaishipment.config.security
+├─ ApiKeyProperties
+├─ ApiKeyAuthenticationFilter
+└─ SecurityConfig
+```
+
+| 클래스 | 역할 |
+| --- | --- |
+| ApiKeyProperties | `security.api-key` 설정 바인딩 |
+| ApiKeyAuthenticationFilter | 요청 헤더의 x-api-key 검증 |
+| SecurityConfig | SecurityFilterChain 구성 및 URL 접근 정책 정의 |
+
+인증 실패 응답:
+
+```json
+{
+  "resultCode": "E",
+  "message": "Invalid API key",
+  "data": null
+}
+```
+
+## 환경 설정
+
+프로젝트 루트에 `.env` 파일을 생성하고 API Key를 설정합니다.
+
+```properties
+EAI_API_KEY=your-api-key
+```
+
+`application.yml`은 `.env`를 import합니다.
+
+```yaml
+spring:
+  config:
+    import: optional:file:.env[.properties]
+```
+
+API Key 설정:
+
+```yaml
+security:
+  api-key:
+    header-name: x-api-key
+    value: ${EAI_API_KEY:local-dev-api-key}
+```
+
 ## 요청 예시
 
 ### 출고 지시 등록
@@ -323,13 +346,14 @@ PROCESSING 상태가 10분 이상 지속
 ```http
 POST /api/shipments
 Content-Type: application/json
+x-api-key: your-api-key
 ```
 
 ```json
 {
-  "shipmentNo": "SHP-20260703-001",
-  "orderNo": "ORD-20260703-001",
-  "requestedAt": "2026-07-03T09:00:00",
+  "shipmentNo": "SHP-20260714-001",
+  "orderNo": "ORD-20260714-001",
+  "requestedAt": "2026-07-14T09:00:00",
   "warehouseCode": "WH-SEOUL-01",
   "customerCode": "CUST-001",
   "customerName": "Seoul Distribution",
@@ -345,6 +369,7 @@ Content-Type: application/json
 ```http
 PATCH /api/shipments/1/status
 Content-Type: application/json
+x-api-key: your-api-key
 ```
 
 ```json
@@ -358,12 +383,14 @@ Content-Type: application/json
 
 ```http
 POST /api/shipments/1/retry
+x-api-key: your-api-key
 ```
 
 ### 수동 dispatch
 
 ```http
 POST /api/shipments/1/dispatch
+x-api-key: your-api-key
 ```
 
 ## 공통 응답 포맷
@@ -401,7 +428,7 @@ POST /api/shipments/1/dispatch
 - 잘못된 enum 값
 - 잘못된 path variable 타입
 - 존재하지 않는 출고 지시 조회
-- 기타 예상하지 못한 서버 오류
+- 예상하지 못한 서버 오류
 
 비즈니스 규칙 위반은 `BusinessException`을 사용합니다.
 
@@ -429,36 +456,28 @@ logs/sql/hibernate-sql.log
 WARN 이상 로그는 콘솔에도 출력
 ```
 
-주요 로그에는 `dispatchBatchId`를 함께 남겨 스케줄러 실행 단위와 Kafka 메시지 흐름을 추적할 수 있도록 했습니다.
-
-예시:
-
-```text
-Shipment dispatch requested. shipmentId=1, shipmentNo=SHP-001, dispatchBatchId=DISPATCH-...
-Kafka publish succeeded. topic=shipment-dispatch, partition=0, offset=10, ...
-Shipment dispatch completed. shipmentId=1, shipmentNo=SHP-001, dispatchBatchId=DISPATCH-...
-Stale PROCESSING shipment marked as FAILED. shipmentId=1, ...
-```
+주요 로그에는 `dispatchBatchId`를 포함하여 스케줄러 실행 단위와 Kafka 메시지 흐름을 추적할 수 있도록 했습니다.
 
 ## 패키지 구조
 
 ```text
 com.eaishipment
-├── config
-├── global
-│   ├── exception
-│   └── response
-└── shipment
-    ├── consumer
-    ├── controller
-    ├── dto
-    ├── entity
-    ├── event
-    ├── mapper
-    ├── producer
-    ├── repository
-    ├── scheduler
-    └── service
+├─ config
+│  └─ security
+├─ global
+│  ├─ exception
+│  └─ response
+└─ shipment
+   ├─ consumer
+   ├─ controller
+   ├─ dto
+   ├─ entity
+   ├─ event
+   ├─ mapper
+   ├─ producer
+   ├─ repository
+   ├─ scheduler
+   └─ service
 ```
 
 ## 실행 방법
@@ -475,7 +494,7 @@ docker compose up -d
 .\gradlew bootRun
 ```
 
-`bootRun`은 서버를 계속 띄워두는 명령이므로 실행 중에는 Gradle 작업이 종료되지 않습니다. 중지하려면 터미널에서 `Ctrl + C`를 누릅니다.
+`bootRun`은 서버를 계속 실행하는 명령입니다. 종료하려면 터미널에서 `Ctrl + C`를 누릅니다.
 
 ### 3. 빌드
 
@@ -487,6 +506,12 @@ docker compose up -d
 
 ```powershell
 .\gradlew test
+```
+
+특정 테스트 클래스만 실행:
+
+```powershell
+.\gradlew test --tests "com.eaishipment.shipment.controller.ShipmentRequestControllerTest"
 ```
 
 ## 접속 URL
@@ -509,19 +534,31 @@ Password:
 
 ## 테스트 구조
 
-서비스 책임 분리 이후 테스트도 역할별로 분리했습니다.
+테스트는 `test` 프로필을 사용합니다.
 
-```text
-src/test/java/com/eaishipment/shipment/service
-├── ShipmentRequestServiceTest
-├── ShipmentDispatchServiceTest
-├── ShipmentDispatchResultServiceTest
-└── ShipmentTimeoutServiceTest
+```java
+@ActiveProfiles("test")
 ```
 
+테스트 설정 파일:
+
 ```text
-src/test/java/com/eaishipment/shipment/controller
-└── ShipmentRequestControllerTest
+src/test/resources/application-test.yml
+```
+
+테스트 환경에서는 운영/로컬 `.env`의 실제 API Key를 사용하지 않고 테스트 전용 키를 사용합니다.
+
+```yaml
+security:
+  api-key:
+    value: api-key-test
+```
+
+테스트 코드에서는 다음 값을 사용합니다.
+
+```java
+private static final String API_KEY_HEADER = "X-API-KEY";
+private static final String API_KEY_VALUE = "api-key-test";
 ```
 
 테스트 범위:
@@ -533,6 +570,7 @@ src/test/java/com/eaishipment/shipment/controller
 - 실패 payload 저장 확인
 - 오래된 PROCESSING timeout 처리
 - Controller 응답 검증
+- API Key 없음/오류 키 요청에 대한 401 응답 검증
 
 ## 로컬 테스트 시나리오
 
@@ -540,10 +578,11 @@ src/test/java/com/eaishipment/shipment/controller
 
 1. Kafka 실행
 2. Spring Boot 실행
-3. 출고 지시 등록
-4. 수동 dispatch 또는 scheduler 실행
-5. Kafka Consumer 처리
-6. 상태가 `SUCCESS`로 변경되는지 확인
+3. API Key 설정
+4. 출고 지시 등록
+5. 수동 dispatch 또는 scheduler 실행
+6. Kafka Consumer 처리
+7. 상태가 `SUCCESS`로 변경되는지 확인
 
 ```text
 RECEIVED -> PROCESSING -> SUCCESS
@@ -551,23 +590,21 @@ RECEIVED -> PROCESSING -> SUCCESS
 
 ### 실패 처리 케이스
 
-`shipmentNo`에 `FAIL`이 포함된 출고 지시를 등록합니다.
+`shipmentNo`에 `FAIL`을 포함한 출고 지시를 등록합니다.
 
 ```text
-SHP-FAIL-20260703-001
+SHP-FAIL-20260714-001
 ```
 
 dispatch 후 Consumer가 실패로 처리합니다.
 
 ```text
 RECEIVED -> PROCESSING -> FAILED
-message = WMS transmission failed
-errorPayload = Kafka dispatch message JSON
 ```
 
 ### 장기 PROCESSING 처리 케이스
 
-`PROCESSING` 상태가 10분 이상 지속되면 timeout scheduler가 실패로 전환합니다.
+`PROCESSING` 상태가 설정 시간 이상 유지되면 timeout scheduler가 실패로 전환합니다.
 
 ```text
 PROCESSING -> FAILED
@@ -576,43 +613,11 @@ message = Dispatch timeout
 
 ## 설계 포인트
 
-- DB는 MVP 기준 `shipment_request` 단일 테이블로 단순화했습니다.
-- Java 코드는 `@Embedded` 값 객체로 의미 단위를 분리했습니다.
-- 엔티티를 API 응답으로 직접 노출하지 않고 DTO로 변환합니다.
-- 상태 변경은 Transaction 내부에서 JPA dirty checking을 활용합니다.
+- Java 코드에서는 `@Embedded` 값 객체로 의미 단위를 분리했습니다.
+- Entity를 API 응답으로 직접 노출하지 않고 DTO로 변환합니다.
+- 상태 변경은 트랜잭션 내부에서 JPA dirty checking을 사용합니다.
 - Kafka 발행은 비동기이므로 dispatch API 응답은 최종 성공이 아니라 `PROCESSING` 상태를 의미합니다.
 - Kafka 최종 처리 결과는 Consumer가 별도로 DB에 반영합니다.
-- 오래된 PROCESSING 건은 자동 재전송하지 않고 FAILED로 전환해 중복 출고 위험을 줄입니다.
-- 스케줄러는 cron 기반으로 매 5분 정각 실행되도록 설정했습니다.
-- 운영성 API는 추후 Spring Security로 인가 처리를 적용할 예정입니다.
-
-## 향후 개선 로드맵
-
-- Spring Security 도입
-- 스케줄러 제어 API 권한 제한
-- 수동 dispatch / 상태 변경 / 재처리 API 권한 제한
-- Kafka retry 정책 적용
-- Dead Letter Topic 도입
-- Kafka consumer offset / consumer group 운영 관리 문서화
-- 중복 처리 방지를 위한 idempotency 설계
-- H2에서 MySQL 또는 PostgreSQL로 전환
-- 운영 이력 테이블 추가
-- Actuator 기반 health check 추가
-- 서비스별 테스트 커버리지 보강
-- GitHub Actions 기반 CI 구성
-- 아키텍처 다이어그램 이미지 추가
-
-## 현재 구현 상태 요약
-
-```text
-출고 지시 수신 API 구현 완료
-JPA Entity / Embedded Value Object 설계 완료
-조회 / 상태 변경 / 재처리 API 구현 완료
-Kafka Producer / Consumer 구현 완료
-스케줄러 기반 자동 dispatch 구현 완료
-장기 PROCESSING timeout 처리 구현 완료
-파일 로그 분리 및 rolling 설정 완료
-서비스 책임 분리 리팩토링 완료
-서비스 / 컨트롤러 테스트 작성 및 통과 확인
-Spring Boot 4.1.0 업그레이드 완료
-```
+- 오래된 PROCESSING 건은 자동 재전송하지 않고 FAILED로 전환하여 중복 출고 위험을 줄입니다.
+- 모든 `/api/**` 요청은 x-api-key로 보호합니다.
+- 테스트 환경은 `.env`와 분리된 테스트 전용 API Key를 사용합니다.

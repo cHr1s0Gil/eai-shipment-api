@@ -30,7 +30,7 @@ import com.eaishipment.shipment.service.ShipmentRequestService;
 @ActiveProfiles("test")
 class ShipmentRequestControllerTest {
 
-    private static final String API_KEY_HEADER = "X-API-KEY";
+    private static final String API_KEY_HEADER = "x-api-key";
     private static final String API_KEY_VALUE = "api-key-test";
 
     @Autowired
