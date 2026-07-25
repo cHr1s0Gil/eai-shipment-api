@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
+// import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -19,8 +19,8 @@ import com.eaishipment.shipment.dto.ShipmentDetailResponse;
 import com.eaishipment.shipment.dto.ShipmentDispatchResponse;
 import com.eaishipment.shipment.dto.ShipmentListResponse;
 import com.eaishipment.shipment.dto.ShipmentRetryResponse;
-import com.eaishipment.shipment.dto.ShipmentStatusUpdateRequest;
-import com.eaishipment.shipment.dto.ShipmentStatusUpdateResponse;
+// import com.eaishipment.shipment.dto.ShipmentStatusUpdateRequest;
+// import com.eaishipment.shipment.dto.ShipmentStatusUpdateResponse;
 import com.eaishipment.shipment.entity.ShipmentStatus;
 import com.eaishipment.shipment.service.ShipmentDispatchService;
 import com.eaishipment.shipment.service.ShipmentRequestService;
@@ -94,27 +94,28 @@ public class ShipmentRequestController {
 				.body(ApiResponse.success(message, response));
 	}
 
-	@PatchMapping("/{id}/status")
-	@Operation(summary = "Update shipment status", description = "Updates a shipment status. FAILED status requires a message.")
-	@io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Shipment status updated")
-	@io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "400", description = "Invalid request or shipment not found")
-	public ResponseEntity<ApiResponse<ShipmentStatusUpdateResponse>> updateShipmentStatus(
-			@Parameter(description = "Shipment request id", example = "1") @PathVariable("id") Long id,
-			@Valid @RequestBody ShipmentStatusUpdateRequest request) {
-		return ResponseEntity
-				.status(HttpStatus.OK)
-				.body(ApiResponse.success("Shipment status updated", shipmentRequestService.updateStatus(id, request)));
-	}
+	/*
+	 * Manual status changes are intentionally disabled. Shipment status must be changed
+	 * only by the dispatch, consumer result, timeout, and retry flows.
+	 *
+	 * @PatchMapping("/{id}/status")
+	 * public ResponseEntity<ApiResponse<ShipmentStatusUpdateResponse>> updateShipmentStatus(
+	 *         @PathVariable("id") Long id,
+	 *         @Valid @RequestBody ShipmentStatusUpdateRequest request) {
+	 *     return ResponseEntity.ok(ApiResponse.success(
+	 *             "Shipment status updated", shipmentRequestService.updateStatus(id, request)));
+	 * }
+	 */
 
 	@PostMapping("/{id}/retry")
-	@Operation(summary = "Retry failed shipment", description = "Retries only FAILED shipment requests. On success, retryCount increases and status changes to SUCCESS.")
-	@io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Shipment retry completed")
+	@Operation(summary = "Retry failed shipment", description = "Retries only FAILED shipment requests by republishing a dispatch message. The immediate status is PROCESSING.")
+	@io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Shipment retry dispatch requested")
 	@io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "400", description = "Shipment is not retryable or not found")
 	public ResponseEntity<ApiResponse<ShipmentRetryResponse>> retry(
 			@Parameter(description = "Shipment request id", example = "1") @PathVariable("id") Long id) {
 		return ResponseEntity
 				.status(HttpStatus.OK)
-				.body(ApiResponse.success("Shipment retry completed", shipmentRequestService.retryShipment(id)));
+				.body(ApiResponse.success("Shipment retry dispatch requested", shipmentDispatchService.retryShipment(id)));
 	}
 
 	@PostMapping("/{id}/dispatch")

@@ -49,7 +49,7 @@ class ShipmentDispatchResultServiceTest {
         String payload = "{\"shipmentId\":" + id + ",\"shipmentNo\":\"SHP-RESULT-001\"}";
 
         shipmentDispatchService.dispatchShipment(id);
-        shipmentDispatchResultService.completeDispatch(id, payload);
+        shipmentDispatchResultService.completeDispatch(id, getDispatchBatchId(id), payload);
 
         ShipmentDetailResponse response = shipmentRequestService.getShipmentDetailById(id);
         ShipmentRequest shipmentRequest = shipmentRequestRepository.findById(id).orElseThrow();
@@ -65,7 +65,7 @@ class ShipmentDispatchResultServiceTest {
         String payload = "{\"shipmentId\":" + id + ",\"shipmentNo\":\"SHP-FAIL-RESULT-001\"}";
 
         shipmentDispatchService.dispatchShipment(id);
-        shipmentDispatchResultService.completeDispatch(id, payload);
+        shipmentDispatchResultService.completeDispatch(id, getDispatchBatchId(id), payload);
 
         ShipmentDetailResponse response = shipmentRequestService.getShipmentDetailById(id);
         ShipmentRequest shipmentRequest = shipmentRequestRepository.findById(id).orElseThrow();
@@ -74,6 +74,20 @@ class ShipmentDispatchResultServiceTest {
         assertThat(response.getStatus()).isEqualTo(ShipmentStatus.FAILED);
         assertThat(response.getMessage()).isEqualTo("WMS transmission failed");
         assertThat(shipmentRequest.getProcessingInfo().getErrorPayload()).isEqualTo(payload);
+    }
+
+    @Test
+    void completeDispatch_ignoresStaleDispatchBatchMessage() {
+        Long id = saveShipmentAndGetId("SHP-RESULT-STALE-001");
+        String payload = "{\"shipmentId\":" + id + ",\"shipmentNo\":\"SHP-RESULT-STALE-001\"}";
+
+        shipmentDispatchService.dispatchShipment(id);
+        shipmentDispatchResultService.completeDispatch(id, "MANUAL-STALE-BATCH", payload);
+
+        ShipmentRequest shipmentRequest = shipmentRequestRepository.findById(id).orElseThrow();
+        assertThat(shipmentRequest.getProcessingInfo().getStatus()).isEqualTo(ShipmentStatus.PROCESSING);
+        assertThat(shipmentRequest.getProcessingInfo().getMessage()).isNull();
+        assertThat(shipmentRequest.getProcessingInfo().getErrorPayload()).isNull();
     }
 
     private Long saveShipmentAndGetId(String shipmentNo) {
@@ -86,6 +100,13 @@ class ShipmentDispatchResultServiceTest {
                 .findFirst()
                 .orElseThrow()
                 .getId();
+    }
+
+    private String getDispatchBatchId(Long id) {
+        return shipmentRequestRepository.findById(id)
+                .orElseThrow()
+                .getProcessingInfo()
+                .getDispatchBatchId();
     }
 
     private ShipmentCreateRequest createRequest(String shipmentNo) {

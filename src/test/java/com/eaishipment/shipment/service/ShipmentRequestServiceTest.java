@@ -17,7 +17,6 @@ import com.eaishipment.global.exception.BusinessException;
 import com.eaishipment.shipment.dto.ShipmentCreateRequest;
 import com.eaishipment.shipment.dto.ShipmentCreateResponse;
 import com.eaishipment.shipment.dto.ShipmentDetailResponse;
-import com.eaishipment.shipment.dto.ShipmentRetryResponse;
 import com.eaishipment.shipment.dto.ShipmentStatusUpdateRequest;
 import com.eaishipment.shipment.dto.ShipmentStatusUpdateResponse;
 import com.eaishipment.shipment.entity.ShipmentStatus;
@@ -101,27 +100,6 @@ class ShipmentRequestServiceTest {
         ShipmentStatusUpdateRequest request = statusRequest(ShipmentStatus.FAILED, null);
 
         assertThatThrownBy(() -> shipmentRequestService.updateStatus(id, request))
-                .isInstanceOf(BusinessException.class);
-    }
-
-    @Test
-    void retryShipment_changesFailedShipmentToSuccess() {
-        Long id = saveShipmentAndGetId("SHP-TEST-006");
-        shipmentRequestService.updateStatus(id, statusRequest(ShipmentStatus.FAILED, "Temporary WMS error"));
-
-        ShipmentRetryResponse response = shipmentRequestService.retryShipment(id);
-
-        assertThat(response.getShipmentNo()).isEqualTo("SHP-TEST-006");
-        assertThat(response.getStatus()).isEqualTo(ShipmentStatus.SUCCESS);
-        assertThat(response.getRetryCount()).isEqualTo(1);
-        assertThat(response.getMessage()).isNull();
-    }
-
-    @Test
-    void retryShipment_throwsExceptionWhenShipmentIsNotFailed() {
-        Long id = saveShipmentAndGetId("SHP-TEST-007");
-
-        assertThatThrownBy(() -> shipmentRequestService.retryShipment(id))
                 .isInstanceOf(BusinessException.class);
     }
 

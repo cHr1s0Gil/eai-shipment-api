@@ -28,7 +28,7 @@ ERP에서 전달된 출고 지시를 EAI 서버가 수신하고, DB 적재, 상�
 - ERP 출고 지시 수신 API
 - 출고 지시 등록, 목록 조회, 상세 조회
 - 상태별 출고 지시 조회
-- 출고 상태 변경
+- Dispatch, Consumer 결과, Timeout, Retry 기반 상태 전이 관리
 - 실패 건 재처리
 - 수동 dispatch
 - 스케줄러 기반 자동 dispatch
@@ -103,7 +103,7 @@ RECEIVED -> PROCESSING -> SUCCESS
 실패 및 재처리 흐름:
 
 ```text
-RECEIVED -> PROCESSING -> FAILED -> retry -> SUCCESS
+RECEIVED -> PROCESSING -> FAILED -> retry -> PROCESSING -> SUCCESS or FAILED
 ```
 
 `FAILED` 상태는 실패 사유가 필요하며, `message` 필드에 실패 원인을 저장합니다. 필요 시 실패 당시 payload는 `errorPayload`에 저장할 수 있습니다.
@@ -145,7 +145,7 @@ shipment/service
 
 | 서비스 | 책임 |
 | --- | --- |
-| ShipmentRequestService | 출고 지시 등록, 조회, 상태 변경, 재처리 |
+| ShipmentRequestService | 출고 지시 등록 및 조회 |
 | ShipmentDispatchService | RECEIVED 건 dispatch, PROCESSING 변경, Kafka 발행 요청 |
 | ShipmentDispatchResultService | Kafka Consumer 처리 결과를 SUCCESS/FAILED로 반영 |
 | ShipmentTimeoutService | 오래된 PROCESSING 건을 FAILED로 전환 |
@@ -272,7 +272,6 @@ PROCESSING 상태가 10분 이상 지속
 | GET | `/api/shipments` | 출고 지시 목록 조회 |
 | GET | `/api/shipments/{id}` | 출고 지시 상세 조회 |
 | GET | `/api/shipments/status/{status}` | 상태별 출고 지시 조회 |
-| PATCH | `/api/shipments/{id}/status` | 출고 지시 상태 변경 |
 | POST | `/api/shipments/{id}/retry` | FAILED 출고 지시 재처리 |
 | POST | `/api/shipments/{id}/dispatch` | 수동 dispatch |
 | GET | `/api/shipments/scheduler` | 스케줄러 상태 조회 |
@@ -364,20 +363,10 @@ x-api-key: your-api-key
 }
 ```
 
-### 상태 변경
+### 상태 전이 정책
 
-```http
-PATCH /api/shipments/1/status
-Content-Type: application/json
-x-api-key: your-api-key
-```
-
-```json
-{
-  "status": "FAILED",
-  "message": "WMS stock shortage"
-}
-```
+수동 상태 변경 API는 상태 전이 무결성을 위해 비활성화되어 있습니다.
+상태는 dispatch 요청, Kafka Consumer 처리 결과, PROCESSING timeout, FAILED 재처리 흐름에서만 변경됩니다.
 
 ### 재처리
 
@@ -563,7 +552,7 @@ private static final String API_KEY_VALUE = "api-key-test";
 
 테스트 범위:
 
-- 출고 지시 등록/조회/상태 변경/재처리
+- 출고 지시 등록/조회/재처리
 - dispatch 시 RECEIVED -> PROCESSING 변경
 - Kafka Producer 호출 확인
 - Consumer 처리 결과 SUCCESS/FAILED 반영
@@ -615,7 +604,7 @@ message = Dispatch timeout
 
 - Java 코드에서는 `@Embedded` 값 객체로 의미 단위를 분리했습니다.
 - Entity를 API 응답으로 직접 노출하지 않고 DTO로 변환합니다.
-- 상태 변경은 트랜잭션 내부에서 JPA dirty checking을 사용합니다.
+- 상태 전이는 트랜잭션 내부에서 JPA dirty checking을 사용합니다.
 - Kafka 발행은 비동기이므로 dispatch API 응답은 최종 성공이 아니라 `PROCESSING` 상태를 의미합니다.
 - Kafka 최종 처리 결과는 Consumer가 별도로 DB에 반영합니다.
 - 오래된 PROCESSING 건은 자동 재전송하지 않고 FAILED로 전환하여 중복 출고 위험을 줄입니다.

@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.eaishipment.shipment.dto.ShipmentRetryResponse;
 import com.eaishipment.global.exception.BusinessException;
 import com.eaishipment.shipment.dto.ShipmentDispatchResponse;
 import com.eaishipment.shipment.entity.ShipmentRequest;
@@ -82,6 +83,22 @@ public class ShipmentDispatchService {
         }
 
         return count;
+    }
+
+    @Transactional
+    public ShipmentRetryResponse retryShipment(Long id) {
+        ShipmentRequest shipmentRequest = getShipmentRequestById(id);
+
+        if (shipmentRequest.getProcessingInfo().getStatus() != ShipmentStatus.FAILED) {
+            throw new BusinessException("재처리 대상이 아닙니다.");
+        }
+
+        shipmentRequest.prepareRetry();
+
+        String dispatchBatchId = "RETRY-" + UUID.randomUUID().toString().replace("-", "");
+        dispatchShipment(id, dispatchBatchId);
+
+        return ShipmentRequestMapper.toRetryResponse(shipmentRequest);
     }
 
     private ShipmentRequest getShipmentRequestById(Long id) {

@@ -71,8 +71,8 @@ public class ShipmentRequest {
         this.processingInfo.updateStatus(status, message, errorPayload);
     }
 
-    public void retrySuccess() {
-        this.processingInfo.retrySuccess();
+    public void prepareRetry() {
+        this.processingInfo.prepareRetry();
     }
 
     public Long getId() {

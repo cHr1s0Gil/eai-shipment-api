@@ -56,4 +56,11 @@ shipment:
         default: "0 */5 * * * *"
     timeout-minutes: 10
 
-    
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, info
+  endpoint:
+    health:
+      show-details: when-authorized

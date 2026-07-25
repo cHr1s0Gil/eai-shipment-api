@@ -10,7 +10,6 @@ import com.eaishipment.shipment.dto.ShipmentCreateRequest;
 import com.eaishipment.shipment.dto.ShipmentCreateResponse;
 import com.eaishipment.shipment.dto.ShipmentDetailResponse;
 import com.eaishipment.shipment.dto.ShipmentListResponse;
-import com.eaishipment.shipment.dto.ShipmentRetryResponse;
 import com.eaishipment.shipment.dto.ShipmentStatusUpdateRequest;
 import com.eaishipment.shipment.dto.ShipmentStatusUpdateResponse;
 import com.eaishipment.shipment.entity.CustomerInfo;
@@ -90,18 +89,6 @@ public class ShipmentRequestService {
 
         shipmentRequest.updateStatus(request.getStatus(), request.getMessage());
         return ShipmentRequestMapper.toUpdateResponse(shipmentRequest);
-    }
-
-    @Transactional
-    public ShipmentRetryResponse retryShipment(Long id) {
-        ShipmentRequest shipmentRequest = getShipmentRequestById(id);
-        if (shipmentRequest.getProcessingInfo().getStatus() != ShipmentStatus.FAILED) {
-            throw new BusinessException("재처리 대상이 아닙니다.");
-        }
-
-        shipmentRequest.retrySuccess();
-
-        return ShipmentRequestMapper.toRetryResponse(shipmentRequest);
     }
 
     private ShipmentRequest getShipmentRequestById(Long id) {

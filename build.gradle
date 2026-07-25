@@ -25,7 +25,8 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-kafka'
 	implementation 'org.springframework.boot:spring-boot-h2console'
 	implementation "org.springframework.boot:spring-boot-starter-security"
-
+	implementation 'org.springframework.boot:spring-boot-starter-actuator'
+	
 	annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
 
 	runtimeOnly 'com.h2database:h2'

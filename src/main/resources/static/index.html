@@ -125,24 +125,10 @@
                 </dl>
 
                 <section class="action-panel">
-                    <h3>Status Action</h3>
-                    <label>
-                        Target Status
-                        <select id="statusSelect" disabled>
-                            <option value="RECEIVED">RECEIVED</option>
-                            <option value="PROCESSING">PROCESSING</option>
-                            <option value="SUCCESS">SUCCESS</option>
-                            <option value="FAILED">FAILED</option>
-                        </select>
-                    </label>
-                    <label>
-                        Message
-                        <textarea id="statusMessageInput" rows="3" disabled placeholder="Required when changing status to FAILED."></textarea>
-                    </label>
+                    <h3>Dispatch Action</h3>
                     <div class="action-buttons">
                         <button type="button" class="secondary-button" id="dispatchButton" disabled>Dispatch</button>
                         <button type="button" class="secondary-button" id="retryButton" disabled>Retry</button>
-                        <button type="button" class="primary-button" id="updateStatusButton" disabled>Update Status</button>
                     </div>
                     <p class="form-message" id="actionMessage"></p>
                 </section>

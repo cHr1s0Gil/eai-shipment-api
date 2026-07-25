@@ -5,6 +5,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Objects;
+
 import com.eaishipment.global.exception.BusinessException;
 import com.eaishipment.shipment.entity.ShipmentRequest;
 import com.eaishipment.shipment.entity.ShipmentStatus;
@@ -21,8 +23,22 @@ public class ShipmentDispatchResultService {
     }
 
     @Transactional
-    public void completeDispatch(Long id, String payload) {
+    public void completeDispatch(Long id, String dispatchBatchId, String payload) {
         ShipmentRequest shipmentRequest = getShipmentRequestById(id);
+
+        if (!Objects.equals(dispatchBatchId, shipmentRequest.getProcessingInfo().getDispatchBatchId())) {
+            log.warn("Stale dispatch message ignored. shipmentId={}, dispatchBatchId={}",
+                    id, dispatchBatchId);
+            return;
+        }
+
+        if (shipmentRequest.getProcessingInfo().getStatus() != ShipmentStatus.PROCESSING) {
+            log.warn("Dispatch result ignored. shipment is not PROCESSING. shipmentId={}, status={}, dispatchBatchId={}",
+                    id,
+                    shipmentRequest.getProcessingInfo().getStatus(),
+                    dispatchBatchId);
+            return;
+        }
 
         if (isWmsSendFailed(shipmentRequest)) {
             shipmentRequest.updateStatus(
@@ -58,4 +74,3 @@ public class ShipmentDispatchResultService {
                 .contains("FAIL");
     }
 }
-

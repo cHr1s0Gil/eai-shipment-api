@@ -4,12 +4,12 @@ import com.eaishipment.shipment.entity.ShipmentStatus;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 
-@Schema(description = "Response body after retrying a failed shipment request")
+@Schema(description = "Shipment status after retry dispatch", example = "PROCESSING")
 public class ShipmentRetryResponse {
     @Schema(description = "Shipment request number", example = "SHP-20260522-001")
     private String shipmentNo;
 
-    @Schema(description = "Shipment status after retry", example = "SUCCESS")
+    @Schema(description = "Shipment status after retry dispatch", example = "PROCESSING")
     private ShipmentStatus status;
 
     @Schema(description = "Retry count after retry processing", example = "1")

@@ -1,7 +1,7 @@
 package com.eaishipment.shipment.controller;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
+// import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -96,21 +96,21 @@ class ShipmentRequestControllerTest {
                 .andExpect(jsonPath("$.resultCode").value("E"));
     }
 
-    @Test
-    void updateStatusToFailedWithoutMessage_returnsBadRequest() throws Exception {
-        Long id = saveShipmentAndCommit("SHP-API-003");
-
-        mockMvc.perform(patch("/api/shipments/{id}/status", id)
-                .header(API_KEY_HEADER, API_KEY_VALUE)
-                .contentType(MediaType.APPLICATION_JSON)
-                .content("""
-                        {
-                          "status": "FAILED"
-                        }
-                        """))
-                .andExpect(status().isBadRequest())
-                .andExpect(jsonPath("$.resultCode").value("E"));
-    }
+    /*
+     * Manual status update endpoint is intentionally disabled.
+     *
+     * @Test
+     * void updateStatusToFailedWithoutMessage_returnsBadRequest() throws Exception {
+     *     Long id = saveShipmentAndCommit("SHP-API-003");
+     *
+     *     mockMvc.perform(patch("/api/shipments/{id}/status", id)
+     *             .header(API_KEY_HEADER, API_KEY_VALUE)
+     *             .contentType(MediaType.APPLICATION_JSON)
+     *             .content("{ \"status\": \"FAILED\" }"))
+     *             .andExpect(status().isBadRequest())
+     *             .andExpect(jsonPath("$.resultCode").value("E"));
+     * }
+     */
 
     @Test
     void retryNonFailedShipment_returnsBadRequest() throws Exception {

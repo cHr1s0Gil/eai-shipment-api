@@ -19,9 +19,6 @@ const elements = {
     createDialog: document.querySelector("#createDialog"),
     createForm: document.querySelector("#createForm"),
     formMessage: document.querySelector("#formMessage"),
-    statusSelect: document.querySelector("#statusSelect"),
-    statusMessageInput: document.querySelector("#statusMessageInput"),
-    updateStatusButton: document.querySelector("#updateStatusButton"),
     dispatchButton: document.querySelector("#dispatchButton"),
     retryButton: document.querySelector("#retryButton"),
     actionMessage: document.querySelector("#actionMessage"),
@@ -48,7 +45,6 @@ function bindEvents() {
     elements.closeCreateFormButton.addEventListener("click", closeCreateDialog);
     elements.resetFormButton.addEventListener("click", resetCreateForm);
     elements.createForm.addEventListener("submit", submitCreateForm);
-    elements.updateStatusButton.addEventListener("click", updateSelectedStatus);
     elements.dispatchButton.addEventListener("click", dispatchSelectedShipment);
     elements.retryButton.addEventListener("click", retrySelectedShipment);
     elements.saveApiKeyButton.addEventListener("click", saveApiKey);
@@ -149,32 +145,6 @@ async function submitCreateForm(event) {
     }
 }
 
-async function updateSelectedStatus() {
-    if (!state.selectedId) {
-        setActionMessage("Select a shipment before updating status.", "error");
-        return;
-    }
-
-    const payload = {
-        status: elements.statusSelect.value
-    };
-
-    const message = elements.statusMessageInput.value.trim();
-    if (message) {
-        payload.message = message;
-    }
-
-    setActionMessage("Updating shipment status.", "");
-
-    try {
-        const response = await ShipmentApi.updateShipmentStatus(state.selectedId, payload);
-        setActionMessage(response.message || "Shipment status updated", "success");
-        await afterMutation();
-    } catch (error) {
-        setActionMessage(error.message, "error");
-    }
-}
-
 async function retrySelectedShipment() {
     if (!state.selectedId) {
         setActionMessage("Select a shipment before retry.", "error");
@@ -185,7 +155,7 @@ async function retrySelectedShipment() {
 
     try {
         const response = await ShipmentApi.retryShipment(state.selectedId);
-        setActionMessage(response.message || "Shipment retry completed", "success");
+        setActionMessage(response.message || "Shipment retry dispatch requested", "success");
         await afterMutation();
     } catch (error) {
         setActionMessage(error.message, "error");
@@ -235,26 +205,27 @@ async function updateSummaryCounts() {
 
 function hydrateActionControls(detail) {
     setActionControls(true);
-    elements.statusSelect.value = detail.status || "RECEIVED";
-    elements.statusMessageInput.value = detail.message || "";
-    elements.statusSelect.disabled = detail.status === "SUCCESS";
-    elements.statusMessageInput.disabled = detail.status === "SUCCESS";
-    elements.updateStatusButton.disabled = detail.status === "SUCCESS";
     elements.dispatchButton.disabled = detail.status !== "RECEIVED";
     elements.retryButton.disabled = detail.status !== "FAILED";
-    setActionMessage("", "");
+
+    if (detail.status === "RECEIVED") {
+        setActionMessage("Ready to dispatch this shipment.", "");
+        return;
+    }
+
+    if (detail.status === "FAILED") {
+        setActionMessage("Ready to retry this failed shipment.", "");
+        return;
+    }
+
+    setActionMessage("This shipment is being processed or already completed.", "");
 }
 
 function setActionControls(enabled) {
-    elements.statusSelect.disabled = !enabled;
-    elements.statusMessageInput.disabled = !enabled;
-    elements.updateStatusButton.disabled = !enabled;
-    elements.dispatchButton.disabled = true;
-    elements.retryButton.disabled = true;
+    elements.dispatchButton.disabled = !enabled;
+    elements.retryButton.disabled = !enabled;
 
     if (!enabled) {
-        elements.statusSelect.value = "RECEIVED";
-        elements.statusMessageInput.value = "";
         setActionMessage("", "");
     }
 }

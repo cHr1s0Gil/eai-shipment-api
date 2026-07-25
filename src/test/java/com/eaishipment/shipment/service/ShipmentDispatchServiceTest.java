@@ -19,6 +19,7 @@ import org.springframework.test.util.ReflectionTestUtils;
 import com.eaishipment.global.exception.BusinessException;
 import com.eaishipment.shipment.dto.ShipmentCreateRequest;
 import com.eaishipment.shipment.dto.ShipmentDispatchResponse;
+import com.eaishipment.shipment.dto.ShipmentRetryResponse;
 import com.eaishipment.shipment.entity.ShipmentStatus;
 import com.eaishipment.shipment.event.ShipmentDispatchMessage;
 import com.eaishipment.shipment.producer.ShipmentDispatchProducer;
@@ -83,6 +84,32 @@ class ShipmentDispatchServiceTest {
         assertThat(shipmentRequestRepository.findById(failedId).orElseThrow().getProcessingInfo().getStatus())
                 .isEqualTo(ShipmentStatus.FAILED);
         verify(shipmentDispatchProducer, times(1)).send(any(ShipmentDispatchMessage.class));
+    }
+
+    @Test
+    void retryShipment_republishesFailedShipment() {
+        Long id = saveShipmentAndGetId("SHP-RETRY-001");
+        shipmentRequestService.updateStatus(id, statusRequest(ShipmentStatus.FAILED, "Temporary WMS error"));
+
+        ShipmentRetryResponse response = shipmentDispatchService.retryShipment(id);
+
+        assertThat(response.getShipmentNo()).isEqualTo("SHP-RETRY-001");
+        assertThat(response.getStatus()).isEqualTo(ShipmentStatus.PROCESSING);
+        assertThat(response.getRetryCount()).isEqualTo(1);
+        assertThat(response.getMessage()).isNull();
+
+        var shipmentRequest = shipmentRequestRepository.findById(id).orElseThrow();
+        assertThat(shipmentRequest.getProcessingInfo().getDispatchBatchId()).startsWith("RETRY-");
+        assertThat(shipmentRequest.getProcessingInfo().getErrorPayload()).isNull();
+        verify(shipmentDispatchProducer, times(1)).send(any(ShipmentDispatchMessage.class));
+    }
+
+    @Test
+    void retryShipment_throwsExceptionWhenShipmentIsNotFailed() {
+        Long id = saveShipmentAndGetId("SHP-RETRY-002");
+
+        assertThatThrownBy(() -> shipmentDispatchService.retryShipment(id))
+                .isInstanceOf(BusinessException.class);
     }
 
     private Long saveShipmentAndGetId(String shipmentNo) {

@@ -23,7 +23,8 @@ public class ShipmentProcessingInfo {
     @Column(name = "error_payload", columnDefinition = "CLOB")
     private String errorPayload;
 
-    protected ShipmentProcessingInfo() {}
+    protected ShipmentProcessingInfo() {
+    }
 
     public ShipmentProcessingInfo(String dispatchBatchId, ShipmentStatus status, int retryCount, String message) {
         this.dispatchBatchId = dispatchBatchId;
@@ -57,9 +58,10 @@ public class ShipmentProcessingInfo {
         this.errorPayload = null;
     }
 
-    public void retrySuccess() {
+    public void prepareRetry() {
         this.retryCount++;
-        this.status = ShipmentStatus.SUCCESS;
+        this.status = ShipmentStatus.RECEIVED;
+        this.dispatchBatchId = null;
         this.message = null;
         this.errorPayload = null;
     }

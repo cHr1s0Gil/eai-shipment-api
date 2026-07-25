@@ -69,15 +69,16 @@
         });
     }
 
-    function updateShipmentStatus(id, payload) {
-        return requestJson(`${API_BASE}/${id}/status`, {
-            method: "PATCH",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(payload)
-        });
-    }
+    // Manual status changes are intentionally disabled.
+    // function updateShipmentStatus(id, payload) {
+    //     return requestJson(`${API_BASE}/${id}/status`, {
+    //         method: "PATCH",
+    //         headers: {
+    //             "Content-Type": "application/json"
+    //         },
+    //         body: JSON.stringify(payload)
+    //     });
+    // }
 
     function retryShipment(id) {
         return requestJson(`${API_BASE}/${id}/retry`, {
@@ -98,7 +99,7 @@
         getShipments,
         getShipmentDetail,
         createShipment,
-        updateShipmentStatus,
+        // updateShipmentStatus,
         retryShipment,
         dispatchShipment
     };

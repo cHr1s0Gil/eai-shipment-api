@@ -32,7 +32,7 @@ public class ShipmentDispatchConsumer {
                 message.getShipmentNo(),
                 message.getDispatchBatchId());
 
-        shipmentDispatchResultService.completeDispatch(message.getShipmentId(), payload);
+        shipmentDispatchResultService.completeDispatch(message.getShipmentId(), message.getDispatchBatchId(), payload);
 
         log.info("Shipment dispatch message processed. shipmentId={}, shipmentNo={}, dispatchBatchId={}",
                 message.getShipmentId(),
