@@ -1,6 +1,6 @@
 ﻿# eai-shipment-api
 
-ERP에서 전달된 출고 지시를 EAI 서버가 수신하고, DB 적재, 상태 관리, Kafka 기반 WMS 전송 시뮬레이션, 스케줄러 자동 dispatch, 실패/재처리 흐름까지 다루는 Spring Boot 기반 EAI 출고 지시 처리 API 프로젝트입니다.
+ERP에서 전달된 출고 지시를 EAI 서버가 수신하고, DB 적재, 상태 관리, Kafka 기반 WMS 전송 시뮬레이션, 스케줄러 자동 dispatch, 실패/재처리 흐름을 Spring Boot API와 React 관리 UI로 구현한 프로젝트입니다.
 
 현재 프로젝트는 포트폴리오 목적의 MVP입니다. 실제 ERP/WMS 서버를 별도로 구현하지 않고, 하나의 Spring Boot 애플리케이션 안에서 API 서버, Kafka Producer, Kafka Consumer를 함께 실행하여 EAI 처리 흐름을 시뮬레이션합니다.
 
@@ -20,7 +20,7 @@ ERP에서 전달된 출고 지시를 EAI 서버가 수신하고, DB 적재, 상�
 - Kafka UI
 - springdoc-openapi / Swagger UI
 - Logback
-- Static HTML/CSS/JavaScript UI
+- React 19 / TypeScript 6 / Vite 8
 - JUnit 5 / Spring Boot Test
 
 ## 주요 기능
@@ -39,7 +39,8 @@ ERP에서 전달된 출고 지시를 EAI 서버가 수신하고, DB 적재, 상�
 - 공통 API 응답 포맷
 - 전역 예외 처리
 - 애플리케이션 로그 / Hibernate SQL 로그 분리
-- 정적 HTML UI
+- React + TypeScript 기반 출고 관리 UI
+- 출고 목록·상세 조회, FAILED 재처리 및 PROCESSING 상태 polling
 - 컨트롤러 / 서비스 테스트
 
 ## 전체 처리 흐름
@@ -467,6 +468,13 @@ com.eaishipment
    ├─ repository
    ├─ scheduler
    └─ service
+
+frontend/src
+├─ api          # Backend API 호출
+├─ components   # 목록, 상세, 상태 표시 및 사용자 동작 UI
+├─ types        # API 응답과 출고 데이터 TypeScript 타입
+├─ App.tsx      # 화면 상태, 조회, 재처리 및 polling 관리
+└─ main.tsx     # React 애플리케이션 진입점
 ```
 
 ## 실행 방법
@@ -485,13 +493,27 @@ docker compose up -d
 
 `bootRun`은 서버를 계속 실행하는 명령입니다. 종료하려면 터미널에서 `Ctrl + C`를 누릅니다.
 
-### 3. 빌드
+### 3. React 개발 서버 실행
+
+새 터미널에서 프론트엔드 디렉터리로 이동한 뒤 의존성을 설치하고 개발 서버를 실행합니다.
+
+```powershell
+cd frontend
+npm install
+npm run dev
+```
+
+개발 환경에서는 `frontend/.env.development`의 `VITE_API_BASE_URL`을 통해 Spring Boot API 주소를 설정합니다.
+
+### 4. 빌드
 
 ```powershell
 .\gradlew clean build
+cd frontend
+npm run build
 ```
 
-### 4. 테스트
+### 5. 테스트
 
 ```powershell
 .\gradlew test
@@ -507,7 +529,7 @@ docker compose up -d
 
 | 구분 | URL |
 | --- | --- |
-| 애플리케이션 UI | `http://localhost:8080/index.html` |
+| React 관리 UI | `http://localhost:5173` |
 | Swagger UI | `http://localhost:8080/swagger-ui.html` |
 | H2 Console | `http://localhost:8080/h2-console` |
 | Kafka UI | `http://localhost:8081` |
