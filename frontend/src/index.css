@@ -1,0 +1,66 @@
+:root {
+  font-family:
+    Inter, Pretendard, "Segoe UI", "Noto Sans KR", Arial, sans-serif;
+  color: #202938;
+  background: #f3f5f7;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  --color-bg: #f3f5f7;
+  --color-surface: #ffffff;
+  --color-surface-muted: #f8f9fb;
+  --color-border: #d9dee7;
+  --color-border-strong: #bdc6d3;
+  --color-text: #202938;
+  --color-text-muted: #627086;
+  --color-primary: #167c80;
+  --color-primary-hover: #106a6d;
+  --color-danger: #c63d47;
+  --shadow-panel: 0 1px 3px rgb(22 34 50 / 8%);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  min-width: 320px;
+  min-height: 100%;
+  background: var(--color-bg);
+}
+
+body {
+  min-width: 320px;
+  min-height: 100vh;
+  margin: 0;
+  background: var(--color-bg);
+}
+
+button,
+input {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+button:disabled {
+  cursor: not-allowed;
+}
+
+button,
+input,
+[tabindex]:focus-visible {
+  outline: none;
+}
+
+button:focus-visible,
+input:focus-visible,
+[tabindex]:focus-visible {
+  box-shadow: 0 0 0 3px rgb(22 124 128 / 18%);
+}
+
+#root {
+  min-height: 100vh;
+}

@@ -8,6 +8,7 @@ public class ShipmentDetailResponse {
     private Long id;
     private String shipmentNo;
     private String orderNo;
+    private String dispatchBatchId;
     private LocalDateTime requestedAt;
     private String warehouseCode;
     private String customerCode;
@@ -20,13 +21,15 @@ public class ShipmentDetailResponse {
     private String message;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
+    private int retryCount;
 
-    public ShipmentDetailResponse(Long id, String shipmentNo, String orderNo, LocalDateTime requestedAt, String warehouseCode,
+    public ShipmentDetailResponse(Long id, String shipmentNo, String orderNo, String dispatchBatchId, LocalDateTime requestedAt, String warehouseCode,
             String customerCode, String customerName, String materialCode, String materialName, Integer quantity,
-            String unit, ShipmentStatus status, String message, LocalDateTime createdAt, LocalDateTime updatedAt) {
+            String unit, ShipmentStatus status, String message, LocalDateTime createdAt, LocalDateTime updatedAt, int retryCount) {
         this.id = id;
         this.shipmentNo = shipmentNo;
         this.orderNo = orderNo;
+        this.dispatchBatchId = dispatchBatchId;
         this.requestedAt = requestedAt;
         this.warehouseCode = warehouseCode;
         this.customerCode = customerCode;
@@ -39,6 +42,7 @@ public class ShipmentDetailResponse {
         this.message = message;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
+        this.retryCount = retryCount;
     }
 
     public Long getId() {
@@ -51,6 +55,10 @@ public class ShipmentDetailResponse {
 
     public String getOrderNo() {
         return orderNo;
+    }
+
+    public String getDispatchBatchId() {
+        return dispatchBatchId;
     }
 
     public LocalDateTime getRequestedAt() {
@@ -99,5 +107,9 @@ public class ShipmentDetailResponse {
 
     public LocalDateTime getUpdatedAt() {
         return updatedAt;
+    }
+
+    public int getRetryCount() {
+        return retryCount;
     }
 }

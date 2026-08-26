@@ -28,7 +28,8 @@ public class ShipmentRequestMapper {
         return new ShipmentDetailResponse(
             request.getId(),
             request.getRequestInfo().getShipmentNo(), 
-            request.getRequestInfo().getOrderNo(), 
+            request.getRequestInfo().getOrderNo(),
+            request.getProcessingInfo().getDispatchBatchId(), 
             request.getRequestInfo().getRequestedAt(),
             request.getWarehouseInfo().getWarehouseCode(),
             request.getCustomerInfo().getCustomerCode(),
@@ -40,7 +41,8 @@ public class ShipmentRequestMapper {
             request.getProcessingInfo().getStatus(),
             request.getProcessingInfo().getMessage(), 
             request.getAuditInfo().getCreatedAt(),
-            request.getAuditInfo().getUpdatedAt()
+            request.getAuditInfo().getUpdatedAt(),
+            request.getProcessingInfo().getRetryCount()
         );
     }
 

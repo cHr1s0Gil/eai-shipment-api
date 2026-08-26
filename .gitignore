@@ -1,6 +1,10 @@
 HELP.md
 .gradle
 .env
+node_modules/
+dist/
+logs/
+
 build/
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**/build/
