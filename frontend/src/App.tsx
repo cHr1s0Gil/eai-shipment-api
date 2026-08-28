@@ -1,145 +1,156 @@
-import { useState, useEffect } from 'react'
-import './App.css'
+import { useState, useEffect } from "react";
+import "./App.css";
 
-import { ApiKeyInput } from './components/ApiKeyInput'
-import { ShipmentList } from './components/ShipmentList'
-import { ShipmentDetailPanel } from './components/ShipmentDetailPanel'
+import { ApiKeyInput } from "./components/ApiKeyInput";
+import { ShipmentList } from "./components/ShipmentList";
+import { ShipmentDetailPanel } from "./components/ShipmentDetailPanel";
 
-import { getShipmentDetail, getShipments, retryShipment } from './api/shipmentApi'
+import {
+  getShipmentDetail,
+  getShipments,
+  retryShipment,
+} from "./api/shipmentApi";
 
-import type { ShipmentDetail, ShipmentListItem } from './types/shipment'
+import type { ShipmentDetail, ShipmentListItem } from "./types/shipment";
 
 function App() {
-  const [apiKey, setApiKey] = useState('')
+  const [apiKey, setApiKey] = useState("");
 
-  const [shipments, setShipments] = useState<ShipmentListItem[]>([])
-  const [selectedId, setSelectedId] = useState<number | null>(null)
-  const [selectedShipment, setSelectedShipment] = useState<ShipmentDetail | null>(null)
-  const [loading, setLoading] = useState(false)
-  const [detailLoading, setDetailLoading] = useState(false)
-  const [retrying, setRetrying] = useState(false)
-  const [error, setError] = useState<string | null>(null)
+  const [shipments, setShipments] = useState<ShipmentListItem[]>([]);
+  const [selectedId, setSelectedId] = useState<number | null>(null);
+  const [selectedShipment, setSelectedShipment] =
+    useState<ShipmentDetail | null>(null);
+  const [loading, setLoading] = useState(false);
+  const [detailLoading, setDetailLoading] = useState(false);
+  const [retrying, setRetrying] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   async function handleSelectShipment(id: number) {
-    setSelectedId(id)
-    setDetailLoading(true)
+    setSelectedId(id);
+    setDetailLoading(true);
 
     try {
-      const result = await getShipmentDetail(id, apiKey)
-      setSelectedShipment(result)
-    } catch(error: unknown) {
-      if(error instanceof Error) {
-        setError(error.message)
+      const result = await getShipmentDetail(id, apiKey);
+      setSelectedShipment(result);
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        setError(error.message);
       } else {
-        setError("알 수 없는 오류가 발생했습니다.")
+        setError("알 수 없는 오류가 발생했습니다.");
       }
     } finally {
-      setDetailLoading(false)
+      setDetailLoading(false);
     }
   }
 
   async function handleRetry(id: number) {
-    setError(null)
-    setRetrying(true)
+    setError(null);
+    setRetrying(true);
 
     try {
-      await retryShipment(id, apiKey)
-      
-      const shipmentListResult = await getShipments(apiKey)
-      setShipments(shipmentListResult)
+      await retryShipment(id, apiKey);
 
-      const detailResult = await getShipmentDetail(id, apiKey)
-      setSelectedShipment(detailResult)
+      const shipmentListResult = await getShipments(apiKey);
+      setShipments(shipmentListResult);
 
-    } catch(error: unknown) {
-      if(error instanceof Error) {
-        setError(error.message)
+      const detailResult = await getShipmentDetail(id, apiKey);
+      setSelectedShipment(detailResult);
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        setError(error.message);
       } else {
-        setError("알 수 없는 오류가 발생했습니다.")
+        setError("알 수 없는 오류가 발생했습니다.");
       }
     } finally {
-      setRetrying(false)
+      setRetrying(false);
     }
   }
 
   async function handleRefresh() {
-    setError(null)
-    setLoading(true)
+    setError(null);
+    setLoading(true);
 
     try {
-      const shipmentListResult = await getShipments(apiKey)
-      setShipments(shipmentListResult)
+      const shipmentListResult = await getShipments(apiKey);
+      setShipments(shipmentListResult);
 
-      if(selectedId !== null) {
-        setDetailLoading(true)
-        const shipmentDetailResult = await getShipmentDetail(selectedId, apiKey)
-        setSelectedShipment(shipmentDetailResult)
+      if (selectedId !== null) {
+        setDetailLoading(true);
+        const shipmentDetailResult = await getShipmentDetail(
+          selectedId,
+          apiKey,
+        );
+        setSelectedShipment(shipmentDetailResult);
       }
-    } catch(error: unknown) {
-      if(error instanceof Error) {
-        setError(error.message)
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        setError(error.message);
       } else {
-        setError("알 수 없는 오류가 발생했습니다.")
+        setError("알 수 없는 오류가 발생했습니다.");
       }
     } finally {
-      setLoading(false)
-      setDetailLoading(false)
+      setLoading(false);
+      setDetailLoading(false);
     }
   }
 
   useEffect(() => {
-    if(apiKey.trim() === "" || selectedId === null || selectedShipment?.status !== "PROCESSING") return;
+    if (
+      apiKey.trim() === "" ||
+      selectedId === null ||
+      selectedShipment?.status !== "PROCESSING"
+    )
+      return;
 
-    const pollingShipmentId = selectedId
-    let requestInProgress = false
-    let cancelled = false
+    const pollingShipmentId = selectedId;
+    let requestInProgress = false;
+    let cancelled = false;
 
     const pollShipmentStatus = async () => {
-      if(requestInProgress) return
+      if (requestInProgress) return;
 
-      requestInProgress = true
+      requestInProgress = true;
 
       try {
-        const detailResult = await getShipmentDetail(pollingShipmentId, apiKey)
+        const detailResult = await getShipmentDetail(pollingShipmentId, apiKey);
 
-        if(cancelled) return
+        if (cancelled) return;
 
-        if(detailResult.status === "PROCESSING") {
-          setSelectedShipment(detailResult)
-          setError(null)
-          return
+        if (detailResult.status === "PROCESSING") {
+          setSelectedShipment(detailResult);
+          setError(null);
+          return;
         }
 
-        const shipmentListResult = await getShipments(apiKey)
+        const shipmentListResult = await getShipments(apiKey);
 
-        if(cancelled) return
+        if (cancelled) return;
 
+        setSelectedShipment(detailResult);
+        setShipments(shipmentListResult);
+        setError(null);
+      } catch (error: unknown) {
+        if (cancelled) return;
 
-        setSelectedShipment(detailResult)
-        setShipments(shipmentListResult)
-        setError(null)
-      } catch(error: unknown) {
-        if(cancelled) return
-
-        if(error instanceof Error) {
-          setError(error.message)
+        if (error instanceof Error) {
+          setError(error.message);
         } else {
-          setError("상태를 갱신하는 중 알 수 없는 오류가 발생했습니다.")
+          setError("상태를 갱신하는 중 알 수 없는 오류가 발생했습니다.");
         }
       } finally {
-        requestInProgress = false
+        requestInProgress = false;
       }
-    }
+    };
 
     const timer = window.setInterval(() => {
-      void pollShipmentStatus()
-    }, 2000)
+      void pollShipmentStatus();
+    }, 2000);
 
     return () => {
-      cancelled = true
-      window.clearInterval(timer)
-    }
-  }, [apiKey, selectedId, selectedShipment?.status])
+      cancelled = true;
+      window.clearInterval(timer);
+    };
+  }, [apiKey, selectedId, selectedShipment?.status]);
 
   return (
     <main className="app-shell">
@@ -187,7 +198,7 @@ function App() {
         />
       </div>
     </main>
-  )
+  );
 }
 
-export default App
+export default App;
