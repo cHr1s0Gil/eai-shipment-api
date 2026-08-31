@@ -1,5 +1,5 @@
-import type { ShipmentListItem } from '../types/shipment'
-import { StatusBadge } from './StatusBadge'
+import type { ShipmentListItem } from "../types/shipment"
+import { StatusBadge } from "./StatusBadge"
 
 interface ShipmentListProps {
   shipments: ShipmentListItem[]
@@ -14,7 +14,7 @@ function formatDateTime(value: string) {
     return value
   }
 
-  return date.toLocaleString('ko-KR')
+  return date.toLocaleString("ko-KR")
 }
 
 export function ShipmentList({
@@ -47,12 +47,12 @@ export function ShipmentList({
             return (
               <tr
                 key={shipment.id}
-                className={isSelected ? 'is-selected' : undefined}
+                className={isSelected ? "is-selected" : undefined}
                 aria-selected={isSelected}
                 tabIndex={0}
                 onClick={() => onSelect(shipment.id)}
                 onKeyDown={(event) => {
-                  if (event.key === 'Enter' || event.key === ' ') {
+                  if (event.key === "Enter" || event.key === " ") {
                     event.preventDefault()
                     onSelect(shipment.id)
                   }

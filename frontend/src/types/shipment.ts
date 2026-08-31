@@ -1,8 +1,8 @@
 export type ShipmentStatus =
-  | 'RECEIVED'
-  | 'PROCESSING'
-  | 'SUCCESS'
-  | 'FAILED'
+  | "RECEIVED"
+  | "PROCESSING"
+  | "SUCCESS"
+  | "FAILED"
 
 export interface ApiResponse<T> {
   resultCode: 'S' | 'E'
@@ -43,8 +43,8 @@ export interface ShipmentDetail {
 }
 
 export interface ShipmentRetryResult {
-    shipmentNo: string,
-    status: ShipmentStatus,
-    retryCount: number,
-    message: string | null
+  shipmentNo: string,
+  status: ShipmentStatus,
+  retryCount: number,
+  message: string | null
 }

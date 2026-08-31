@@ -1,12 +1,22 @@
-import type { ShipmentDetail } from '../types/shipment'
-import { RetryButton } from './RetryButton'
-import { StatusBadge } from './StatusBadge'
+import type { ShipmentDetail } from "../types/shipment"
+import type {
+  FailureAnalysisResponse,
+  FailureAnalysisResult,
+} from "../types/failureAnalysis"
+import { FailureAnalysisButton } from "./FailureAnalysisButton"
+import { FailureAnalysisResultPanel } from "./FailureAnalysisResultPanel"
+import { RetryButton } from "./RetryButton"
+import { StatusBadge } from "./StatusBadge"
 
 interface ShipmentDetailPanelProps {
   shipment: ShipmentDetail | null
   loading: boolean
   retrying: boolean
+  analyzing: boolean
+  failureAnalysis: FailureAnalysisResponse | null
+  analysisResult: FailureAnalysisResult | null
   onRetry: (id: number) => void
+  onAnalyzeFailure: (id: number) => void
 }
 
 function formatDateTime(value: string) {
@@ -16,14 +26,18 @@ function formatDateTime(value: string) {
     return value
   }
 
-  return date.toLocaleString('ko-KR')
+  return date.toLocaleString("ko-KR")
 }
 
 export function ShipmentDetailPanel({
   shipment,
   loading,
   retrying,
+  analyzing,
+  failureAnalysis,
+  analysisResult,
   onRetry,
+  onAnalyzeFailure,
 }: ShipmentDetailPanelProps) {
   if (loading) {
     return (
@@ -72,7 +86,7 @@ export function ShipmentDetailPanel({
           </div>
           <div className="detail-row">
             <dt>Dispatch Batch ID</dt>
-            <dd>{shipment.dispatchBatchId ?? '-'}</dd>
+            <dd>{shipment.dispatchBatchId ?? "-"}</dd>
           </div>
           <div className="detail-row">
             <dt>창고</dt>
@@ -121,10 +135,23 @@ export function ShipmentDetailPanel({
         )}
       </div>
 
+      <FailureAnalysisResultPanel
+        analysis={failureAnalysis}
+        result={analysisResult}
+        loading={analyzing}
+      />
+
       <div className="panel-actions">
+        <FailureAnalysisButton
+          shipment={shipment}
+          loading={analyzing}
+          disabled={retrying}
+          onAnalyze={onAnalyzeFailure}
+        />
         <RetryButton
           shipment={shipment}
           loading={retrying}
+          disabled={analyzing}
           onRetry={onRetry}
         />
       </div>

@@ -1,4 +1,4 @@
-import type { ShipmentStatus } from '../types/shipment'
+import type { ShipmentStatus } from "../types/shipment"
 
 interface StatusBadgeProps {
   status: ShipmentStatus

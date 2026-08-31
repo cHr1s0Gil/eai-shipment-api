@@ -17,7 +17,7 @@ export function RefreshButton({
       aria-label="출고지시 데이터 새로고침"
       onClick={onRefresh}
     >
-      {loading ? '새로고침 중...' : '새로고침'}
+      {loading ? "새로고침 중..." : "새로고침"}
     </button>
   )
 }
