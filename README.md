@@ -1,13 +1,13 @@
 ﻿# eai-shipment-api
 
-ERP에서 전달된 출고 지시를 EAI 서버가 수신하고, DB 적재, 상태 관리, Kafka 기반 WMS 전송 시뮬레이션, 스케줄러 자동 dispatch, 실패/재처리 흐름을 Spring Boot API와 React 관리 UI로 구현한 프로젝트입니다.
+ERP에서 전달된 출고 지시를 수신하여 상태를 추적하고, Kafka 기반 WMS 전송, 실패·재처리, 장기 처리 timeout 및 OpenAI 기반 장애 분석을 제공하는 Spring Boot·React 기반 EAI 포트폴리오 프로젝트입니다.
 
-현재 프로젝트는 포트폴리오 목적의 MVP입니다. 실제 ERP/WMS 서버를 별도로 구현하지 않고, 하나의 Spring Boot 애플리케이션 안에서 API 서버, Kafka Producer, Kafka Consumer를 함께 실행하여 EAI 처리 흐름을 시뮬레이션합니다.
+현재 프로젝트는 실무에서 경험한 ERP/EAI 연계와 운영 장애 대응 흐름을 재구성한 포트폴리오 목적의 MVP입니다. 실제 ERP/WMS 서버를 별도로 구현하지 않고, 하나의 Spring Boot 애플리케이션 안에서 API 서버, Kafka Producer, Kafka Consumer를 함께 실행하여 EAI 처리 흐름을 시뮬레이션합니다. AI 분석 결과는 실제 장애 원인을 확정하지 않으며 운영자의 확인을 돕는 참고 정보로만 사용합니다.
 
 ## 기술 스택
 
 - Java 21
-- Spring Boot 4.1.0
+- Spring Boot 4.1.1
 - Gradle
 - Spring Web
 - Spring Data JPA
@@ -21,6 +21,7 @@ ERP에서 전달된 출고 지시를 EAI 서버가 수신하고, DB 적재, 상�
 - springdoc-openapi / Swagger UI
 - Logback
 - React 19 / TypeScript 6 / Vite 8
+- OpenAI Java SDK 4.52.0
 - JUnit 5 / Spring Boot Test
 
 ## 주요 기능
@@ -41,6 +42,10 @@ ERP에서 전달된 출고 지시를 EAI 서버가 수신하고, DB 적재, 상�
 - 애플리케이션 로그 / Hibernate SQL 로그 분리
 - React + TypeScript 기반 출고 관리 UI
 - 출고 목록·상세 조회, FAILED 재처리 및 PROCESSING 상태 polling
+- FAILED 출고 대상 OpenAI 장애 분석 요청
+- 가능한 원인, 확인 항목, 재처리 권고를 구조화하여 표시
+- 출고·dispatch 단위별 장애 분석 결과 저장 및 기존 결과 재사용
+- 환경변수 기반 AI 분석 활성화/비활성화 및 모델 설정
 - 컨트롤러 / 서비스 테스트
 
 ## 전체 처리 흐름
@@ -80,6 +85,29 @@ ERP에서 전달된 출고 지시를 EAI 서버가 수신하고, DB 적재, 상�
 
 현재는 WMS 서버가 없기 때문에 `ShipmentDispatchConsumer`가 같은 Spring Boot 애플리케이션 안에서 WMS 처리 결과를 시뮬레이션합니다.
 
+FAILED 출고의 장애 분석 흐름:
+
+```text
+[FAILED Shipment]
+  |
+  | 운영자가 AI 오류 분석 실행
+  v
+[FailureAnalysisService]
+  |
+  | FAILED 상태 / 기능 플래그 / dispatchBatchId 검증
+  | PENDING 분석 이력 저장
+  v
+[FailureAnalyzer]
+  |
+  | OpenAI Responses API 호출
+  v
+[shipment_failure_analysis]
+  |
+  | COMPLETE 또는 FAILED
+  v
+[React Analysis Result Panel]
+```
+
 실제 구조에서는 다음처럼 분리될 수 있습니다.
 
 ```text
@@ -113,7 +141,7 @@ RECEIVED -> PROCESSING -> FAILED -> retry -> PROCESSING -> SUCCESS or FAILED
 
 출고 지시는 `ShipmentRequest` 엔티티를 중심으로 관리합니다.
 
-DB는 MVP 기준으로 `shipment_request` 단일 테이블을 사용하지만, Java 코드에서는 의미별 값 객체를 `@Embeddable` / `@Embedded`로 분리했습니다.
+출고 정보는 `shipment_request`, AI 장애 분석 이력은 `shipment_failure_analysis` 테이블에 저장합니다. Java 코드에서는 출고 정보의 의미 단위를 `@Embeddable` / `@Embedded` 값 객체로 분리했습니다.
 
 ```text
 ShipmentRequest
@@ -133,6 +161,28 @@ ShipmentRequest
 | ShipmentItemInfo | materialCode, materialName, quantity, unit |
 | ShipmentProcessingInfo | status, retryCount, message, errorPayload, dispatchBatchId |
 | AuditInfo | createdAt, updatedAt |
+
+### 장애 분석 모델
+
+`ShipmentFailureAnalysis`는 특정 출고의 특정 dispatch 시점에 발생한 장애 분석 결과를 보관합니다.
+
+```text
+ShipmentRequest 1 ---- N ShipmentFailureAnalysis
+```
+
+| 필드 | 용도 |
+| --- | --- |
+| shipmentRequest | 분석 대상 출고 지시 |
+| dispatchBatchId | 실패가 발생한 dispatch 실행 단위 |
+| retryCount | 분석 당시 재처리 횟수 스냅샷 |
+| failureMessage | 분석 당시 실패 메시지 |
+| errorPayloadSnapshot | 분석 당시 오류 payload |
+| status | PENDING / COMPLETE / FAILED |
+| analysisResult | LLM이 반환한 구조화된 JSON 문자열 |
+| analyzerName | 분석기 구현체 이름 |
+| analysisErrorMessage | AI 분석 자체가 실패한 사유 |
+
+`shipment_id + dispatch_batch_id`에는 유일성 제약을 두어 동일한 실패 건에 대한 중복 분석 저장을 방지합니다.
 
 ## 서비스 클래스 구조
 
@@ -263,6 +313,41 @@ PROCESSING 상태가 10분 이상 지속
 
 현재는 `AtomicBoolean` 기반 인메모리 플래그로 관리합니다. 서버 재시작 시 기본값(true)으로 초기화됩니다.
 
+## AI 장애 분석
+
+운영자는 `FAILED` 상태의 출고 상세 화면에서 **AI 오류 분석**을 실행할 수 있습니다. 분석 기능은 기존 출고 처리 흐름과 분리되어 있으므로 OpenAI API 호출이 실패해도 출고 상태나 Kafka 처리에는 영향을 주지 않습니다.
+
+처리 순서:
+
+```text
+1. 출고 지시 존재 여부와 FAILED 상태 검증
+2. OpenAI 장애 분석 기능 활성화 여부 확인
+3. dispatchBatchId 존재 여부 확인
+4. shipmentId + dispatchBatchId 기준 기존 분석 조회
+5. 기존 결과가 없으면 PENDING 분석 이력 저장
+6. FailureAnalyzer 인터페이스를 통해 OpenAI 호출
+7. 정상 응답은 COMPLETE, 호출 오류나 빈 응답은 FAILED로 저장
+8. React 화면에서 분석 결과 또는 분석 오류 표시
+```
+
+OpenAI에는 출고번호, 실패 메시지, 재처리 횟수, `dispatchBatchId`, 마지막 수정 시각과 오류 payload를 전달합니다. 오류 payload는 프롬프트 크기를 제한하기 위해 최대 2,000자까지만 사용합니다.
+
+분석 응답 형식:
+
+```json
+{
+  "summary": "장애 요약",
+  "possibleCauses": ["가능성 있는 원인"],
+  "checks": ["운영자가 확인할 항목"],
+  "retryRecommendation": {
+    "decision": "RETRY | CHECK_REQUIRED | DO_NOT_RETRY",
+    "reason": "재처리 판단 근거"
+  }
+}
+```
+
+`FailureAnalyzer` 인터페이스와 `OpenAIFailureAnalyzer` 구현체를 분리하여 테스트에서는 실제 API를 호출하지 않고 mock으로 대체할 수 있습니다.
+
 ## API 목록
 
 모든 `/api/**` 요청은 `x-api-key` 헤더가 필요합니다.
@@ -278,6 +363,7 @@ PROCESSING 상태가 10분 이상 지속
 | GET | `/api/shipments/scheduler` | 스케줄러 상태 조회 |
 | PATCH | `/api/shipments/scheduler/enable` | 스케줄러 활성화 |
 | PATCH | `/api/shipments/scheduler/disable` | 스케줄러 비활성화 |
+| POST | `/api/analyses/shipments/{shipmentId}/failure` | FAILED 출고 AI 장애 분석 |
 
 ## API Key 인증
 
@@ -320,7 +406,12 @@ com.eaishipment.config.security
 
 ```properties
 EAI_API_KEY=your-api-key
+OPENAI_API_KEY=your-openai-api-key
+OPENAI_ANALYSIS_ENABLED=false
+OPENAI_MODEL=your-available-model-id
 ```
+
+`OPENAI_ANALYSIS_ENABLED=false`이면 장애 분석 API는 OpenAI를 호출하거나 `PENDING` 분석 이력을 생성하지 않고 요청을 거부합니다. 실제 호출 테스트가 필요할 때만 `true`로 변경하는 것을 권장합니다. `.env`는 Git에 커밋하지 않습니다.
 
 `application.yml`은 `.env`를 import합니다.
 
@@ -338,6 +429,17 @@ security:
     header-name: x-api-key
     value: ${EAI_API_KEY:local-dev-api-key}
 ```
+
+AI 장애 분석 설정:
+
+```yaml
+analysis:
+  openai:
+    enabled: ${OPENAI_ANALYSIS_ENABLED:true}
+    model: ${OPENAI_MODEL:gpt-5.6-luna}
+```
+
+`OPENAI_MODEL`에는 현재 OpenAI 프로젝트에서 실제로 사용할 수 있는 모델 ID를 지정해야 합니다.
 
 ## 요청 예시
 
@@ -382,6 +484,15 @@ x-api-key: your-api-key
 POST /api/shipments/1/dispatch
 x-api-key: your-api-key
 ```
+
+### AI 장애 분석
+
+```http
+POST /api/analyses/shipments/1/failure
+x-api-key: your-api-key
+```
+
+분석 대상은 `FAILED` 상태이며 `dispatchBatchId`가 존재해야 합니다. 같은 `shipmentId + dispatchBatchId`로 다시 요청하면 OpenAI를 중복 호출하지 않고 저장된 분석 결과를 반환합니다.
 
 ## 공통 응답 포맷
 
@@ -453,7 +564,17 @@ WARN 이상 로그는 콘솔에도 출력
 ```text
 com.eaishipment
 ├─ config
-│  └─ security
+│  ├─ security
+│  └─ swagger
+├─ failureanalysis
+│  ├─ analyzer
+│  ├─ config
+│  ├─ controller
+│  ├─ dto
+│  ├─ entity
+│  ├─ mapper
+│  ├─ repository
+│  └─ service
 ├─ global
 │  ├─ exception
 │  └─ response
@@ -471,9 +592,10 @@ com.eaishipment
 
 frontend/src
 ├─ api          # Backend API 호출
-├─ components   # 목록, 상세, 상태 표시 및 사용자 동작 UI
-├─ types        # API 응답과 출고 데이터 TypeScript 타입
-├─ App.tsx      # 화면 상태, 조회, 재처리 및 polling 관리
+├─ components   # 목록, 상세, 재처리 및 AI 분석 UI
+├─ types        # 출고 및 장애 분석 응답 TypeScript 타입
+├─ utils        # 장애 분석 JSON 변환 등 화면 보조 로직
+├─ App.tsx      # 조회, polling, 재처리 및 AI 분석 상태 관리
 └─ main.tsx     # React 애플리케이션 진입점
 ```
 
@@ -523,6 +645,7 @@ npm run build
 
 ```powershell
 .\gradlew test --tests "com.eaishipment.shipment.controller.ShipmentRequestControllerTest"
+.\gradlew test --tests "com.eaishipment.failureanalysis.service.FailureAnalysisServiceTest"
 ```
 
 ## 접속 URL
@@ -582,6 +705,13 @@ private static final String API_KEY_VALUE = "api-key-test";
 - 오래된 PROCESSING timeout 처리
 - Controller 응답 검증
 - API Key 없음/오류 키 요청에 대한 401 응답 검증
+- AI 분석 대상의 FAILED 상태 및 dispatchBatchId 검증
+- AI 분석 비활성화 시 저장·호출 차단 검증
+- 기존 분석 결과 재사용 및 중복 OpenAI 호출 방지 검증
+- 분석 성공 시 COMPLETE, 예외·빈 응답 시 FAILED 저장 검증
+- AI 장애 분석 API 성공/실패 및 API Key 보호 검증
+
+장애 분석 테스트에서는 `FailureAnalyzer`를 mock 처리하므로 실제 OpenAI API 비용이 발생하지 않습니다. 현재 전체 백엔드 테스트는 36개이며 모두 통과합니다.
 
 ## 로컬 테스트 시나리오
 
@@ -622,6 +752,14 @@ PROCESSING -> FAILED
 message = Dispatch timeout
 ```
 
+### AI 장애 분석 케이스
+
+1. `OPENAI_API_KEY`, `OPENAI_MODEL`을 설정하고 분석 기능을 활성화합니다.
+2. `FAILED`이며 `dispatchBatchId`가 존재하는 출고를 선택합니다.
+3. React 상세 화면에서 **AI 오류 분석**을 실행합니다.
+4. 요약, 가능한 원인, 확인 항목과 재처리 권고가 표시되는지 확인합니다.
+5. 같은 실패 건을 다시 분석했을 때 저장된 결과가 반환되는지 확인합니다.
+
 ## 설계 포인트
 
 - Java 코드에서는 `@Embedded` 값 객체로 의미 단위를 분리했습니다.
@@ -632,3 +770,15 @@ message = Dispatch timeout
 - 오래된 PROCESSING 건은 자동 재전송하지 않고 FAILED로 전환하여 중복 출고 위험을 줄입니다.
 - 모든 `/api/**` 요청은 x-api-key로 보호합니다.
 - 테스트 환경은 `.env`와 분리된 테스트 전용 API Key를 사용합니다.
+- AI 분석은 출고 처리 트랜잭션과 분리하여 외부 API 장애가 Kafka 처리와 상태 전이에 영향을 주지 않도록 했습니다.
+- 동일한 출고·dispatch 조합은 기존 분석 결과를 재사용하여 중복 호출과 비용 발생을 줄입니다.
+- LLM 결과는 가능한 원인과 확인 항목을 제공하는 운영 보조 정보이며 실제 장애 원인을 확정하지 않습니다.
+
+## 현재 구현 범위와 한계
+
+- H2를 로컬 실행 DB로 사용하며 PostgreSQL 전환은 아직 구현하지 않았습니다.
+- Kafka Consumer는 실제 WMS가 아니라 동일한 Spring Boot 애플리케이션 안에서 처리 결과를 시뮬레이션합니다.
+- Kafka Retry Topic, DLQ와 별도 WMS Result Topic은 아직 구현하지 않았습니다.
+- 스케줄러 enable/disable 상태는 인메모리이므로 서버 재시작 후 유지되지 않습니다.
+- React 단위 테스트 도구는 아직 구성하지 않았으며 프론트엔드는 TypeScript 빌드로 검증합니다.
+- AI 분석 결과는 문자열 JSON으로 저장하고 프론트엔드에서 구조화된 타입으로 변환합니다.
