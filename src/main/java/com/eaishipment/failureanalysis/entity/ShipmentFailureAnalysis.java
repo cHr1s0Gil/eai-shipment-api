@@ -1,5 +1,7 @@
 package com.eaishipment.failureanalysis.entity;
 
+import org.hibernate.Length;
+
 import com.eaishipment.shipment.entity.AuditInfo;
 import com.eaishipment.shipment.entity.ShipmentRequest;
 
@@ -13,7 +15,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
@@ -43,16 +44,14 @@ public class ShipmentFailureAnalysis {
     @Column(name = "failure_message")
     private String failureMessage;
 
-    @Lob
-    @Column(name = "error_payload_snapshot")
+    @Column(name = "error_payload_snapshot", length = Length.LONG32)
     private String errorPayloadSnapshot;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "analysis_status", nullable = false)
     private FailureAnalysisStatus status = FailureAnalysisStatus.PENDING;
 
-    @Lob
-    @Column(name = "analysis_result")
+    @Column(name = "analysis_result", length = Length.LONG32)
     private String analysisResult;
 
     @Column(name = "analyzer_name", nullable = false)

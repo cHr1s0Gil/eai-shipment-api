@@ -28,3 +28,31 @@ services:
     environment:
       - KAFKA_CLUSTERS_0_NAME=eai-shipment-local
       - KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS=kafka:29092
+
+  postgres:
+    image: postgres:17
+    container_name: eai-shipment-postgres
+    restart: always
+    shm_size: 128mb
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+
+  adminer:
+    image: adminer
+    container_name: eai-shipment-adminer
+    restart: always
+    ports:
+      - "8082:8080"
+    environment:
+      ADMINER_DEFAULT_SERVER: postgres
+    depends_on:
+      - postgres
+
+volumes:
+  postgres-data:

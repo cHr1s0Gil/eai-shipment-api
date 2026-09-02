@@ -1,5 +1,7 @@
 package com.eaishipment.shipment.entity;
 
+import org.hibernate.Length;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 import jakarta.persistence.EnumType;
@@ -20,7 +22,7 @@ public class ShipmentProcessingInfo {
     @Column(name = "message")
     private String message;
 
-    @Column(name = "error_payload", columnDefinition = "CLOB")
+    @Column(name = "error_payload", length = Length.LONG32)
     private String errorPayload;
 
     protected ShipmentProcessingInfo() {
