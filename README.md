@@ -12,12 +12,14 @@ ERP에서 전달된 출고 지시를 수신하여 상태를 추적하고, Kafka 
 - Spring Web
 - Spring Data JPA
 - Spring Security
-- H2 Database
+- PostgreSQL 17
+- H2 Database (테스트)
 - Bean Validation
 - Spring Kafka
 - Apache Kafka
 - Docker Compose
 - Kafka UI
+- Adminer
 - springdoc-openapi / Swagger UI
 - Logback
 - React 19 / TypeScript 6 / Vite 8
@@ -402,16 +404,22 @@ com.eaishipment.config.security
 
 ## 환경 설정
 
-프로젝트 루트에 `.env` 파일을 생성하고 API Key를 설정합니다.
+프로젝트 루트에 `.env` 파일을 생성하고 API Key, PostgreSQL 접속 정보와 AI 분석 설정을 지정합니다.
 
 ```properties
 EAI_API_KEY=your-api-key
-OPENAI_API_KEY=your-openai-api-key
 OPENAI_ANALYSIS_ENABLED=false
 OPENAI_MODEL=your-available-model-id
+POSTGRES_DB=eai_shipment
+POSTGRES_USER=eai_user
+POSTGRES_PASSWORD=change-me
+DB_HOST=localhost
+DB_PORT=5432
 ```
 
 `OPENAI_ANALYSIS_ENABLED=false`이면 장애 분석 API는 OpenAI를 호출하거나 `PENDING` 분석 이력을 생성하지 않고 요청을 거부합니다. 실제 호출 테스트가 필요할 때만 `true`로 변경하는 것을 권장합니다. `.env`는 Git에 커밋하지 않습니다.
+
+현재 OpenAI 클라이언트는 `OpenAIOkHttpClient.fromEnv()`를 사용하므로 `OPENAI_API_KEY`는 애플리케이션 실행 프로세스의 운영체제 환경변수로 설정해야 합니다. 환경변수를 새로 등록했다면 터미널과 IDE를 다시 시작한 후 애플리케이션을 실행합니다.
 
 `application.yml`은 `.env`를 import합니다.
 
@@ -435,11 +443,24 @@ AI 장애 분석 설정:
 ```yaml
 analysis:
   openai:
-    enabled: ${OPENAI_ANALYSIS_ENABLED:true}
+    enabled: ${OPENAI_ANALYSIS_ENABLED:false}
     model: ${OPENAI_MODEL:gpt-5.6-luna}
 ```
 
 `OPENAI_MODEL`에는 현재 OpenAI 프로젝트에서 실제로 사용할 수 있는 모델 ID를 지정해야 합니다.
+
+PostgreSQL datasource 설정:
+
+```yaml
+spring:
+  datasource:
+    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${POSTGRES_DB:eai_shipment}
+    driver-class-name: org.postgresql.Driver
+    username: ${POSTGRES_USER}
+    password: ${POSTGRES_PASSWORD}
+```
+
+Spring Boot를 로컬에서 실행할 때는 `DB_HOST=localhost`를 사용합니다. 향후 Spring Boot도 Docker Compose 서비스로 실행할 경우 PostgreSQL 서비스 이름인 `DB_HOST=postgres`를 사용해야 합니다.
 
 ## 요청 예시
 
@@ -601,11 +622,13 @@ frontend/src
 
 ## 실행 방법
 
-### 1. Kafka 실행
+### 1. Docker 인프라 실행
 
 ```powershell
 docker compose up -d
 ```
+
+Docker Compose는 Kafka, Kafka UI, PostgreSQL 17과 Adminer를 실행합니다. Spring Boot와 React 개발 서버는 현재 로컬 프로세스로 실행합니다.
 
 ### 2. Spring Boot 실행
 
@@ -654,21 +677,24 @@ npm run build
 | --- | --- |
 | React 관리 UI | `http://localhost:5173` |
 | Swagger UI | `http://localhost:8080/swagger-ui.html` |
-| H2 Console | `http://localhost:8080/h2-console` |
 | Kafka UI | `http://localhost:8081` |
+| Adminer | `http://localhost:8082` |
 | Kafka Broker | `localhost:9092` |
+| PostgreSQL | `localhost:5432` |
 
-H2 접속 정보:
+Adminer 접속 정보:
 
 ```text
-JDBC URL: jdbc:h2:file:D:/h2/eai-shipment-api/shipmentdb
-User Name: sa
-Password:
+시스템: PostgreSQL
+서버: postgres
+사용자: .env의 POSTGRES_USER
+비밀번호: .env의 POSTGRES_PASSWORD
+데이터베이스: .env의 POSTGRES_DB
 ```
 
 ## 테스트 구조
 
-테스트는 `test` 프로필을 사용합니다.
+테스트는 `test` 프로필과 인메모리 H2 데이터베이스를 사용합니다. 로컬 실행환경의 PostgreSQL 데이터와 테스트 데이터는 분리됩니다.
 
 ```java
 @ActiveProfiles("test")
@@ -717,7 +743,7 @@ private static final String API_KEY_VALUE = "api-key-test";
 
 ### 정상 처리 케이스
 
-1. Kafka 실행
+1. Docker 인프라 실행
 2. Spring Boot 실행
 3. API Key 설정
 4. 출고 지시 등록
@@ -776,7 +802,9 @@ message = Dispatch timeout
 
 ## 현재 구현 범위와 한계
 
-- H2를 로컬 실행 DB로 사용하며 PostgreSQL 전환은 아직 구현하지 않았습니다.
+- 로컬 실행 DB는 Docker Compose의 PostgreSQL 17을 사용하고 테스트는 인메모리 H2로 분리했습니다.
+- 현재 DB 스키마는 Hibernate `ddl-auto: update`로 관리하며 Flyway 같은 명시적 마이그레이션 도구는 아직 적용하지 않았습니다.
+- Docker Compose는 Kafka, Kafka UI, PostgreSQL과 Adminer를 실행하며 Spring Boot와 React 애플리케이션의 컨테이너 이미지는 아직 구성하지 않았습니다.
 - Kafka Consumer는 실제 WMS가 아니라 동일한 Spring Boot 애플리케이션 안에서 처리 결과를 시뮬레이션합니다.
 - Kafka Retry Topic, DLQ와 별도 WMS Result Topic은 아직 구현하지 않았습니다.
 - 스케줄러 enable/disable 상태는 인메모리이므로 서버 재시작 후 유지되지 않습니다.
